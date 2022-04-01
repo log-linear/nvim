@@ -36,6 +36,7 @@ augroup ft_conf
   au FileType sh,bash,zsh ino ;s $
   " R
   au FileType r,rmd setlocal expandtab shiftwidth=2 tabstop=2 autoindent cindent
+  let r_indent_align_args = 0
   let g:r_indent_op_pattern = get(g:, 'r_indent_op_pattern',
     \ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\||>\)\s*$')  " Support |> indenting
   for mapcmd in ['ino', 'tno']
