@@ -45,10 +45,6 @@ augroup ft_conf
     execute 'au FileType r,rmd ' . mapcmd . ' ;m %>%'
     execute 'au FileType r,rmd ' . mapcmd . ' ;in %in%'
     execute 'au FileType r,rmd ' . mapcmd . ' ;: %%'
-    execute 'au FileType r,rmd ' . mapcmd . ' ;/ %/%'
-    execute 'au FileType r,rmd ' . mapcmd . ' ;* %*%'
-    execute 'au FileType r,rmd ' . mapcmd . ' ;o %o%'
-    execute 'au FileType r,rmd ' . mapcmd . ' ;x %x%'
   endfor
   " Python
   au FileType python ino ;c """<CR>"""<esc>ko
@@ -77,17 +73,17 @@ nn <C-[> :noh<CR>
 
 " Multi-mode mappings
 for mapcmd in ['nn', 'ino', 'vn', 'tno']
-  " Remap split navigation to ALT + hjkl
+  " Remap window navigation to ALT + hjkl
   execute mapcmd . ' <A-h> <C-\><C-n><C-w>h'
   execute mapcmd . ' <A-j> <C-\><C-n><C-w>j'
   execute mapcmd . ' <A-k> <C-\><C-n><C-w>k'
   execute mapcmd . ' <A-l> <C-\><C-n><C-w>l'
-  " Remap 
+  " Remap window movement ALT + HJKL
   execute mapcmd . ' <A-H> <C-\><C-n><C-w>H'
   execute mapcmd . ' <A-J> <C-\><C-n><C-w>J'
   execute mapcmd . ' <A-K> <C-\><C-n><C-w>K'
   execute mapcmd . ' <A-L> <C-\><C-n><C-w>L'
-  " Remap split adjustment to ALT + <-+>
+  " Remap window adjustment to ALT + <-+>
   execute mapcmd . ' <A-,> <C-\><C-n><C-w>:vertical resize -3<CR>'
   execute mapcmd . ' <A--> <C-\><C-n><C-w>:resize -3<CR>'
   execute mapcmd . ' <A-=> <C-\><C-n><C-w>:resize +3<CR>'
@@ -142,7 +138,7 @@ call plug#begin(stdpath("config") . '/plugged')
   Plug 'tpope/vim-commentary'                         " easy code commenting
   Plug 'tpope/vim-fugitive'                           " git integration
   Plug 'mhinz/vim-signify'                            " git diff markers
-  Plug 'kassio/neoterm'                               " Basic REPLing
+  Plug 'karoliskoncevicius/vim-sendtowindow'          " Basic REPLing
   Plug 'tpope/vim-surround'                           " surround text objects
   Plug 'tpope/vim-repeat'                             " repeat plugin commands
   Plug 'ferrine/md-img-paste.vim'                     " Paste images to md files
@@ -169,32 +165,19 @@ call plug#end()
 "---------------------------------- coq_nvim -----------------------------------
 let g:coq_settings = {
   \ 'auto_start': 'shut-up', 
-  \ 'keymap.recommended': v:false,
-  \ 'keymap.jump_to_mark': ''
+  \ 'keymap.jump_to_mark': '<c-l>'
 \ }
 
-" Keybindings
-ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
-ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
-ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
-ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
-
-"---------------------------------- neoterm ------------------------------------
-nmap <A-CR> <Plug>(neoterm-repl-send)
-vmap <A-CR> <Plug>(neoterm-repl-send)
-imap <A-CR> <Esc><Plug>(neoterm-repl-send)
-let g:neoterm_default_mod = 'botright'
-let g:neoterm_automap_keys = '<Nop>'  " Remove default mapping for :Tmap
-let g:neoterm_repl_r = 'radian'
-let g:neoterm_bracketed_paste = 1
-let g:neoterm_direct_open_repl = 1
-let g:neoterm_autoinsert = 1
-let g:neoterm_autoscroll = 1
+"------------------------------ vim-sendtowindow -------------------------------
+let g:sendtowindow_use_defaults=0
+nmap <A-CR> <Plug>SendDown
+vmap <A-CR> <Plug>SendDownV
+imap <A-CR> <Esc><Plug>SendDown
 
 " Start terminals
-nn <leader>tt :Tnew<CR><C-\><C-n><C-w>k
-nn <leader>tp :T python<CR><C-\><C-n><C-w>k
-nn <leader>tr :T radian<CR><C-\><C-n><C-w>k
+nn <leader>tt :split term://zsh<CR><C-\><C-n><C-w>k
+nn <leader>tp :split term://python<CR><C-\><C-n><C-w>k
+nn <leader>tr :split term://radian<CR><C-\><C-n><C-w>k
 
 "---------------------------------- fzf.vim ------------------------------------
 nn <leader>/f :Files<CR>

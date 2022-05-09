@@ -1,16 +1,17 @@
-" Windows-specific configuration ==============================================
-
+"======================= Windows-specific configuration  =======================
 let user = substitute(substitute(system('whoami'), '\n\+$', '', ''), '^.\+\\', '', '')
 
-" Mapping fixes
-map <leader>tt :T powershell<CR><CR><C-\><C-n><C-w>k
-map <leader>tp :T python<CR><CR><C-\><C-n><C-w>k
-map <leader>tr :T radian<CR><CR><C-\><C-n><C-w>k
+"------------------------------- Mapping fixes ---------------------------------
 
+" vim-sendtowindow
+nn <leader>tt :split term://cmd<CR><C-\><C-n><C-w>k
+nn <leader>tp :split term://ipython<CR><C-\><C-n><C-w>k
+nn <leader>tr :split term://R<CR><C-\><C-n><C-w>k
+
+" code compilation
 au FileType r nmap <leader>cc :w<CR> :!Rscript "%:p"<CR>
 au FileType rmd nmap <leader>cc :w<CR> :!Rscript -e "rmarkdown::render(r'(%:p)')"<CR>
 au FileType python nmap <leader>cc :w<CR> :!python "%"<CR>
-" Markdown
 au BufEnter *.md setlocal conceallevel=0
 au FileType markdown nmap <leader>ch :w! \| !pandoc "%" -o "%:r.html" && start chrome "%:p:r.html"<CR>
 au FileType markdown nmap <leader>cw :w! \| !pandoc "%" -o "%:r.docx" && start WINWORD.exe "%:p:r.docx"<CR>
