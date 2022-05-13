@@ -25,8 +25,7 @@ highlight ColorColumn ctermbg=238
 " netrw
 let g:netrw_liststyle = 3                                 " Default to tree-view
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'  " relative line nums
-let g:netrw_winsize = 25
-let g:netrw_browse_split = 4  " Open in previous window
+let g:netrw_banner = 0                                    " Remove top banner
 
 "============================= Filetype settings ===============================
 augroup ft_conf
@@ -116,6 +115,11 @@ nn Q <Nop>
 nn <leader>cc :w<CR> :execute '!compile "%:p"'<CR>
 au FileType tex,markdown nn <leader>cc :w<CR> :execute '!compile "%:p" "'.input('What type of document would you like to compile? Choose from `h` for html, `p` for pdf, `d` for docx, or `x` for a xelatex pdf: ').'"'<CR>
 
+" Start terminals
+nn <leader>tt :split term://zsh<CR><C-\><C-n><C-w>k
+nn <leader>tp :split term://python<CR><C-\><C-n><C-w>k
+nn <leader>tr :split term://radian<CR><C-\><C-n><C-w>k
+
 "================================== Plugins ====================================
 " Install vim-plug if not already available
 if empty(stdpath("config") . '/site/autoload/plug.vim')
@@ -128,38 +132,36 @@ au VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   \| PlugInstall --sync | source $MYVIMRC
 \| endif
 
+" Plugin settings that need to be set before load
 let g:gruvbox_material_palette = 'original'
 let g:gruvbox_material_statusline_style = 'original'
 let g:gruvbox_material_enable_bold = 1
 
 " Load plugins
 call plug#begin(stdpath("config") . '/plugged')
-  " Functionality
   Plug 'tpope/vim-commentary'                         " easy code commenting
   Plug 'tpope/vim-fugitive'                           " git integration
   Plug 'mhinz/vim-signify'                            " git diff markers
   Plug 'karoliskoncevicius/vim-sendtowindow'          " Basic REPLing
   Plug 'tpope/vim-surround'                           " surround text objects
   Plug 'tpope/vim-repeat'                             " repeat plugin commands
-  Plug 'ferrine/md-img-paste.vim'                     " Paste images to md files
   Plug 'junegunn/vim-easy-align'                      " Text alignment
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy Finder
   Plug 'junegunn/fzf.vim'                             " fzf functions
-  " IDE features
   Plug 'neovim/nvim-lspconfig'                        " Language Server Protocol
   Plug 'ray-x/lsp_signature.nvim'                     " Function param popup
   Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }         " Auto-completion
   Plug 'ms-jpq/coq.artifacts',                        " Auto-completion snippets
     \ { 'branch': 'artifacts' }
+  Plug 'tmsvg/pear-tree'                              " Auto-closing pairs
   Plug 'nvim-treesitter/nvim-treesitter',             " syntax highlighting, etc
-    \ {'do': ':TSUpdate'}  " Update on start
-  " Aesthetics/visual aids
+    \ { 'do': ':TSUpdate' }  " Update on start
   Plug 'vim-airline/vim-airline'                      " status bar
   Plug 'sainnhe/gruvbox-material'                     " theme
   Plug 'lukas-reineke/indent-blankline.nvim'          " Visual line indents
   Plug 'norcalli/nvim-colorizer.lua'                  " Highlight hex colors
   Plug 'sunjon/shade.nvim'                            " Dim inactive windows
-  Plug 'ryanoasis/vim-devicons'                       " Icons, always load last
+  Plug 'ryanoasis/vim-devicons'                       " Icons, ALWAYS LOAD LAST
 call plug#end()
 
 "---------------------------------- coq_nvim -----------------------------------
@@ -168,16 +170,17 @@ let g:coq_settings = {
   \ 'keymap.jump_to_mark': '<c-l>'
 \ }
 
+"--------------------------------- pear-tree -----------------------------------
+let g:pear_tree_repeatable_expand = 0
+let g:pear_tree_smart_openers = 1
+let g:pear_tree_smart_closers = 1
+let g:pear_tree_smart_backspace = 1
+
 "------------------------------ vim-sendtowindow -------------------------------
 let g:sendtowindow_use_defaults=0
 nmap <A-CR> <Plug>SendDown
 vmap <A-CR> <Plug>SendDownV
 imap <A-CR> <Esc><Plug>SendDown
-
-" Start terminals
-nn <leader>tt :split term://zsh<CR><C-\><C-n><C-w>k
-nn <leader>tp :split term://python<CR><C-\><C-n><C-w>k
-nn <leader>tr :split term://radian<CR><C-\><C-n><C-w>k
 
 "---------------------------------- fzf.vim ------------------------------------
 nn <leader>/f :Files<CR>
@@ -198,9 +201,6 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-
-"-------------------------------- md-img-paste ---------------------------------
-au FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
 
 "-------------------------------- vim-airline ----------------------------------
 let g:airline#extensions#tabline#enabled = 1
@@ -225,3 +225,9 @@ lua require('config')
 if has("win64") || has("win32") || has("win16")
   exec 'source ' . stdpath("config") . '\win.vim'
 endif
+
+"=========================== Work-specific configs =============================
+if !empty(glob(stdpath("config") . '/work.vim'))
+  exec 'source ' . stdpath("config") . '/work.vim'
+endif
+

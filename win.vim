@@ -2,11 +2,9 @@
 let user = substitute(substitute(system('whoami'), '\n\+$', '', ''), '^.\+\\', '', '')
 
 "------------------------------- Mapping fixes ---------------------------------
-
 " vim-sendtowindow
-nn <leader>tt :split term://cmd<CR><C-\><C-n><C-w>k
+nn <leader>tt :split term://powershell<CR><C-\><C-n><C-w>k
 nn <leader>tp :split term://ipython<CR><C-\><C-n><C-w>k
-nn <leader>tr :split term://R<CR><C-\><C-n><C-w>k
 
 " code compilation
 au FileType r nmap <leader>cc :w<CR> :!Rscript "%:p"<CR>

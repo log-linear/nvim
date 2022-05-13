@@ -36,7 +36,7 @@ end
 -- Hide in-line diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
-      virtual_text = false
+    virtual_text = false
   }
 )
 
@@ -50,20 +50,18 @@ local servers = {
   'texlab'
 }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
+  nvim_lsp[lsp].setup(
+    require('coq').lsp_ensure_capabilities({
+      on_attach = on_attach,
+      flags = {
+        debounce_text_changes = 150,
+      }
+    })
+  )
 end
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
-
------------------------------------ nvim_coq -----------------------------------
-local coq = require "coq" 
 
 ---------------------------------- shade.nvim ----------------------------------
 require'shade'.setup({
