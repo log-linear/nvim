@@ -4,7 +4,7 @@ let user = substitute(substitute(system('whoami'), '\n\+$', '', ''), '^.\+\\', '
 "------------------------------- Mapping fixes ---------------------------------
 " vim-sendtowindow
 nn <leader>tt :split term://powershell<CR><C-\><C-n><C-w>k
-nn <leader>tp :split term://ipython<CR><C-\><C-n><C-w>k
+nn <leader>tp :split term://ipython --TerminalInteractiveShell.editing_mode=vi<CR><C-\><C-n><C-w>k
 
 " code compilation
 au FileType r nmap <leader>cc :w<CR> :!Rscript "%:p"<CR>
