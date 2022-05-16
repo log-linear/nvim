@@ -74,9 +74,6 @@ require'shade'.setup({
   }
 })
 
------------------------------- nvim-colorizer.lua ------------------------------
-require'colorizer'.setup()
-
 ------------------------------- nvim-treesitter --------------------------------
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all",

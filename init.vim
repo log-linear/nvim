@@ -108,9 +108,6 @@ ino ;b <esc>0D80A-<esc>0:execute "normal! 0r" . &commentstring[0]<cr>o<bs>
 ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:execute "normal! 0r" . &commentstring[0]<cr><esc>o<bs>
 ino ;h <esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:execute "normal! 0r" . &commentstring[0]<cr><esc>o<bs>
 
-" Disable ex mode
-nn Q <Nop>
-
 " Compile code/documents, etc
 nn <leader>cc :w<CR> :execute '!compile "%:p"'<CR>
 au FileType tex,markdown nn <leader>cc :w<CR> :execute '!compile "%:p" "'.input('What type of document would you like to compile? Choose from `h` for html, `p` for pdf, `d` for docx, or `x` for a xelatex pdf: ').'"'<CR>
@@ -158,7 +155,6 @@ call plug#begin(stdpath("config") . '/plugged')
   Plug 'vim-airline/vim-airline'                      " status bar
   Plug 'sainnhe/gruvbox-material'                     " theme
   Plug 'lukas-reineke/indent-blankline.nvim'          " Visual line indents
-  Plug 'norcalli/nvim-colorizer.lua'                  " Highlight hex colors
   Plug 'sunjon/shade.nvim'                            " Dim inactive windows
   Plug 'ryanoasis/vim-devicons'                       " Icons, ALWAYS LOAD LAST
 call plug#end()
@@ -188,11 +184,8 @@ nn <leader>/c :BCommits<CR>
 nn <leader>/h :Help<CR>
 nn <leader>/s :History<CR>
 nn <leader>// :BLines<CR>
-nn <leader>/b :Buffers<CR>
-nn <leader>/l :Lines<CR>
 nn <leader>/m :Maps<CR>
 nn <leader>/t :Filetypes<CR>
-nn <leader>/w :Windows<CR>
 
 "------------------------------- vim-easy-align --------------------------------
 " Start interactive EasyAlign in visual mode (e.g. vipga)
