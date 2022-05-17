@@ -33,6 +33,10 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
+-- LSP-built-in snippet support
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 -- Hide in-line diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -43,16 +47,21 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = { 
-  'pylsp', 
-  'r_language_server', 
-  'bashls', 
+  'pylsp',
+  'r_language_server',
+  'bashls',
   'powershell_es',
-  'texlab'
+  'texlab',
+  'jsonls',
+  'cssls',
+  'html',
+  'openscad_ls'
 }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup(
     require('coq').lsp_ensure_capabilities({
       on_attach = on_attach,
+      capabilities = capabilities,
       flags = {
         debounce_text_changes = 150,
       }
@@ -84,4 +93,3 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = true,
   },
 }
-
