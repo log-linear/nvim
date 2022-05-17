@@ -143,6 +143,7 @@ call plug#begin(stdpath("config") . '/plugged')
   Plug 'tpope/vim-surround'                           " surround text objects
   Plug 'tpope/vim-repeat'                             " repeat plugin commands
   Plug 'junegunn/vim-easy-align'                      " Text alignment
+  Plug 'junegunn/fzf'                                 " FZF, needed on Windows
   Plug 'junegunn/fzf.vim'                             " fzf functions
   Plug 'neovim/nvim-lspconfig'                        " Language Server Protocol
   Plug 'ray-x/lsp_signature.nvim'                     " Function param popup
