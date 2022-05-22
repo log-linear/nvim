@@ -140,8 +140,7 @@ call plug#begin(stdpath("config") . '/plugged')
   Plug 'tpope/vim-fugitive'                           " git integration
   Plug 'mhinz/vim-signify'                            " git diff markers
   Plug 'karoliskoncevicius/vim-sendtowindow'          " Basic REPLing
-  Plug 'tpope/vim-surround'                           " surround text objects
-  Plug 'tpope/vim-repeat'                             " repeat plugin commands
+  Plug 'machakann/vim-sandwich'                       " surround text objects
   Plug 'junegunn/vim-easy-align'                      " Text alignment
   Plug 'junegunn/fzf'                                 " FZF, needed on Windows
   Plug 'junegunn/fzf.vim'                             " fzf functions
@@ -159,6 +158,9 @@ call plug#begin(stdpath("config") . '/plugged')
   Plug 'sunjon/shade.nvim'                            " Dim inactive windows
   Plug 'ryanoasis/vim-devicons'                       " Icons, ALWAYS LOAD LAST
 call plug#end()
+
+"-------------------------------- vim-sandwich ---------------------------------
+runtime macros/sandwich/keymap/surround.vim  " Use vim-surround mappings
 
 "---------------------------------- coq_nvim -----------------------------------
 let g:coq_settings = {
