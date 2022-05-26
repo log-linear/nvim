@@ -23,7 +23,6 @@ Plug 'karoliskoncevicius/vim-sendtowindow'
   vmap <A-CR> <Plug>SendDownV
   imap <A-CR> <Esc><Plug>SendDown
 Plug 'machakann/vim-sandwich'
-  runtime macros/sandwich/keymap/surround.vim  " Use vim-surround mappings
 Plug 'junegunn/vim-easy-align'
   xmap ga <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
@@ -66,6 +65,9 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'sunjon/shade.nvim'
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
+
+" Use vim-surround mappings for vim-sandwich
+runtime macros/sandwich/keymap/surround.vim
 
 " General settings
 colorscheme gruvbox-material         " Colorscheme
