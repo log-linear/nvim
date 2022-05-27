@@ -1,15 +1,11 @@
 let mapleader=" "
 
+"================================== Plug-ins ===================================
 " Auto-install vim-plug
 if empty(stdpath("config") . '/site/autoload/plug.vim')
   silent !curl -fLo stdpath("config") . '/site/autoload/plug.vim' --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
-
-" Run PlugInstall if there are missing plugins
-au VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \| PlugInstall --sync | source $MYVIMRC
-\| endif
 
 " Load plugins
 call plug#begin(stdpath("config") . '/plugged')
@@ -23,6 +19,8 @@ Plug 'karoliskoncevicius/vim-sendtowindow'
   vmap <A-CR> <Plug>SendDownV
   imap <A-CR> <Esc><Plug>SendDown
 Plug 'machakann/vim-sandwich'
+  exec 'source ' . stdpath("config") . 
+  \ '/plugged/vim-sandwich/macros/sandwich/keymap/surround.vim'
 Plug 'junegunn/vim-easy-align'
   xmap ga <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
@@ -40,9 +38,9 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'ms-jpq/coq_nvim'
   let g:coq_settings = {
-    \ 'auto_start': 'shut-up', 
-    \ 'keymap.jump_to_mark': '<c-l>'
-  \ }
+  \ 'auto_start': 'shut-up', 
+  \ 'keymap.jump_to_mark': '<c-l>'
+\ }
 Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
 Plug 'tmsvg/pear-tree'
   let g:pear_tree_repeatable_expand = 0
@@ -55,8 +53,8 @@ Plug 'sainnhe/gruvbox-material'
   let g:gruvbox_material_palette = 'original'
   let g:gruvbox_material_statusline_style = 'original'
   let g:gruvbox_material_enable_bold = 1
-  hi Function guifg=#98971a guibg=NONE gui=bold cterm=bold  " function hi group
-  hi String guifg=#8ec07c guibg=NONE                        " string hi group
+  hi Function guifg=#98971a guibg=NONE gui=bold cterm=bold
+  hi String guifg=#8ec07c guibg=NONE
 Plug 'vim-airline/vim-airline'
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -66,11 +64,7 @@ Plug 'sunjon/shade.nvim'
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
-" Use vim-surround mappings for vim-sandwich
-runtime macros/sandwich/keymap/surround.vim
-
-" General settings
-colorscheme gruvbox-material         " Colorscheme
+"============================== General settings ===============================
 set cursorline                       " Cursor line highlight
 filetype plugin indent on            " filetype detection
 set clipboard+=unnamedplus           " Use system clipboard for yank/paste
@@ -83,6 +77,7 @@ set signcolumn=auto:2                " sign column for gitgutter, lsp, etc
 set autoindent smartindent           " autoindent
 set expandtab tabstop=4 shiftwidth=4 " tabs to spaces, default 4
 set termguicolors                    " Enable 24-bit RGB
+colorscheme gruvbox-material         " Colorscheme, load AFTER termguicolors
 set list lcs=tab:\▏\                 " Show tab indentlines
 au WinEnter term://* :startinsert    " Always enter terminals in insert mode
 
@@ -98,7 +93,51 @@ let g:netrw_liststyle = 3                                 " Default to tree-view
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'  " relative line nums
 let g:netrw_banner = 0                                    " Remove top banner
 
-" filetype settings
+" Esc/Ctrl+[ clears last search highlighting
+nn <esc> :noh<CR>
+nn <C-[> :noh<CR>
+
+" window/buffer navigation maps for all modes
+for mapcmd in ['nn', 'ino', 'vn', 'tno']
+  exec mapcmd . ' <A-h> <C-\><C-n><C-w>h'
+  exec mapcmd . ' <A-j> <C-\><C-n><C-w>j'
+  exec mapcmd . ' <A-k> <C-\><C-n><C-w>k'
+  exec mapcmd . ' <A-l> <C-\><C-n><C-w>l'
+  exec mapcmd . ' <A-H> <C-\><C-n><C-w>H'
+  exec mapcmd . ' <A-J> <C-\><C-n><C-w>J'
+  exec mapcmd . ' <A-K> <C-\><C-n><C-w>K'
+  exec mapcmd . ' <A-L> <C-\><C-n><C-w>L'
+  exec mapcmd . ' <A-,> <C-\><C-n><C-w>:vertical resize -3<CR>'
+  exec mapcmd . ' <A--> <C-\><C-n><C-w>:resize -3<CR>'
+  exec mapcmd . ' <A-=> <C-\><C-n><C-w>:resize +3<CR>'
+  exec mapcmd . ' <A-.> <C-\><C-n><C-w>:vertical resize +3<CR>'
+  exec mapcmd . ' <A-0> <C-\><C-n><C-w>='
+  exec mapcmd . ' <A-q> <C-\><C-n>:q<CR>'
+  exec mapcmd . ' <A-Q> <C-\><C-n>:q!<CR>'
+  exec mapcmd . ' <A-f> <C-\><C-n>:Vexplore<CR>'
+  exec mapcmd . ' <A-d> <C-\><C-n>:bn <BAR> bd #<CR>'
+  exec mapcmd . ' <A-D> <C-\><C-n>:bn <BAR> bd! #<CR>'
+  exec mapcmd . ' <A-n> <C-\><C-n>:bn<CR>'
+  exec mapcmd . ' <A-p> <C-\><C-n>:bp<CR>'
+  exec mapcmd . ' <A-s> <C-\><C-n>:split<CR>'
+  exec mapcmd . ' <A-v> <C-\><C-n>:vsplit<CR>'
+endfor
+
+" Headers
+ino ;B <esc>0D80A=<esc>0:exec "normal! 0r" . &commentstring[0]<cr>o<bs>
+ino ;b <esc>0D80A-<esc>0:exec "normal! 0r" . &commentstring[0]<cr>o<bs>
+ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec "normal! 0r" . &commentstring[0]<cr><esc>o<bs>
+ino ;h <esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:exec "normal! 0r" . &commentstring[0]<cr><esc>o<bs>
+
+" Compile code/documents, etc
+nn <leader>cc :w<CR> :exec '!compile "%:p"'<CR>
+
+" Start terminals
+nn <leader>tt :split term://zsh<CR><C-\><C-n><C-w>k
+nn <leader>tp :split term://python<CR><C-\><C-n><C-w>k
+nn <leader>tr :split term://radian<CR><C-\><C-n><C-w>k
+
+"============================= Filetype settings ===============================
 augroup ft_conf
   au!
   " Shell
@@ -110,11 +149,11 @@ augroup ft_conf
   let g:r_indent_op_pattern = get(g:, 'r_indent_op_pattern',
     \ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\||>\)\s*$')  " Support |> indenting
   for mapcmd in ['ino', 'tno']
-    execute 'au FileType r,rmd ' . mapcmd . ' ;; <-'
-    execute 'au FileType r,rmd ' . mapcmd . ' ;n \|>'
-    execute 'au FileType r,rmd ' . mapcmd . ' ;m %>%'
-    execute 'au FileType r,rmd ' . mapcmd . ' ;in %in%'
-    execute 'au FileType r,rmd ' . mapcmd . ' ;: %%'
+    exec 'au FileType r,rmd ' . mapcmd . ' ;; <-'
+    exec 'au FileType r,rmd ' . mapcmd . ' ;n \|>'
+    exec 'au FileType r,rmd ' . mapcmd . ' ;m %>%'
+    exec 'au FileType r,rmd ' . mapcmd . ' ;in %in%'
+    exec 'au FileType r,rmd ' . mapcmd . ' ;: %%'
   endfor
   " Python
   au FileType python ino ;c """<CR>"""<esc>ko
@@ -122,10 +161,11 @@ augroup ft_conf
   let g:pyindent_open_paren=4
   " Markdown
   let g:markdown_fenced_languages = ['python', 'r', 'sh', 'bash', 'zsh', 
-    \ 'powershell=ps1', 'sql', 'json', 'html', 'css']
+  \ 'powershell=ps1', 'sql', 'json', 'html', 'css']
   au FileType markdown,rmd ino ;e **<left>
   au FileType markdown,rmd ino ;H <esc>yypv$r=o
   au FileType markdown,rmd ino ;h <esc>yypv$r-o
+  au FileType tex,markdown nn <leader>cc :w<CR> :exec '!compile "%:p" "'.input('What type of document would you like to compile? Choose from `h` for html, `p` for pdf, `d` for docx, or `x` for a xelatex pdf: ').'"'<CR>
   " TeX
   au FileType tex ino ;; \
   au FileType tex ino ;s $
@@ -134,51 +174,7 @@ augroup ft_conf
   au BufEnter *.tsv setlocal noexpandtab
 augroup END
 
-" Esc/Ctrl+[ clears last search highlighting
-nn <esc> :noh<CR>
-nn <C-[> :noh<CR>
-
-" window/buffer navigation maps for all modes
-for mapcmd in ['nn', 'ino', 'vn', 'tno']
-  execute mapcmd . ' <A-h> <C-\><C-n><C-w>h'
-  execute mapcmd . ' <A-j> <C-\><C-n><C-w>j'
-  execute mapcmd . ' <A-k> <C-\><C-n><C-w>k'
-  execute mapcmd . ' <A-l> <C-\><C-n><C-w>l'
-  execute mapcmd . ' <A-H> <C-\><C-n><C-w>H'
-  execute mapcmd . ' <A-J> <C-\><C-n><C-w>J'
-  execute mapcmd . ' <A-K> <C-\><C-n><C-w>K'
-  execute mapcmd . ' <A-L> <C-\><C-n><C-w>L'
-  execute mapcmd . ' <A-,> <C-\><C-n><C-w>:vertical resize -3<CR>'
-  execute mapcmd . ' <A--> <C-\><C-n><C-w>:resize -3<CR>'
-  execute mapcmd . ' <A-=> <C-\><C-n><C-w>:resize +3<CR>'
-  execute mapcmd . ' <A-.> <C-\><C-n><C-w>:vertical resize +3<CR>'
-  execute mapcmd . ' <A-0> <C-\><C-n><C-w>='
-  execute mapcmd . ' <A-q> <C-\><C-n>:q<CR>'
-  execute mapcmd . ' <A-Q> <C-\><C-n>:q!<CR>'
-  execute mapcmd . ' <A-f> <C-\><C-n>:Vexplore<CR>'
-  execute mapcmd . ' <A-d> <C-\><C-n>:bn <BAR> bd #<CR>'
-  execute mapcmd . ' <A-D> <C-\><C-n>:bn <BAR> bd! #<CR>'
-  execute mapcmd . ' <A-n> <C-\><C-n>:bn<CR>'
-  execute mapcmd . ' <A-p> <C-\><C-n>:bp<CR>'
-  execute mapcmd . ' <A-s> <C-\><C-n>:split<CR>'
-  execute mapcmd . ' <A-v> <C-\><C-n>:vsplit<CR>'
-endfor
-
-" Headers
-ino ;B <esc>0D80A=<esc>0:execute "normal! 0r" . &commentstring[0]<cr>o<bs>
-ino ;b <esc>0D80A-<esc>0:execute "normal! 0r" . &commentstring[0]<cr>o<bs>
-ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:execute "normal! 0r" . &commentstring[0]<cr><esc>o<bs>
-ino ;h <esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:execute "normal! 0r" . &commentstring[0]<cr><esc>o<bs>
-
-" Compile code/documents, etc
-nn <leader>cc :w<CR> :execute '!compile "%:p"'<CR>
-au FileType tex,markdown nn <leader>cc :w<CR> :execute '!compile "%:p" "'.input('What type of document would you like to compile? Choose from `h` for html, `p` for pdf, `d` for docx, or `x` for a xelatex pdf: ').'"'<CR>
-
-" Start terminals
-nn <leader>tt :split term://zsh<CR><C-\><C-n><C-w>k
-nn <leader>tp :split term://python<CR><C-\><C-n><C-w>k
-nn <leader>tr :split term://radian<CR><C-\><C-n><C-w>k
-
+"============================ Additional settings ==============================
 " lua configs
 lua require('config')
 
