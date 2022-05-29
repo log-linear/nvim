@@ -53,8 +53,6 @@ Plug 'sainnhe/gruvbox-material'
   let g:gruvbox_material_palette = 'original'
   let g:gruvbox_material_statusline_style = 'original'
   let g:gruvbox_material_enable_bold = 1
-  hi Function guifg=#98971a guibg=NONE gui=bold cterm=bold
-  hi String guifg=#8ec07c guibg=NONE
 Plug 'vim-airline/vim-airline'
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -93,9 +91,10 @@ let g:netrw_liststyle = 3                                 " Default to tree-view
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'  " relative line nums
 let g:netrw_banner = 0                                    " Remove top banner
 
+"================================== Mappings ===================================
 " Esc/Ctrl+[ clears last search highlighting
-nn <esc> :noh<CR>
-nn <C-[> :noh<CR>
+nmap <esc> :noh<CR>
+nmap <C-[> :noh<CR>
 
 " window/buffer navigation maps for all modes
 for mapcmd in ['nn', 'ino', 'vn', 'tno']
@@ -137,45 +136,35 @@ nn <leader>tt :split term://zsh<CR><C-\><C-n><C-w>k
 nn <leader>tp :split term://python<CR><C-\><C-n><C-w>k
 nn <leader>tr :split term://radian<CR><C-\><C-n><C-w>k
 
-"============================= Filetype settings ===============================
-augroup ft_conf
-  au!
-  " Shell
-  au FileType sh,bash,zsh setlocal expandtab shiftwidth=2 tabstop=2
-  au FileType sh,bash,zsh ino ;s $
-  " R
-  au FileType r,rmd setlocal expandtab shiftwidth=2 tabstop=2 autoindent cindent
-  let r_indent_align_args = 0
-  let g:r_indent_op_pattern = get(g:, 'r_indent_op_pattern',
-    \ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\||>\)\s*$')  " Support |> indenting
-  for mapcmd in ['ino', 'tno']
-    exec 'au FileType r,rmd ' . mapcmd . ' ;; <-'
-    exec 'au FileType r,rmd ' . mapcmd . ' ;n \|>'
-    exec 'au FileType r,rmd ' . mapcmd . ' ;m %>%'
-    exec 'au FileType r,rmd ' . mapcmd . ' ;in %in%'
-    exec 'au FileType r,rmd ' . mapcmd . ' ;: %%'
-  endfor
-  " Python
-  au FileType python ino ;c """<CR>"""<esc>ko
-  au FileType python ino ;r ->
-  let g:pyindent_open_paren=4
-  " Markdown
-  let g:markdown_fenced_languages = ['python', 'r', 'sh', 'bash', 'zsh', 
-  \ 'powershell=ps1', 'sql', 'json', 'html', 'css']
-  au FileType markdown,rmd ino ;e **<left>
-  au FileType markdown,rmd ino ;H <esc>yypv$r=o
-  au FileType markdown,rmd ino ;h <esc>yypv$r-o
-  au FileType tex,markdown nn <leader>cc :w<CR> :exec '!compile "%:p" "'.input('What type of document would you like to compile? Choose from `h` for html, `p` for pdf, `d` for docx, or `x` for a xelatex pdf: ').'"'<CR>
-  " TeX
-  au FileType tex ino ;; \
-  au FileType tex ino ;s $
-  " Miscellaneous
-  au FileType vim setlocal tw=0 shiftwidth=2 tabstop=2
-  au BufEnter *.tsv setlocal noexpandtab
-augroup END
+"=========================== File-specific settings ============================
+let g:pyindent_open_paren=4  " 4 spaces after open parentheses in python
+let g:markdown_fenced_languages = ['python', 'r', 'sh', 'bash', 'zsh', 
+\ 'powershell=ps1', 'sql', 'json', 'html', 'css']  " markdown code fences
+let r_indent_align_args = 0  " Don't align R function arguments
+let g:r_indent_op_pattern = get(g:, 'r_indent_op_pattern',
+\ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\||>\)\s*$')  " Support |> indenting
+
+au FileType sh,bash,zsh setlocal shiftwidth=2 tabstop=2
+au FileType r,rmd setlocal shiftwidth=2 tabstop=2 autoindent cindent
+au FileType vim setlocal shiftwidth=2 tabstop=2
+au BufEnter *.tsv setlocal noexpandtab
+au FileType sh,bash,zsh,tex ino ;s $
+for mapcmd in ['ino', 'tno']
+  exec 'au FileType r,rmd ' . mapcmd . ' ;; <-'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;n \|>'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;m %>%'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;in %in%'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;: %%'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;: $'
+endfor
+au FileType python ino ;r ->
+au FileType markdown,rmd ino ;e **<left>
+au FileType markdown,rmd ino ;H <esc>yypv$r=o
+au FileType markdown,rmd ino ;h <esc>yypv$r-o
+au FileType tex,markdown nn <leader>cc :w<CR> :exec '!compile "%:p" "'.input('What type of document would you like to compile? Choose from `h` for html, `p` for pdf, `d` for docx, or `x` for a xelatex pdf: ').'"'<CR>
+au FileType tex ino ;; \
 
 "============================ Additional settings ==============================
-" lua configs
 lua require('config')
 
 " Windows-specific configs
