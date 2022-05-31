@@ -3,7 +3,7 @@ let user = substitute(substitute(system('whoami'), '\n\+$', '', ''), '^.\+\\', '
 
 "------------------------------- Mapping fixes ---------------------------------
 " vim-sendtowindow
-nn <leader>tt :split term://powershell<CR><C-\><C-n><C-w>k
+nn <leader>tt :new<CR><C-\><C-n>:call termopen("powershell")<CR><C-\><C-n><C-w>k
 
 " code compilation
 au FileType r nmap <leader>cc :w<CR> :!Rscript "%:p"<CR>

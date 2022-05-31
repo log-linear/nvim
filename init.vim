@@ -26,14 +26,14 @@ Plug 'junegunn/vim-easy-align'
   nmap ga <Plug>(EasyAlign)
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-  nn <leader>/f :Files<CR>
-  nn <leader>/g :GFiles<CR>
-  nn <leader>/c :BCommits<CR>
-  nn <leader>/h :Help<CR>
-  nn <leader>/s :History<CR>
-  nn <leader>// :BLines<CR>
-  nn <leader>/m :Maps<CR>
-  nn <leader>/t :Filetypes<CR>
+  nn <leader>zf :Files<CR>
+  nn <leader>zg :GFiles<CR>
+  nn <leader>zc :BCommits<CR>
+  nn <leader>zh :Help<CR>
+  nn <leader>zs :History<CR>
+  nn <leader>z/ :BLines<CR>
+  nn <leader>zm :Maps<CR>
+  nn <leader>zt :Filetypes<CR>
 Plug 'neovim/nvim-lspconfig'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'ms-jpq/coq_nvim'
@@ -49,11 +49,10 @@ Plug 'tmsvg/pear-tree'
   let g:pear_tree_smart_backspace = 1
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'sainnhe/gruvbox-material'
-  let g:airline_theme = 'gruvbox_material'
   let g:gruvbox_material_palette = 'original'
-  let g:gruvbox_material_statusline_style = 'original'
   let g:gruvbox_material_enable_bold = 1
 Plug 'vim-airline/vim-airline'
+  let g:airline_theme = 'gruvbox_material'
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#formatter = 'unique_tail'
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -132,9 +131,9 @@ ino ;h <esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:exec "normal! 0r" .
 nn <leader>cc :w<CR> :exec '!compile "%:p"'<CR>
 
 " Start terminals
-nn <leader>tt :split term://zsh<CR><C-\><C-n><C-w>k
-nn <leader>tp :split term://python<CR><C-\><C-n><C-w>k
-nn <leader>tr :split term://radian<CR><C-\><C-n><C-w>k
+nn <leader>tt :new<CR><C-\><C-n>:call termopen("zsh")<CR><C-\><C-n><C-w>k
+nn <leader>tp :new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n><C-w>k
+nn <leader>tr :new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n><C-w>k
 
 "=========================== File-specific settings ============================
 let g:pyindent_open_paren=4  " 4 spaces after open parentheses in python
@@ -148,16 +147,13 @@ au FileType sh,bash,zsh setlocal shiftwidth=2 tabstop=2
 au FileType r,rmd setlocal shiftwidth=2 tabstop=2 autoindent cindent
 au FileType vim setlocal shiftwidth=2 tabstop=2
 au BufEnter *.tsv setlocal noexpandtab
-au FileType sh,bash,zsh,tex ino ;s $
-for mapcmd in ['ino', 'tno']
-  exec 'au FileType r,rmd ' . mapcmd . ' ;; <-'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;n \|>'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;m %>%'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;in %in%'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;: %%'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;: $'
-endfor
-au FileType python ino ;r ->
+au FileType sh,bash,zsh,tex,r,rmd ino ;s $
+au FileType r,rmd ino ;; <-
+au FileType r,rmd ino ;n \|>
+au FileType r,rmd ino ;m %>%
+au FileType r,rmd ino ;in %in%
+au FileType r,rmd ino ;r %%
+au FileType python ino ;. ->
 au FileType markdown,rmd ino ;e **<left>
 au FileType markdown,rmd ino ;H <esc>yypv$r=o
 au FileType markdown,rmd ino ;h <esc>yypv$r-o
