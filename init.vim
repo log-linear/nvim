@@ -14,7 +14,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
   map <leader>uh :SignifyHunkUndo<CR>
 Plug 'karoliskoncevicius/vim-sendtowindow'
-  let g:sendtowindow_use_defaults=0
   nmap <A-CR> <Plug>SendDown
   vmap <A-CR> <Plug>SendDownV
   imap <A-CR> <Esc><Plug>SendDown
@@ -121,11 +120,12 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-v> <C-\><C-n>:vsplit<CR>'
 endfor
 
-" Headers
-ino ;B <esc>0D80A=<esc>0:exec "normal! 0r" . &commentstring[0]<cr>o<bs>
-ino ;b <esc>0D80A-<esc>0:exec "normal! 0r" . &commentstring[0]<cr>o<bs>
-ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec "normal! 0r" . &commentstring[0]<cr><esc>o<bs>
-ino ;h <esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:exec "normal! 0r" . &commentstring[0]<cr><esc>o<bs>
+" Headers, TODOs
+ino ;B <esc>0D80A=<esc>0:exec "normal! 0r" . &cms[0]<cr>o<bs>
+ino ;b <esc>0D80A-<esc>0:exec "normal! 0r" . &cms[0]<cr>o<bs>
+ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec "normal! 0r" . &cms[0]<cr><esc>o<bs>
+ino ;h <esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:exec "normal! 0r" . &cms[0]<cr><esc>o<bs>
+ino ;todo <esc>:exec "normal! 0i" . &cms[0]<cr>$a TODO: 
 
 " Compile code/documents, etc
 nn <leader>cc :w<CR> :exec '!compile "%:p"'<CR>
@@ -147,13 +147,15 @@ au FileType sh,bash,zsh setlocal shiftwidth=2 tabstop=2
 au FileType r,rmd setlocal shiftwidth=2 tabstop=2 autoindent cindent
 au FileType vim setlocal shiftwidth=2 tabstop=2
 au BufEnter *.tsv setlocal noexpandtab
-au FileType sh,bash,zsh,tex,r,rmd ino ;s $
-au FileType r,rmd ino ;; <-
-au FileType r,rmd ino ;n \|>
-au FileType r,rmd ino ;m %>%
-au FileType r,rmd ino ;in %in%
-au FileType r,rmd ino ;r %%
-au FileType python ino ;. ->
+for mapcmd in ['ino', 'tno']
+  exec 'au FileType sh,bash,zsh,tex,r,rmd ' . mapcmd . ' ;s $'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;; <-'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;n \|>'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;m %>%'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;in %in%'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;r %%'
+  exec 'au FileType python ' . mapcmd . ' ;. ->'
+endfor
 au FileType markdown,rmd ino ;e **<left>
 au FileType markdown,rmd ino ;H <esc>yypv$r=o
 au FileType markdown,rmd ino ;h <esc>yypv$r-o
