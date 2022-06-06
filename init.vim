@@ -54,6 +54,8 @@ Plug 'vim-airline/vim-airline'
   let g:airline_theme = 'gruvbox_material'
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#formatter = 'unique_tail'
+  let g:airline#extensions#scrollbar#enabled = 1 
+  let g:airline#extensions#scrollbar#minwidth = 100 
 Plug 'lukas-reineke/indent-blankline.nvim'
   let g:indentLine_char = '▏'
 Plug 'sunjon/shade.nvim'
