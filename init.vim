@@ -41,11 +41,7 @@ Plug 'ms-jpq/coq_nvim'
   \ 'keymap.jump_to_mark': '<c-l>'
 \ }
 Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
-Plug 'tmsvg/pear-tree'
-  let g:pear_tree_repeatable_expand = 0
-  let g:pear_tree_smart_openers = 1
-  let g:pear_tree_smart_closers = 1
-  let g:pear_tree_smart_backspace = 1
+Plug 'windwp/nvim-autopairs'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'sainnhe/gruvbox-material'
   let g:gruvbox_material_palette = 'original'
@@ -156,6 +152,9 @@ for mapcmd in ['ino', 'tno']
   exec 'au FileType r,rmd ' . mapcmd . ' ;m %>%'
   exec 'au FileType r,rmd ' . mapcmd . ' ;in %in%'
   exec 'au FileType r,rmd ' . mapcmd . ' ;r %%'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;v <space>\|> vd()'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;c <space>\|> colnames()'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;o <space>\|> objs()'
   exec 'au FileType python ' . mapcmd . ' ;. ->'
 endfor
 au FileType markdown,rmd ino ;e **<left>
