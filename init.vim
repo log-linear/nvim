@@ -27,21 +27,18 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
   nn <leader>f<leader> :Telescope<CR>
   nn <leader>ff :Telescope find_files<CR>
-  nn <leader>fg :Telescope git_files<CR>
   nn <leader>fc :Telescope git_bcommits<CR>
-  nn <leader>fs :Telescope oldfiles<CR>
+  nn <leader>fo :Telescope oldfiles<CR>
   nn <leader>f/ :Telescope current_buffer_fuzzy_find<CR>
   nn <leader>fm :Telescope keymaps<CR>
   nn <leader>ft :Telescope filetypes<CR>
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'neovim/nvim-lspconfig'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'ms-jpq/coq_nvim'
   let g:coq_settings = {
   \ 'auto_start': 'shut-up', 
-  \ 'keymap.jump_to_mark': '<c-l>'
 \ }
-Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
 Plug 'windwp/nvim-autopairs'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'sainnhe/gruvbox-material'
@@ -54,7 +51,6 @@ Plug 'vim-airline/vim-airline'
   let g:airline#extensions#scrollbar#enabled = 1 
   let g:airline#extensions#scrollbar#minwidth = 100 
 Plug 'lukas-reineke/indent-blankline.nvim'
-  let g:indentLine_char = '▏'
 Plug 'sunjon/shade.nvim'
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
@@ -73,27 +69,28 @@ set autoindent smartindent           " autoindent
 set expandtab tabstop=4 shiftwidth=4 " tabs to spaces, default 4
 set termguicolors                    " Enable 24-bit RGB
 colorscheme gruvbox-material         " Colorscheme, load AFTER termguicolors
-set list lcs=tab:\▏\                 " Show tab indentlines
+set list lcs+=tab:\▸\ ,trail:·       " Show tab indentlines, trailing spaces
 au WinEnter term://* :startinsert    " Always enter terminals in insert mode
-
-" Search tweaks: highlighting, semi-case-insensitive search, etc.
 set incsearch showmatch hlsearch ignorecase smartcase
-
-" Visual line guide at 80 characters
 set colorcolumn=80
 highlight ColorColumn ctermbg=238
-
-" netrw
 let g:netrw_liststyle = 3                                 " Default to tree-view
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'  " relative line nums
 let g:netrw_banner = 0                                    " Remove top banner
 
 "================================== Mappings ===================================
-" Esc/Ctrl+[ clears last search highlighting
 nmap <esc> :noh<CR>
 nmap <C-[> :noh<CR>
+ino ;B <esc>0D80A=<esc>0:exec "normal! 0r" . &cms[0]<cr>o<bs>
+ino ;b <esc>0D80A-<esc>0:exec "normal! 0r" . &cms[0]<cr>o<bs>
+ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec "normal! 0r" . &cms[0]<cr><esc>o<bs>
+ino ;h <esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:exec "normal! 0r" . &cms[0]<cr><esc>o<bs>
+ino ;todo <esc>:exec "normal! 0i" . &cms[0]<cr>$a TODO: 
+nn <leader>cc :w<CR> :exec '!compile "%:p"'<CR>
+nn <leader>tt :new<CR><C-\><C-n>:call termopen("zsh")<CR><C-\><C-n><C-w>k
+nn <leader>tp :new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n><C-w>k
+nn <leader>tr :new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n><C-w>k
 
-" window/buffer navigation maps for all modes
 for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-h> <C-\><C-n><C-w>h'
   exec mapcmd . ' <A-j> <C-\><C-n><C-w>j'
@@ -118,21 +115,6 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-s> <C-\><C-n>:split<CR>'
   exec mapcmd . ' <A-v> <C-\><C-n>:vsplit<CR>'
 endfor
-
-" Headers, TODOs
-ino ;B <esc>0D80A=<esc>0:exec "normal! 0r" . &cms[0]<cr>o<bs>
-ino ;b <esc>0D80A-<esc>0:exec "normal! 0r" . &cms[0]<cr>o<bs>
-ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec "normal! 0r" . &cms[0]<cr><esc>o<bs>
-ino ;h <esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:exec "normal! 0r" . &cms[0]<cr><esc>o<bs>
-ino ;todo <esc>:exec "normal! 0i" . &cms[0]<cr>$a TODO: 
-
-" Compile code/documents, etc
-nn <leader>cc :w<CR> :exec '!compile "%:p"'<CR>
-
-" Start terminals
-nn <leader>tt :new<CR><C-\><C-n>:call termopen("zsh")<CR><C-\><C-n><C-w>k
-nn <leader>tp :new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n><C-w>k
-nn <leader>tr :new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n><C-w>k
 
 "=========================== File-specific settings ============================
 let g:pyindent_open_paren=4  " 4 spaces after open parentheses in python
@@ -167,12 +149,10 @@ au FileType tex ino ;; \
 "============================ Additional settings ==============================
 lua require('config')
 
-" Windows-specific configs
 if has("win64") || has("win32") || has("win16")
   exec 'source ' . stdpath("config") . '\win.vim'
 endif
 
-" Work-specific configs
 if !empty(glob(stdpath("config") . '/work.vim'))
   exec 'source ' . stdpath("config") . '/work.vim'
 endif
