@@ -39,6 +39,7 @@ Plug 'ms-jpq/coq_nvim'
   let g:coq_settings = {
   \ 'auto_start': 'shut-up', 
 \ }
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'windwp/nvim-autopairs'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'sainnhe/gruvbox-material'
@@ -52,7 +53,6 @@ Plug 'vim-airline/vim-airline'
   let g:airline#extensions#scrollbar#minwidth = 100 
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'sunjon/shade.nvim'
-Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 "============================== General settings ===============================
