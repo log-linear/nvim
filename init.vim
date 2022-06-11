@@ -23,16 +23,17 @@ Plug 'machakann/vim-sandwich'
 Plug 'junegunn/vim-easy-align'
   xmap ga <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-  nn <leader>zf :Files<CR>
-  nn <leader>zg :GFiles<CR>
-  nn <leader>zc :BCommits<CR>
-  nn <leader>zh :Help<CR>
-  nn <leader>zs :History<CR>
-  nn <leader>z/ :BLines<CR>
-  nn <leader>zm :Maps<CR>
-  nn <leader>zt :Filetypes<CR>
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+  nn <leader>f<leader> :Telescope<CR>
+  nn <leader>ff :Telescope find_files<CR>
+  nn <leader>fg :Telescope git_files<CR>
+  nn <leader>fc :Telescope git_bcommits<CR>
+  nn <leader>fs :Telescope oldfiles<CR>
+  nn <leader>f/ :Telescope current_buffer_fuzzy_find<CR>
+  nn <leader>fm :Telescope keymaps<CR>
+  nn <leader>ft :Telescope filetypes<CR>
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'ms-jpq/coq_nvim'
@@ -154,7 +155,7 @@ for mapcmd in ['ino', 'tno']
   exec 'au FileType r,rmd ' . mapcmd . ' ;r %%'
   exec 'au FileType r,rmd ' . mapcmd . ' ;v <space>\|> vd()'
   exec 'au FileType r,rmd ' . mapcmd . ' ;c <space>\|> colnames()'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;o <space>\|> objs()'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;o objs()'
   exec 'au FileType python ' . mapcmd . ' ;. ->'
 endfor
 au FileType markdown,rmd ino ;e **<left>
