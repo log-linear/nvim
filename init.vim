@@ -18,7 +18,7 @@ Plug 'karoliskoncevicius/vim-sendtowindow'
   vmap <A-CR> <Plug>SendDownV
   imap <A-CR> <Esc><Plug>SendDown
 Plug 'machakann/vim-sandwich'
-  exec 'source ' . stdpath("config") . 
+  exec 'source ' . stdpath("config") .
   \ '/plugged/vim-sandwich/macros/sandwich/keymap/surround.vim'
 Plug 'junegunn/vim-easy-align'
   xmap ga <Plug>(EasyAlign)
@@ -56,27 +56,28 @@ Plug 'sunjon/shade.nvim'
 call plug#end()
 
 "============================== General settings ===============================
-set cursorline                       " Cursor line highlight
-filetype plugin indent on            " filetype detection
-set clipboard+=unnamedplus           " Use system clipboard for yank/paste
-set splitbelow splitright            " Splits open at the bottom and right
-set mouse=a                          " Enable mouse support
-set scrolloff=3 sidescroll=3         " Always show 3 horiz/vert lines on scroll
-set number relativenumber            " Relative line numbers
-set hidden                           " Allow switching buffers before saving
-set signcolumn=auto:2                " sign column for gitgutter, lsp, etc
-set autoindent smartindent           " autoindent
-set expandtab tabstop=4 shiftwidth=4 " tabs to spaces, default 4
-set termguicolors                    " Enable 24-bit RGB
-colorscheme gruvbox-material         " Colorscheme, load AFTER termguicolors
-set list lcs+=tab:\▸\ ,trail:·       " Show tab indentlines, trailing spaces
-au WinEnter term://* :startinsert    " Always enter terminals in insert mode
+set cursorline
+filetype plugin indent on
+set clipboard+=unnamedplus
+set splitbelow splitright
+set mouse=a
+set scrolloff=3 sidescroll=3
+set number relativenumber
+set hidden
+set signcolumn=auto:2
+set autoindent smartindent
+set expandtab tabstop=4 shiftwidth=4
+set termguicolors
+colorscheme gruvbox-material         " Must load AFTER termguicolors
+set list lcs+=tab:\▸\ ,extends:→,precedes:←,nbsp:·,trail:·
+au WinEnter term://* :startinsert
 set incsearch showmatch hlsearch ignorecase smartcase
 set colorcolumn=80
+set nowrap
 highlight ColorColumn ctermbg=238
-let g:netrw_liststyle = 3                                 " Default to tree-view
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'  " relative line nums
-let g:netrw_banner = 0                                    " Remove top banner
+let g:netrw_liststyle = 3
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
+let g:netrw_banner = 0
 
 "================================== Mappings ===================================
 nmap <esc> :noh<CR>
@@ -117,16 +118,17 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
 endfor
 
 "=========================== File-specific settings ============================
-let g:pyindent_open_paren=4  " 4 spaces after open parentheses in python
+let g:pyindent_open_paren=4
 let g:markdown_fenced_languages = ['python', 'r', 'sh', 'bash', 'zsh', 
-\ 'powershell=ps1', 'sql', 'json', 'html', 'css']  " markdown code fences
-let r_indent_align_args = 0  " Don't align R function arguments
+\ 'powershell=ps1', 'sql', 'json', 'html', 'css']
+let r_indent_align_args = 0
 let g:r_indent_op_pattern = get(g:, 'r_indent_op_pattern',
-\ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\||>\)\s*$')  " Support |> indenting
+\ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\||>\)\s*$')
 
 au FileType sh,bash,zsh setlocal shiftwidth=2 tabstop=2
 au FileType r,rmd setlocal shiftwidth=2 tabstop=2 autoindent cindent
 au FileType vim setlocal shiftwidth=2 tabstop=2
+au FileType lua setlocal shiftwidth=2 tabstop=2
 au BufEnter *.tsv setlocal noexpandtab
 for mapcmd in ['ino', 'tno']
   exec 'au FileType sh,bash,zsh,tex,r,rmd ' . mapcmd . ' ;s $'

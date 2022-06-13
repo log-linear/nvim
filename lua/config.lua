@@ -2,12 +2,19 @@
 
 -------------------------------- nvim-telescope --------------------------------
 require('telescope').setup{
-    pickers = {
-        find_files = {
-            hidden = false,
-            no_ignore = true
-        }
+  defaults = {
+    layout_strategy = 'flex',
+    layout_config = {
+      prompt_position = 'top',
+    },
+    sorting_strategy = 'ascending'
+  },
+  pickers = {
+    find_files = {
+      hidden = false,
+      no_ignore = true
     }
+  }
 }
 require('telescope').load_extension('fzf')
 
