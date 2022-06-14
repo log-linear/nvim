@@ -86,10 +86,7 @@ for _, lsp in ipairs(servers) do
     require('coq').lsp_ensure_capabilities({
       on_attach = on_attach,
       flags = lsp_flags,
-      capabilities = capabilities,
-      flags = {
-        debounce_text_changes = 150,
-      }
+      capabilities = capabilities
     })
   )
 end
