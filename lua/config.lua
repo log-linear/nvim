@@ -43,7 +43,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', 
+  vim.keymap.set('n', '<space>wl',
                  function()
                    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                  end, bufopts)
@@ -69,7 +69,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 
+local servers = {
   'pylsp',
   'r_language_server',
   'bashls',
@@ -134,17 +134,6 @@ MUtils.BS = function()
 end
 remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
 
----------------------------------- shade.nvim ----------------------------------
-require'shade'.setup({
-  overlay_opacity = 50,
-  opacity_step = 1,
-  keys = {
-    brightness_up    = '<C-Up>',
-    brightness_down  = '<C-Down>',
-    toggle           = '<Leader>s',
-  }
-})
-
 ------------------------------- nvim-treesitter --------------------------------
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all",
@@ -152,3 +141,4 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
   },
 }
+
