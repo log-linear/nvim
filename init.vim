@@ -41,6 +41,7 @@ Plug 'ms-jpq/coq_nvim'
   let g:coq_settings = {
   \ 'auto_start': 'shut-up', 
 \ }
+  let g:python3_host_prog = stdpath("config") . '/plugged/coq_nvim/.vars/runtime/bin/python3'
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'windwp/nvim-autopairs'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
@@ -56,7 +57,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'TaDaa/vimade'  " Requires pynvim (pip)
   let g:vimade = {
-      \ 'enabletreesitter': 1
+  \ 'enabletreesitter': 1
 \ }
 call plug#end()
 
