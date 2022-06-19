@@ -87,13 +87,13 @@ let g:netrw_banner = 0
 
 "================================== Mappings ===================================
 nmap <esc> :noh<CR>
-nmap <C-[> :noh<CR>
+nn <leader>s :%s/
 ino ;B <esc>0D80A=<esc>0:exec "normal! 0r" . &cms<cr>o<bs>
 ino ;b <esc>0D80A-<esc>0:exec "normal! 0r" . &cms<cr>o<bs>
 ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec "normal! 0r" . &cms<cr><esc>o<bs>
 ino ;h <esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:exec "normal! 0r" . &cms<cr><esc>o<bs>
 ino ;todo <esc>:exec "normal! 0i" . &cms[0]<cr>$a TODO: 
-nn <leader>cc :w<CR> :10sp<CR> :term compile %<CR>
+nn <cr><cr> :w<CR> :10sp<CR> :term compile %<CR>
 nn <leader>tt :new<CR><C-\><C-n>:call termopen("zsh")<CR><C-\><C-n><C-w>k
 nn <leader>tp :new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n><C-w>k
 nn <leader>tr :new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n><C-w>k
@@ -151,7 +151,10 @@ endfor
 au FileType markdown,rmd ino ;e **<left>
 au FileType markdown,rmd ino ;H <esc>yypv$r=o
 au FileType markdown,rmd ino ;h <esc>yypv$r-o
-au FileType tex,markdown nn <leader>cc :w<CR>:10sp<CR>:exec ':term compile "%:p" "'.input('What type of document would you like to compile? Choose from `h` for html, `p` for pdf, `d` for docx, or `x` for a xelatex pdf: ').'"'<CR>
+au FileType tex,markdown nn <cr>x :w<CR> :10sp<CR> :term compile % x && rm "%:r.aux" "%:r.log" & xdg-open %:r.pdf<CR>
+au FileType tex,markdown nn <cr>p :w<CR> :10sp<CR> :term compile % p && rm "%:r.aux" "%:r.log" & xdg-open %:r.pdf<CR>
+au FileType tex,markdown nn <cr>h :w<CR> :10sp<CR> :term compile % h && xdg-open %:r.html<CR>
+au FileType tex,markdown nn <cr>d :w<CR> :10sp<CR> :term compile % d && xdg-open %:r.docx<CR> 
 au FileType tex ino ;; \
 
 "============================ Additional settings ==============================
