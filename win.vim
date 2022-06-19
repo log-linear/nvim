@@ -1,5 +1,6 @@
 "======================= Windows-specific configuration  =======================
 let user = substitute(substitute(system('whoami'), '\n\+$', '', ''), '^.\+\\', '', '')
+let g:python3_host_prog = 'C:/Users/' . user . '/Miniconda3/python.exe'
 
 "------------------------------- Mapping fixes ---------------------------------
 " vim-sendtowindow

@@ -1,4 +1,5 @@
 let mapleader=" "
+let g:python3_host_prog = '/usr/bin/python3'
 
 "================================== Plug-ins ===================================
 " Auto-install vim-plug
@@ -41,7 +42,6 @@ Plug 'ms-jpq/coq_nvim'
   let g:coq_settings = {
   \ 'auto_start': 'shut-up', 
 \ }
-  let g:python3_host_prog = stdpath("config") . '/plugged/coq_nvim/.vars/runtime/bin/python3'
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'windwp/nvim-autopairs'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
