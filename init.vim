@@ -1,5 +1,8 @@
 let mapleader=" "
-let g:python3_host_prog = '/usr/bin/python3'
+let g:python3_host_prog = expand(stdpath("config") . '/venv/bin/python3')
+if has("win64") || has("win32") || has("win16")
+  let g:python3_host_prog = expand(stdpath("config") . '/venv/Scripts/python')
+endif
 
 "================================== Plug-ins ===================================
 " Auto-install vim-plug
@@ -38,11 +41,11 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'neovim/nvim-lspconfig'
 Plug 'ray-x/lsp_signature.nvim'
-Plug 'ms-jpq/coq_nvim'
+Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
   let g:coq_settings = {
   \ 'auto_start': 'shut-up', 
 \ }
-Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
 Plug 'windwp/nvim-autopairs'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'sainnhe/gruvbox-material'
@@ -52,10 +55,10 @@ Plug 'vim-airline/vim-airline'
   let g:airline_theme = 'gruvbox_material'
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#formatter = 'unique_tail'
-  let g:airline#extensions#scrollbar#enabled = 1 
-  let g:airline#extensions#scrollbar#minwidth = 100 
+  let g:airline#extensions#scrollbar#enabled = 1
+  let g:airline#extensions#scrollbar#minwidth = 100
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'TaDaa/vimade'  " Requires pynvim (pip)
+Plug 'TaDaa/vimade'  " Requires pynvim
   let g:vimade = {
   \ 'enabletreesitter': 1
 \ }
@@ -77,6 +80,7 @@ set termguicolors
 colorscheme gruvbox-material         " Must load AFTER termguicolors
 set list lcs+=tab:\▸\ ,extends:→,precedes:←,nbsp:·,trail:·
 au WinEnter term://* :startinsert
+au TextYankPost * silent! lua vim.highlight.on_yank({timeout = 250})
 set incsearch showmatch hlsearch ignorecase smartcase
 set colorcolumn=80
 set nowrap
@@ -161,7 +165,7 @@ au FileType tex ino ;; \
 lua require('config')
 
 if has("win64") || has("win32") || has("win16")
-  exec 'source ' . stdpath("config") . '\win.vim'
+  exec 'source ' . stdpath("config") . '/win.vim'
 endif
 
 if !empty(glob(stdpath("config") . '/work.vim'))

@@ -1,4 +1,5 @@
 plugged/*
 autoload/*
 site/*
+venv
 work.vim
