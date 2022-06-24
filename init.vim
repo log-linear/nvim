@@ -16,7 +16,8 @@ call plug#begin(stdpath("config") . '/plugged')
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
-  map <leader>uh :SignifyHunkUndo<CR>
+  map <leader>hu :SignifyHunkUndo<CR>
+  map <leader>hd :SignifyHunkDiff<CR>
 Plug 'karoliskoncevicius/vim-sendtowindow'
   nmap <A-CR> <Plug>SendDown
   vmap <A-CR> <Plug>SendDownV
@@ -38,6 +39,7 @@ Plug 'nvim-telescope/telescope.nvim'
   nn <leader>fm :Telescope keymaps<CR>
   nn <leader>ft :Telescope filetypes<CR>
   nn <leader>fr :Telescope lsp_references<CR>
+Plug 'stevearc/dressing.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'neovim/nvim-lspconfig'
 Plug 'ray-x/lsp_signature.nvim'

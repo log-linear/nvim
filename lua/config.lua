@@ -76,7 +76,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = {
-  'pylsp',
+  'pyright',
   'r_language_server',
   'bashls',
   'powershell_es',
@@ -85,6 +85,7 @@ local servers = {
   'cssls',
   'html',
   'vimls',
+  'ltex',
   'openscad_ls'
 }
 for _, lsp in ipairs(servers) do
