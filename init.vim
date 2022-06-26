@@ -30,16 +30,15 @@ Plug 'junegunn/vim-easy-align'
   nmap ga <Plug>(EasyAlign)
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-  nn <leader>f<leader> :Telescope<CR>
-  nn <leader>ff :Telescope find_files<CR>
-  nn <leader>fg :Telescope git_files<CR>
-  nn <leader>fc :Telescope git_bcommits<CR>
-  nn <leader>fo :Telescope oldfiles<CR>
-  nn <leader>f/ :Telescope current_buffer_fuzzy_find<CR>
-  nn <leader>fm :Telescope keymaps<CR>
-  nn <leader>ft :Telescope filetypes<CR>
-  nn <leader>fr :Telescope lsp_references<CR>
-Plug 'stevearc/dressing.nvim'
+  nn <leader><leader><leader> :Telescope<CR>
+  nn <leader><leader>f :Telescope find_files<CR>
+  nn <leader><leader>g :Telescope git_files<CR>
+  nn <leader><leader>c :Telescope git_bcommits<CR>
+  nn <leader><leader>o :Telescope oldfiles<CR>
+  nn <leader><leader>/ :Telescope current_buffer_fuzzy_find<CR>
+  nn <leader><leader>m :Telescope keymaps<CR>
+  nn <leader><leader>t :Telescope filetypes<CR>
+  nn <leader><leader>r :Telescope lsp_references<CR>
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'neovim/nvim-lspconfig'
 Plug 'ray-x/lsp_signature.nvim'

@@ -4,16 +4,15 @@
 require('telescope').setup{
   defaults = {
     layout_strategy = 'flex',
-    layout_config = {
-      prompt_position = 'top',
-    },
+    layout_config = { prompt_position = 'top', },
     sorting_strategy = 'ascending'
   },
   pickers = {
     find_files = {
       hidden = false,
       no_ignore = true,
-    }
+    },
+    lsp_references = { path_display = { 'shorten' }, }
   }
 }
 require('telescope').load_extension('fzf')
@@ -29,14 +28,6 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  require "lsp_signature".on_attach({
-    floating_window = false,
-    toggle_key = '<c-k>',
-    hint_prefix = ' ',
-    handler_opts = {
-      border = "none"
-    },
-  })
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -57,49 +48,67 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
-end
 
-local lsp_flags = {
-  debounce_text_changes = 150,
-}
+  -- Function signature support
+  require 'lsp_signature'.on_attach({
+    floating_window = false,
+    toggle_key = '<c-k>',
+    hint_prefix = ' ',
+    handler_opts = {
+      border = 'none'
+    },
+  })
+end
 
 -- LSP-built-in snippet support
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Hide in-line diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
 )
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = {
-  'pyright',
-  'r_language_server',
-  'bashls',
-  'powershell_es',
-  'texlab',
-  'jsonls',
-  'cssls',
-  'html',
-  'vimls',
-  'ltex',
-  'openscad_ls'
+  pyright = {},
+  r_language_server = { settings = { rich_documentation = false } },
+  bashls = {},
+  powershell_es = {},
+  texlab = {},
+  jsonls = {},
+  cssls = {},
+  html = {},
+  vimls = {},
+  ltex = {},
+  sumneko_lua = {
+    settings = {
+      Lua = {
+        -- Settings for use with nvim
+        runtime = { version = 'LuaJIT', },
+        diagnostics = { globals = { 'vim' }, },
+        workspace = { library = vim.api.nvim_get_runtime_file('', true), },
+        telemetry = { enable = false, },
+      },
+    },
+  },
+  openscad_ls = {}
 }
-for _, lsp in ipairs(servers) do
-  require('lspconfig')[lsp].setup(
-    require('coq').lsp_ensure_capabilities({
-      on_attach = on_attach,
-      flags = lsp_flags,
-      capabilities = capabilities
-    })
+for server, user_opts in pairs(servers) do
+  local server_opts = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = { debounce_text_changes = 150 }
+  }
+  server_opts = vim.tbl_deep_extend('force', server_opts, user_opts)
+
+  require('lspconfig')[server].setup(
+    require('coq').lsp_ensure_capabilities(server_opts)
   )
 end
-
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
 
 -------------------------------- nvim-autopairs --------------------------------
 -- Configs to handle coq_nvim compatibility
@@ -111,10 +120,10 @@ npairs.setup({ map_bs = false, map_cr = false })
 vim.g.coq_settings = { keymap = { recommended = false } }
 
 -- these mappings are coq recommended mappings unrelated to nvim-autopairs
-remap('i', '<esc>', [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
-remap('i', '<c-c>', [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true })
-remap('i', '<tab>', [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true })
-remap('i', '<s-tab>', [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true })
+remap('i', '<esc>', [[pumvisible() ? '<c-e><esc>' : '<esc>']], { expr = true, noremap = true })
+remap('i', '<c-c>', [[pumvisible() ? '<c-e><c-c>' : '<c-c>']], { expr = true, noremap = true })
+remap('i', '<tab>', [[pumvisible() ? '<c-n>' : '<tab>']], { expr = true, noremap = true })
+remap('i', '<s-tab>', [[pumvisible() ? '<c-p>' : '<bs>']], { expr = true, noremap = true })
 
 -- skip it, if you use another global object
 _G.MUtils= {}
@@ -143,9 +152,7 @@ remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
 
 ------------------------------- nvim-treesitter --------------------------------
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "all",
-  highlight = {
-    enable = true,
-  },
+  ensure_installed = 'all',
+  highlight = { enable = true, },
 }
 
