@@ -54,7 +54,7 @@ local on_attach = function(client, bufnr)
   -- Function signature support
   require 'lsp_signature'.on_attach({
     floating_window = false,
-    toggle_key = '<c-k>',
+    toggle_key = '<c-s>',
     hint_prefix = ' ',
     handler_opts = {
       border = 'none'
@@ -116,14 +116,6 @@ local remap = vim.api.nvim_set_keymap
 local npairs = require('nvim-autopairs')
 
 npairs.setup({ map_bs = false, map_cr = false })
-
-vim.g.coq_settings = { keymap = { recommended = false } }
-
--- these mappings are coq recommended mappings unrelated to nvim-autopairs
-remap('i', '<esc>', [[pumvisible() ? '<c-e><esc>' : '<esc>']], { expr = true, noremap = true })
-remap('i', '<c-c>', [[pumvisible() ? '<c-e><c-c>' : '<c-c>']], { expr = true, noremap = true })
-remap('i', '<tab>', [[pumvisible() ? '<c-n>' : '<tab>']], { expr = true, noremap = true })
-remap('i', '<s-tab>', [[pumvisible() ? '<c-p>' : '<bs>']], { expr = true, noremap = true })
 
 -- skip it, if you use another global object
 _G.MUtils= {}

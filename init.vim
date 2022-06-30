@@ -44,8 +44,18 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
   let g:coq_settings = {
-  \ 'auto_start': 'shut-up', 
+  \ 'auto_start': 'shut-up',
+  \ 'keymap': {
+    \ 'recommended': v:false,
+    \ 'manual_complete': '<a-;>',
+    \ 'bigger_preview': '<c-k>',
+    \ 'jump_to_mark': '<c-h>',
+  \ }
 \ }
+  ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
+  ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
+  ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
 Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
 Plug 'windwp/nvim-autopairs'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
@@ -102,7 +112,8 @@ nn <cr><cr> :w<CR> :10sp<CR> :term compile %<CR>
 nn <leader>tt :new<CR><C-\><C-n>:call termopen("zsh")<CR><C-\><C-n><C-w>k
 nn <leader>tp :new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n><C-w>k
 nn <leader>tr :new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n><C-w>k
-nn <Leader>ve <C-\><C-n>:Vexplore<CR>
+nn <Leader>ve <esc>:Vexplore<CR>
+nn <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-h> <C-\><C-n><C-w>h'
