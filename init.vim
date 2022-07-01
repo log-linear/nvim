@@ -47,9 +47,9 @@ Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
   \ 'auto_start': 'shut-up',
   \ 'keymap': {
     \ 'recommended': v:false,
-    \ 'manual_complete': '<c-j>',
-    \ 'bigger_preview': '<c-k>',
-    \ 'jump_to_mark': '<c-l>',
+    \ 'manual_complete': '<c-l>',
+    \ 'bigger_preview': '<c-j>',
+    \ 'jump_to_mark': '<c-h>',
   \ }
 \ }
   ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"

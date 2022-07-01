@@ -54,7 +54,7 @@ local on_attach = function(client, bufnr)
   -- Function signature support
   require 'lsp_signature'.on_attach({
     floating_window = false,
-    toggle_key = '<c-s>',
+    toggle_key = '<c-k>',
     hint_prefix = ' ',
     handler_opts = {
       border = 'none'
