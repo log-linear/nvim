@@ -13,11 +13,16 @@ endif
 
 " Load plugins
 call plug#begin(stdpath("config") . '/plugged')
-Plug 'tpope/vim-commentary'
+Plug 'numToStr/Comment.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
   map <leader>hu :SignifyHunkUndo<CR>
   map <leader>hd :SignifyHunkDiff<CR>
+  let g:signify_sign_add               = '▊'
+  let g:signify_sign_change            = '▊'
+  let g:signify_sign_delete            = '_'
+  let g:signify_sign_delete_first_line = '‾'
+  let g:signify_sign_change_delete     = g:signify_sign_change . g:signify_sign_delete_first_line
 Plug 'karoliskoncevicius/vim-sendtowindow'
   nmap <A-CR> <Plug>SendDown
   vmap <A-CR> <Plug>SendDownV
@@ -69,6 +74,8 @@ Plug 'vim-airline/vim-airline'
   let g:airline#extensions#scrollbar#enabled = 1
   let g:airline#extensions#scrollbar#minwidth = 100
 Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'folke/zen-mode.nvim'
+  nn <leader>z :ZenMode<CR>
 Plug 'TaDaa/vimade'  " Requires pynvim
   let g:vimade = {
   \ 'enabletreesitter': 1
@@ -103,6 +110,7 @@ let g:netrw_banner = 0
 "================================== Mappings ===================================
 nmap <esc> :noh<CR>
 nn <leader>s :%s/
+xn <leader>s :s/
 ino ;B <esc>0D80A=<esc>0:exec "normal! 0r" . &cms<cr>o<bs>
 ino ;b <esc>0D80A-<esc>0:exec "normal! 0r" . &cms<cr>o<bs>
 ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec "normal! 0r" . &cms<cr><esc>o<bs>
