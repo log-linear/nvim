@@ -135,14 +135,13 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-=> <C-\><C-n><C-w>:resize +3<CR>'
   exec mapcmd . ' <A-.> <C-\><C-n><C-w>:vertical resize +3<CR>'
   exec mapcmd . ' <A-0> <C-\><C-n><C-w>='
-  exec mapcmd . ' <A-q> <C-\><C-n>:q<CR>'
-  exec mapcmd . ' <A-Q> <C-\><C-n>:q!<CR>'
+  exec mapcmd . ' <A-c> <C-\><C-n>:close<CR>'
   exec mapcmd . ' <A-d> <C-\><C-n>:bd<CR>'
   exec mapcmd . ' <A-D> <C-\><C-n>:bd!<CR>'
   exec mapcmd . ' <A-n> <C-\><C-n>:bn<CR>'
   exec mapcmd . ' <A-p> <C-\><C-n>:bp<CR>'
-  exec mapcmd . ' <A-s> <C-\><C-n>:sp<CR>'
-  exec mapcmd . ' <A-v> <C-\><C-n>:vs<CR>'
+  exec mapcmd . ' <A-s> <C-\><C-n>:sp<CR>:bp<CR>'
+  exec mapcmd . ' <A-v> <C-\><C-n>:vs<CR>:bp<CR>'
 endfor
 
 "=========================== File-specific settings ============================
