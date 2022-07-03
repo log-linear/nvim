@@ -3,7 +3,7 @@
 --------------------------------- Comment.nvim ---------------------------------
 require('Comment').setup { padding = false }
 
-------------------------------- nvim-telescope --------------------------------
+------------------------------- nvim-telescope ---------------------------------
 require('telescope').setup {
   defaults = {
     layout_strategy = 'flex',

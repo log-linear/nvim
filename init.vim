@@ -18,11 +18,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
   map <leader>hu :SignifyHunkUndo<CR>
   map <leader>hd :SignifyHunkDiff<CR>
-  let g:signify_sign_add               = '▊'
-  let g:signify_sign_change            = '▊'
-  let g:signify_sign_delete            = '_'
-  let g:signify_sign_delete_first_line = '‾'
-  let g:signify_sign_change_delete     = g:signify_sign_change . g:signify_sign_delete_first_line
+  let g:signify_priority = 5
+  let g:signify_sign_add    = '▊'
+  let g:signify_sign_change = '▊'
 Plug 'karoliskoncevicius/vim-sendtowindow'
   nmap <A-CR> <Plug>SendDown
   vmap <A-CR> <Plug>SendDownV
@@ -39,6 +37,7 @@ Plug 'nvim-telescope/telescope.nvim'
   nn <leader><leader>f :Telescope find_files<CR>
   nn <leader><leader>g :Telescope git_files<CR>
   nn <leader><leader>c :Telescope git_bcommits<CR>
+  nn <leader><leader>b :Telescope buffers<CR>
   nn <leader><leader>o :Telescope oldfiles<CR>
   nn <leader><leader>/ :Telescope current_buffer_fuzzy_find<CR>
   nn <leader><leader>m :Telescope keymaps<CR>
@@ -67,19 +66,18 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'sainnhe/gruvbox-material'
   let g:gruvbox_material_palette = 'original'
   let g:gruvbox_material_enable_bold = 1
-Plug 'vim-airline/vim-airline'
-  let g:airline_theme = 'gruvbox_material'
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#formatter = 'unique_tail'
-  let g:airline#extensions#scrollbar#enabled = 1
-  let g:airline#extensions#scrollbar#minwidth = 100
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'folke/zen-mode.nvim'
   nn <leader>z :ZenMode<CR>
-Plug 'TaDaa/vimade'  " Requires pynvim
+Plug 'TaDaa/vimade', { 'on': 'VimadeEnable' }
   let g:vimade = {
   \ 'enabletreesitter': 1
 \ }
+  " Lazy load
+  autocmd BufNew * ++once if !exists('g:vimade_loaded') |
+  \ exec 'VimadeEnable' | endif
+  autocmd FocusLost * ++once if !exists('g:vimade_loaded') |
+  \ exec 'VimadeEnable' | call vimade#FocusLost() | endif
 call plug#end()
 
 "============================== General settings ===============================
@@ -109,17 +107,17 @@ let g:netrw_banner = 0
 
 "================================== Mappings ===================================
 nmap <esc> :noh<CR>
-nn <leader>s :%s/
-xn <leader>s :s/
+nn <leader>s :%s//g<left><left>
+xn <leader>s :s//g<left><left>
 ino ;B <esc>0D80A=<esc>0:exec "normal! 0r" . &cms<cr>o<bs>
 ino ;b <esc>0D80A-<esc>0:exec "normal! 0r" . &cms<cr>o<bs>
 ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec "normal! 0r" . &cms<cr><esc>o<bs>
 ino ;h <esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:exec "normal! 0r" . &cms<cr><esc>o<bs>
 ino ;todo <esc>:exec "normal! 0i" . &cms[0]<cr>$a TODO: 
-nn <cr><cr> :w<CR> :10sp<CR> :term compile %<CR>
-nn <leader>tt :new<CR><C-\><C-n>:call termopen("zsh")<CR><C-\><C-n><C-w>k
-nn <leader>tp :new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n><C-w>k
-nn <leader>tr :new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n><C-w>k
+nn <cr><cr> :w<CR> :15sp<CR> :term compile %<CR>
+nn <leader>tt :15new<CR><C-\><C-n>:call termopen("zsh")<CR><C-\><C-n><C-w>k
+nn <leader>tp :15new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n><C-w>k
+nn <leader>tr :15new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n><C-w>k
 nn <Leader>ve <esc>:Vexplore<CR>
 nn <leader>cd :cd %:p:h<CR>:pwd<CR>
 
@@ -175,10 +173,10 @@ endfor
 au FileType markdown,rmd ino ;e **<left>
 au FileType markdown,rmd ino ;H <esc>yypv$r=o
 au FileType markdown,rmd ino ;h <esc>yypv$r-o
-au FileType tex,markdown nn <cr>x :w<CR> :10sp<CR> :term compile % x && rm "%:r.aux" "%:r.log" & xdg-open %:r.pdf<CR>
-au FileType tex,markdown nn <cr>p :w<CR> :10sp<CR> :term compile % p && rm "%:r.aux" "%:r.log" & xdg-open %:r.pdf<CR>
-au FileType tex,markdown nn <cr>h :w<CR> :10sp<CR> :term compile % h && xdg-open %:r.html<CR>
-au FileType tex,markdown nn <cr>d :w<CR> :10sp<CR> :term compile % d && xdg-open %:r.docx<CR> 
+au FileType tex,markdown nn <cr>x :w<CR> :15sp<CR> :term compile % x && rm "%:r.aux" "%:r.log" & xdg-open %:r.pdf<CR>
+au FileType tex,markdown nn <cr>p :w<CR> :15sp<CR> :term compile % p && rm "%:r.aux" "%:r.log" & xdg-open %:r.pdf<CR>
+au FileType tex,markdown nn <cr>h :w<CR> :15sp<CR> :term compile % h && xdg-open %:r.html<CR>
+au FileType tex,markdown nn <cr>d :w<CR> :15sp<CR> :term compile % d && xdg-open %:r.docx<CR> 
 au FileType tex ino ;; \
 
 "============================ Additional settings ==============================
