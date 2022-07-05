@@ -99,7 +99,7 @@ local servers = {
       },
     },
   },
-  require "lspconfig".efm.setup {
+  efm = {
     init_options = { documentFormatting = true },
     settings = {
       rootMarkers = { ".git/" },

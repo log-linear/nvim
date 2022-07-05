@@ -157,6 +157,7 @@ au FileType r,rmd setlocal shiftwidth=2 tabstop=2 autoindent cindent
 au FileType vim setlocal shiftwidth=2 tabstop=2
 au FileType lua setlocal shiftwidth=2 tabstop=2
 au BufEnter *.tsv setlocal noexpandtab
+au FileType markdown setlocal wrap
 for mapcmd in ['ino', 'tno']
   exec 'au FileType sh,bash,zsh,tex,r,rmd ' . mapcmd . ' ;s $'
   exec 'au FileType r,rmd ' . mapcmd . ' ;; <-'
