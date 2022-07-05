@@ -102,18 +102,19 @@ local servers = {
   require "lspconfig".efm.setup {
     init_options = { documentFormatting = true },
     settings = {
-      rootMarkers = {".git/"},
-        languages = {
-          python = {
-            {
-              formatCommand = "black --quiet --line-length=80 -",
-              formatStdin = true
-            },
-          }
+      rootMarkers = { ".git/" },
+      languages = {
+        python = {
+          {
+            formatCommand = "black --quiet --line-length=80 -",
+            formatStdin = true
+          },
         }
       }
+    },
+    filetypes = { 'python', }
   },
-openscad_ls = {}
+  openscad_ls = {}
 }
 for server, user_opts in pairs(servers) do
   local server_opts = {
