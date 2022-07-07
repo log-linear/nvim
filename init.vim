@@ -45,7 +45,6 @@ Plug 'nvim-telescope/telescope.nvim'
   nn <leader><leader>r :Telescope lsp_references<CR>
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'neovim/nvim-lspconfig'
-Plug 'ray-x/lsp_signature.nvim'
 Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
   let g:coq_settings = {
   \ 'auto_start': 'shut-up',
@@ -136,8 +135,8 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-.> <C-\><C-n><C-w>:vertical resize +3<CR>'
   exec mapcmd . ' <A-0> <C-\><C-n><C-w>='
   exec mapcmd . ' <A-c> <C-\><C-n>:close<CR>'
-  exec mapcmd . ' <A-d> <C-\><C-n>:bd<CR>'
-  exec mapcmd . ' <A-D> <C-\><C-n>:bd!<CR>'
+  exec mapcmd . ' <A-d> <C-\><C-n>:bp <BAR> bd #<CR>'
+  exec mapcmd . ' <A-D> <C-\><C-n>:bp <BAR> bd! #<CR>'
   exec mapcmd . ' <A-n> <C-\><C-n>:bn<CR>'
   exec mapcmd . ' <A-p> <C-\><C-n>:bp<CR>'
   exec mapcmd . ' <A-s> <C-\><C-n>:sp<CR>:bp<CR>'
