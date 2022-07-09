@@ -77,6 +77,7 @@ local servers = {
   cssls = {},
   html = {},
   vimls = {},
+  sqls = {},
   ltex = {},
   sumneko_lua = {
     settings = {

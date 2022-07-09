@@ -6,27 +6,33 @@ endif
 
 "================================== Plug-ins ===================================
 " Auto-install vim-plug
-if empty(stdpath("config") . '/site/autoload/plug.vim')
-  silent !curl -fLo stdpath("config") . '/site/autoload/plug.vim' --create-dirs
-  \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " Load plugins
-call plug#begin(stdpath("config") . '/plugged')
+call plug#begin()
 Plug 'numToStr/Comment.nvim'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-sleuth'
 Plug 'mhinz/vim-signify'
   map <leader>hu :SignifyHunkUndo<CR>
   map <leader>hd :SignifyHunkDiff<CR>
-  let g:signify_priority = 5
+  let g:signify_priority    = 5
   let g:signify_sign_add    = '▊'
   let g:signify_sign_change = '▊'
 Plug 'karoliskoncevicius/vim-sendtowindow'
   nmap <A-CR> <Plug>SendDown
   vmap <A-CR> <Plug>SendDownV
   imap <A-CR> <Esc><Plug>SendDown
+Plug 'tpope/vim-dadbod'
+  au FileType sql vno <A-CR> :DB<CR>
+  au FileType sql nn <CR><CR> :w<CR>:DB < %<CR>
 Plug 'machakann/vim-sandwich'
-  exec 'source ' . stdpath("config") .
+  exec 'source ' . stdpath("data") .
   \ '/plugged/vim-sandwich/macros/sandwich/keymap/surround.vim'
 Plug 'junegunn/vim-easy-align'
   xmap ga <Plug>(EasyAlign)
@@ -90,7 +96,7 @@ set number relativenumber
 set hidden
 set signcolumn=auto:2
 set autoindent smartindent
-set expandtab tabstop=4 shiftwidth=4
+set tabstop=4 shiftwidth=4
 set termguicolors
 colorscheme gruvbox-material         " Must load AFTER termguicolors
 set list lcs+=tab:\▸\ ,extends:→,precedes:←,nbsp:·,trail:·
@@ -151,11 +157,8 @@ let r_indent_align_args = 0
 let g:r_indent_op_pattern = get(g:, 'r_indent_op_pattern',
 \ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\||>\)\s*$')
 
-au FileType sh,bash,zsh setlocal shiftwidth=2 tabstop=2
-au FileType r,rmd setlocal shiftwidth=2 tabstop=2 autoindent cindent
-au FileType vim setlocal shiftwidth=2 tabstop=2
-au FileType lua setlocal shiftwidth=2 tabstop=2
-au BufEnter *.tsv setlocal noexpandtab
+au FileType sh,bash,zsh,vim,lua,r,rmd setlocal expandtab shiftwidth=2 tabstop=2
+au FileType python,markdown setlocal expandtab shiftwidth=4 tabstop=4
 au FileType markdown setlocal wrap
 for mapcmd in ['ino', 'tno']
   exec 'au FileType sh,bash,zsh,tex,r,rmd ' . mapcmd . ' ;s $'
