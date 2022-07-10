@@ -39,16 +39,17 @@ Plug 'junegunn/vim-easy-align'
   nmap ga <Plug>(EasyAlign)
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-  nn <leader><leader><leader> :Telescope<CR>
-  nn <leader><leader>f :Telescope find_files<CR>
-  nn <leader><leader>g :Telescope git_files<CR>
-  nn <leader><leader>c :Telescope git_bcommits<CR>
-  nn <leader><leader>b :Telescope buffers<CR>
-  nn <leader><leader>o :Telescope oldfiles<CR>
-  nn <leader><leader>/ :Telescope current_buffer_fuzzy_find<CR>
-  nn <leader><leader>m :Telescope keymaps<CR>
-  nn <leader><leader>t :Telescope filetypes<CR>
-  nn <leader><leader>r :Telescope lsp_references<CR>
+  nn <leader><leader> :Telescope<CR>
+  nn <leader>af <cmd>lua require('telescope.builtin').find_files({hidden=true, no_ignore=true})<cr>
+  nn <leader>ff :Telescope find_files<CR>
+  nn <leader>gf :Telescope git_files<CR>
+  nn <leader>gc :Telescope git_bcommits<CR>
+  nn <leader>bl :Telescope buffers<CR>
+  nn <leader>of :Telescope oldfiles<CR>
+  nn <leader>/ :Telescope current_buffer_fuzzy_find<CR>
+  nn <leader>km :Telescope keymaps<CR>
+  nn <leader>ft :Telescope filetypes<CR>
+  nn <leader>fr :Telescope lsp_references<CR>
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'neovim/nvim-lspconfig'
 Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }

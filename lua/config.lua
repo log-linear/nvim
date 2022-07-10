@@ -1,7 +1,7 @@
 -- LUA configs sourced by init.vim
 
 --------------------------------- Comment.nvim ---------------------------------
-require('Comment').setup { padding = false }
+require('Comment').setup {}
 
 ------------------------------- nvim-telescope ---------------------------------
 require('telescope').setup {
@@ -11,11 +11,7 @@ require('telescope').setup {
     sorting_strategy = 'ascending'
   },
   pickers = {
-    find_files = {
-      hidden = false,
-      no_ignore = true,
-    },
-    lsp_references = { path_display = { 'shorten' }, }
+    lsp_references = { path_display = { 'shorten' }, },
   }
 }
 require('telescope').load_extension('fzf')
