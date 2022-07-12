@@ -46,6 +46,8 @@ Plug 'nvim-telescope/telescope.nvim'
   nn <leader>gc :Telescope git_bcommits<CR>
   nn <leader>bl :Telescope buffers<CR>
   nn <leader>of :Telescope oldfiles<CR>
+  nn <leader>rg :Telescope live_grep<CR>
+  nn <leader>ag <cmd>lua require('telescope.builtin').live_grep({additional_args = function() return { "--no-ignore"} end})<CR>
   nn <leader>/ :Telescope current_buffer_fuzzy_find<CR>
   nn <leader>km :Telescope keymaps<CR>
   nn <leader>ft :Telescope filetypes<CR>
@@ -88,18 +90,16 @@ call plug#end()
 
 "============================== General settings ===============================
 set cursorline
-filetype plugin indent on
 set clipboard+=unnamedplus
 set splitbelow splitright
 set mouse=a
 set scrolloff=3 sidescroll=3
 set number relativenumber
-set hidden
 set signcolumn=auto:2
 set autoindent smartindent
 set tabstop=4 shiftwidth=4
 set termguicolors
-colorscheme gruvbox-material         " Must load AFTER termguicolors
+colorscheme gruvbox-material  " Must load AFTER termguicolors
 set list lcs+=tab:\▸\ ,extends:→,precedes:←,nbsp:·,trail:·
 au WinEnter term://* :startinsert
 au TextYankPost * silent! lua vim.highlight.on_yank({timeout = 250})
