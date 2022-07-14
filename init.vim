@@ -1,93 +1,3 @@
-let mapleader=" "
-let g:python3_host_prog = expand(stdpath("config") . '/venv/bin/python3')
-if has("win64") || has("win32") || has("win16")
-  let g:python3_host_prog = expand(stdpath("config") . '/venv/Scripts/python')
-endif
-
-"================================== Plug-ins ===================================
-" Auto-install vim-plug
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-" Load plugins
-call plug#begin()
-Plug 'numToStr/Comment.nvim'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-sleuth'
-Plug 'mhinz/vim-signify'
-  map <leader>hu :SignifyHunkUndo<CR>
-  map <leader>hd :SignifyHunkDiff<CR>
-  let g:signify_priority    = 5
-  let g:signify_sign_add    = '▊'
-  let g:signify_sign_change = '▊'
-Plug 'karoliskoncevicius/vim-sendtowindow'
-  nmap <A-CR> <Plug>SendDown
-  vmap <A-CR> <Plug>SendDownV
-  imap <A-CR> <Esc><Plug>SendDown
-Plug 'tpope/vim-dadbod'
-  au FileType sql vno <A-CR> :DB<CR>
-  au FileType sql nn <CR><CR> :w<CR>:DB < %<CR>
-Plug 'machakann/vim-sandwich'
-  exec 'source ' . stdpath("data") .
-  \ '/plugged/vim-sandwich/macros/sandwich/keymap/surround.vim'
-Plug 'junegunn/vim-easy-align'
-  xmap ga <Plug>(EasyAlign)
-  nmap ga <Plug>(EasyAlign)
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
-  nn <leader><leader> :Telescope<CR>
-  nn <leader>af <cmd>lua require('telescope.builtin').find_files({hidden=true, no_ignore=true})<cr>
-  nn <leader>ff :Telescope find_files<CR>
-  nn <leader>gf :Telescope git_files<CR>
-  nn <leader>gc :Telescope git_bcommits<CR>
-  nn <leader>bl :Telescope buffers<CR>
-  nn <leader>of :Telescope oldfiles<CR>
-  nn <leader>rg :Telescope live_grep<CR>
-  nn <leader>ag <cmd>lua require('telescope.builtin').live_grep({additional_args = function() return { "--no-ignore"} end})<CR>
-  nn <leader>/ :Telescope current_buffer_fuzzy_find<CR>
-  nn <leader>km :Telescope keymaps<CR>
-  nn <leader>ft :Telescope filetypes<CR>
-  nn <leader>fr :Telescope lsp_references<CR>
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
-  let g:coq_settings = {
-  \ 'auto_start': 'shut-up',
-  \ 'keymap': {
-    \ 'recommended': v:false,
-    \ 'manual_complete': '<c-l>',
-    \ 'bigger_preview': '<c-j>',
-    \ 'jump_to_mark': '<c-h>',
-  \ }
-\ }
-  ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
-  ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
-  ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-  ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
-Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
-Plug 'neovim/nvim-lspconfig'
-Plug 'windwp/nvim-autopairs'
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-Plug 'sainnhe/gruvbox-material'
-  let g:gruvbox_material_palette = 'original'
-  let g:gruvbox_material_enable_bold = 1
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'folke/zen-mode.nvim'
-  nn <leader>z :ZenMode<CR>
-Plug 'TaDaa/vimade', { 'on': 'VimadeEnable' }
-  let g:vimade = {
-  \ 'enabletreesitter': 1
-\ }
-  " Lazy load
-  autocmd BufNew * ++once if !exists('g:vimade_loaded') |
-  \ exec 'VimadeEnable' | endif
-  autocmd FocusLost * ++once if !exists('g:vimade_loaded') |
-  \ exec 'VimadeEnable' | call vimade#FocusLost() | endif
-call plug#end()
-
 "============================== General settings ===============================
 set cursorline
 set clipboard+=unnamedplus
@@ -99,17 +9,21 @@ set signcolumn=auto:2
 set autoindent smartindent
 set tabstop=4 shiftwidth=4
 set termguicolors
-colorscheme gruvbox-material  " Must load AFTER termguicolors
 set list lcs+=tab:\▸\ ,extends:→,precedes:←,nbsp:·,trail:·
 au WinEnter term://* :startinsert
-au TextYankPost * silent! lua vim.highlight.on_yank({timeout = 250})
+au TextYankPost * silent! lua vim.highlight.on_yank({timeout=250})
 set incsearch showmatch hlsearch ignorecase smartcase
 set colorcolumn=80
 set nowrap
 highlight ColorColumn ctermbg=238
-let g:netrw_liststyle = 3
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
-let g:netrw_banner = 0
+let g:netrw_liststyle=3
+let g:netrw_bufsettings='noma nomod nu nobl nowrap ro'
+let g:netrw_banner=0
+let mapleader=" "
+let g:python3_host_prog=expand(stdpath("config") . '/venv/bin/python3')
+if has("win64") || has("win32") || has("win16")
+  let g:python3_host_prog=expand(stdpath("config") . '/venv/Scripts/python')
+endif
 
 "================================== Mappings ===================================
 nmap <esc> :noh<CR>
@@ -152,10 +66,8 @@ endfor
 
 "=========================== File-specific settings ============================
 let g:pyindent_open_paren=4
-let g:markdown_fenced_languages = ['python', 'r', 'sh', 'bash', 'zsh', 
-\ 'powershell=ps1', 'sql', 'json', 'html', 'css']
-let r_indent_align_args = 0
-let g:r_indent_op_pattern = get(g:, 'r_indent_op_pattern',
+let r_indent_align_args=0
+let g:r_indent_op_pattern=get(g:, 'r_indent_op_pattern',
 \ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\||>\)\s*$')
 
 au FileType sh,bash,zsh,vim,lua,r,rmd setlocal expandtab shiftwidth=2 tabstop=2
@@ -182,9 +94,12 @@ au FileType tex,markdown nn <cr>h :w<CR> :15sp<CR> :term compile % h && xdg-open
 au FileType tex,markdown nn <cr>d :w<CR> :15sp<CR> :term compile % d && xdg-open %:r.docx<CR> 
 au FileType tex ino ;; \
 
-"============================ Additional settings ==============================
-lua require('config')
+"================================== Plug-ins ===================================
+if !empty(glob(stdpath('config') . '/plugins.vim'))
+  exec 'source ' . stdpath('config') . '/plugins.vim'
+endif
 
+"============================ Additional settings ==============================
 if has("win64") || has("win32") || has("win16")
   exec 'source ' . stdpath("config") . '/win.vim'
 endif
