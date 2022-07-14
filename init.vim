@@ -38,7 +38,7 @@ Plug 'junegunn/vim-easy-align'
   xmap ga <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
   nn <leader><leader> :Telescope<CR>
   nn <leader>af <cmd>lua require('telescope.builtin').find_files({hidden=true, no_ignore=true})<cr>
   nn <leader>ff :Telescope find_files<CR>
@@ -53,7 +53,6 @@ Plug 'nvim-telescope/telescope.nvim'
   nn <leader>ft :Telescope filetypes<CR>
   nn <leader>fr :Telescope lsp_references<CR>
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'neovim/nvim-lspconfig'
 Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
   let g:coq_settings = {
   \ 'auto_start': 'shut-up',
@@ -69,6 +68,7 @@ Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
   ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
   ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
 Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
+Plug 'neovim/nvim-lspconfig'
 Plug 'windwp/nvim-autopairs'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'sainnhe/gruvbox-material'

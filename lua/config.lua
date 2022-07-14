@@ -4,8 +4,15 @@
 require('Comment').setup {}
 
 ------------------------------- nvim-telescope ---------------------------------
+local tel_mmaps = {
+  ["<A-a>"] = require('telescope.actions').toggle_all
+}
 require('telescope').setup {
   defaults = {
+    mappings = {
+      n = tel_mmaps,
+      i = tel_mmaps,
+    },
     layout_strategy = 'flex',
     layout_config = { prompt_position = 'top', },
     sorting_strategy = 'ascending'
