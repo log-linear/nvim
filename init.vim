@@ -75,6 +75,7 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
 endfor
 
 "=========================== File-specific settings ============================
+let g:pyindent_open_paren=shiftwidth()
 let r_indent_align_args=0
 let g:r_indent_op_pattern=get(g:, 'r_indent_op_pattern',
 \ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\||>\)\s*$')

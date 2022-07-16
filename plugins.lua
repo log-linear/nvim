@@ -157,3 +157,5 @@ MUtils.BS = function()
 end
 remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
 
+----------------------------- folke/zen-mode.nvim ------------------------------
+require("zen-mode").setup { window = { width = 87 }, }
