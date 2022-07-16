@@ -1,3 +1,35 @@
+--============================ lua plugin configs ==============================
+
+----------------------- nvim-treesitter/nvim-treesitter ------------------------
+require 'nvim-treesitter.configs'.setup {
+  ensure_installed = 'all',
+  highlight = { enable = true, },
+}
+
+---------------------------- numToStr/Comment.nvim -----------------------------
+require('Comment').setup {}
+
+------------------------ nvim-telescope/telescope.nvim -------------------------
+local maps = {
+  ["<A-a>"] = require('telescope.actions').toggle_all
+}
+require('telescope').setup {
+  defaults = {
+    mappings = {
+      n = maps,
+      i = maps,
+    },
+    layout_strategy = 'flex',
+    layout_config = { prompt_position = 'top', },
+    sorting_strategy = 'ascending'
+  },
+  pickers = {
+    lsp_references = { path_display = { 'shorten' }, },
+  }
+}
+require('telescope').load_extension('fzf')
+
+---------------------------- neovim/nvim-lspconfig -----------------------------
 -- Mappings
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
@@ -92,3 +124,36 @@ for server, user_opts in pairs(servers) do
     require('coq').lsp_ensure_capabilities(server_opts)
   )
 end
+
+---------------------------- windwp/nvim-autopairs -----------------------------
+-- Configs to handle coq_nvim compatibility
+local remap = vim.api.nvim_set_keymap
+local npairs = require('nvim-autopairs')
+
+npairs.setup({ map_bs = false, map_cr = false })
+
+-- skip it, if you use another global object
+_G.MUtils = {}
+
+MUtils.CR = function()
+  if vim.fn.pumvisible() ~= 0 then
+    if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
+      return npairs.esc('<c-y>')
+    else
+      return npairs.esc('<c-e>') .. npairs.autopairs_cr()
+    end
+  else
+    return npairs.autopairs_cr()
+  end
+end
+remap('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true })
+
+MUtils.BS = function()
+  if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({ 'mode' }).mode == 'eval' then
+    return npairs.esc('<c-e>') .. npairs.autopairs_bs()
+  else
+    return npairs.autopairs_bs()
+  end
+end
+remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
+

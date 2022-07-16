@@ -1,3 +1,4 @@
+"=========================== viml plugin configs ===============================
 " Auto-install vim-plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -8,7 +9,6 @@ endif
 
 " Load plugins
 call plug#begin()
-Plug 'numToStr/Comment.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sleuth'
 Plug 'mhinz/vim-signify'
@@ -16,22 +16,20 @@ Plug 'karoliskoncevicius/vim-sendtowindow'
 Plug 'tpope/vim-dadbod'
 Plug 'machakann/vim-sandwich'
 Plug 'junegunn/vim-easy-align'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
 Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
+Plug 'sainnhe/gruvbox-material'
+Plug 'TaDaa/vimade', { 'on': 'VimadeEnable' }
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'numToStr/Comment.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'neovim/nvim-lspconfig'
 Plug 'windwp/nvim-autopairs'
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-Plug 'sainnhe/gruvbox-material'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'folke/zen-mode.nvim'
-Plug 'TaDaa/vimade', { 'on': 'VimadeEnable' }
 call plug#end()
-
-"-------------------------- numToStr/Comment.nvim ------------------------------
-lua require('plug.comment')
 
 "---------------------------- mhinz/vim-signify --------------------------------
 map <leader>hu :SignifyHunkUndo<CR>
@@ -60,17 +58,18 @@ nmap ga <Plug>(EasyAlign)
 nn <leader><leader> :Telescope<CR>
 nn <leader>ff :Telescope find_files<CR>
 nn <leader>af <cmd>lua require('telescope.builtin').find_files({hidden=true, no_ignore=true})<cr>
+nn <leader>gf :Telescope git_files<CR>
 nn <leader>gc :Telescope git_bcommits<CR>
 nn <leader>bl :Telescope buffers<CR>
+nn <leader>/ :Telescope current_buffer_fuzzy_find<CR>
 nn <leader>of :Telescope oldfiles<CR>
 nn <leader>rg :Telescope live_grep<CR>
 nn <leader>arg <cmd>lua require('telescope.builtin').live_grep({additional_args = function() return { "--no-ignore", "--hidden" } end})<CR>
-nn <leader>sg :Telescope grep_string<CR>
-nn <leader>asg <cmd>lua require('telescope.builtin').grep_string({additional_args = function() return { "--no-ignore", "--hidden" } end})<CR>
+nn <leader>wg :Telescope grep_string<CR>
+nn <leader>awg <cmd>lua require('telescope.builtin').grep_string({additional_args = function() return { "--no-ignore", "--hidden" } end})<CR>
 nn <leader>km :Telescope keymaps<CR>
 nn <leader>ft :Telescope filetypes<CR>
 nn <leader>fr :Telescope lsp_references<CR>
-lua require('plug.telescope')
 
 "----------------------------- ms-jpq/coq_nvim ---------------------------------
 let g:coq_settings = {
@@ -87,18 +86,9 @@ ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
 ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
 
-"-------------------------- neovim/nvim-lspconfig ------------------------------
-lua require('plug.nvim-lspconfig')
-
-"-------------------------- windwp/nvim-autopairs ------------------------------
-lua require('plug.nvim-autopairs')
-
-"--------------------- nvim-treesitter/nvim-treesitter -------------------------
-lua require('plug.nvim-treesitter')
-
 "------------------------- sainnhe/gruvbox-material ----------------------------
-let g:gruvbox_material_palette = 'original'
-let g:gruvbox_material_enable_bold = 1
+let g:gruvbox_material_palette='original'
+let g:gruvbox_material_enable_bold=1
 colorscheme gruvbox-material  " Must load AFTER termguicolors
 
 "--------------------------- folke/zen-mode.nvim -------------------------------
@@ -113,4 +103,9 @@ autocmd BufNew * ++once if !exists('g:vimade_loaded') |
 \ exec 'VimadeEnable' | endif
 autocmd FocusLost * ++once if !exists('g:vimade_loaded') |
 \ exec 'VimadeEnable' | call vimade#FocusLost() | endif
+
+"============================ lua plugin configs ===============================
+if !empty(glob(stdpath('config') . '/plugins.lua'))
+  exec 'source ' . stdpath('config') . '/plugins.lua'
+endif
 

@@ -1,5 +1,5 @@
 "============================== General settings ===============================
-set cursorline
+set cursorline cursorcolumn
 set clipboard+=unnamedplus
 set splitbelow splitright
 set mouse=a
@@ -40,6 +40,16 @@ nn <leader>tp :15new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n><C-w>k
 nn <leader>tr :15new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n><C-w>k
 nn <Leader>ve <esc>:Vexplore<CR>
 nn <leader>cd :cd %:p:h<CR>:pwd<CR>
+set wildcharm=<C-Z>
+cno <expr> <up> wildmenumode() ? "\<left>" : "\<up>"
+cno <expr> <down> wildmenumode() ? "\<right>" : "\<down>"
+cno <expr> <PageUp> wildmenumode() ?
+\ "\<left>\<left>\<left>\<left>\<left>\<left>\<left>\<left>" : "\<PageUp>"
+cno <expr> <PageDown> wildmenumode() ?
+\ "\<right>\<right>\<right>\<right>\<right>\<right>\<right>\<right>" : "\<PageDown>"
+cno <expr> <left> wildmenumode() ? "\<up>" : "\<left>"
+cno <expr> <right> wildmenumode() ? " \<bs>\<C-Z>" : "\<right>"
+cno <expr> <space> wildmenumode() ? "<C-y>" : "<space>"
 
 for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-h> <C-\><C-n><C-w>h'
@@ -65,7 +75,6 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
 endfor
 
 "=========================== File-specific settings ============================
-let g:pyindent_open_paren=4
 let r_indent_align_args=0
 let g:r_indent_op_pattern=get(g:, 'r_indent_op_pattern',
 \ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\||>\)\s*$')
@@ -85,6 +94,7 @@ for mapcmd in ['ino', 'tno']
   exec 'au FileType r,rmd ' . mapcmd . ' ;o objs()'
   exec 'au FileType python ' . mapcmd . ' ;. ->'
 endfor
+
 au FileType markdown,rmd ino ;e **<left>
 au FileType markdown,rmd ino ;H <esc>yypv$r=o
 au FileType markdown,rmd ino ;h <esc>yypv$r-o
