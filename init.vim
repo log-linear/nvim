@@ -40,6 +40,7 @@ nn <leader>tp :15new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n><C-w>k
 nn <leader>tr :15new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n><C-w>k
 nn <Leader>ve <esc>:Vexplore<CR>
 nn <leader>cd :cd %:p:h<CR>:pwd<CR>
+nn <leader>.. :cd ..<CR>:pwd<CR>
 set wildcharm=<C-Z>
 cno <expr> <up> wildmenumode() ? "\<left>" : "\<up>"
 cno <expr> <down> wildmenumode() ? "\<right>" : "\<down>"
