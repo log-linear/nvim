@@ -18,10 +18,10 @@ Plug 'machakann/vim-sandwich'
 Plug 'junegunn/vim-easy-align'
 Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
 Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
-Plug 'sainnhe/gruvbox-material'
 Plug 'TaDaa/vimade', { 'on': 'VimadeEnable' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'ellisonleao/gruvbox.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
@@ -85,11 +85,6 @@ ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
 ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
 ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
-
-"------------------------- sainnhe/gruvbox-material ----------------------------
-let g:gruvbox_material_palette='original'
-let g:gruvbox_material_enable_bold=1
-colorscheme gruvbox-material  " Must load AFTER termguicolors
 
 "--------------------------- folke/zen-mode.nvim -------------------------------
 nn <leader>z :ZenMode<CR>

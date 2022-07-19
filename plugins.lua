@@ -6,6 +6,27 @@ require 'nvim-treesitter.configs'.setup {
   highlight = { enable = true, },
 }
 
+--------------------------- ellisonleao/gruvbox.nvim ---------------------------
+local colors = require('gruvbox.palette')
+require('gruvbox').setup({
+  overrides = {
+    SignColumn = { bg = colors.dark0 },
+    GruvboxRedSign = { fg = colors.red, bg = colors.dark0, reverse = false },
+    GruvboxGreenSign = { fg = colors.green, bg = colors.dark0, reverse = false },
+    GruvboxYellowSign = { fg = colors.yellow, bg = colors.dark0, reverse = false },
+    GruvboxBlueSign = { fg = colors.blue, bg = colors.dark0, reverse = false },
+    GruvboxPurpleSign = { fg = colors.purple, bg = colors.dark0, reverse = false },
+    GruvboxAquaSign = { fg = colors.aqua, bg = colors.dark0, reverse = false },
+    GruvboxOrangeSign = { fg = colors.orange, bg = colors.dark0, reverse = false },
+    DiffDelete = { fg = colors.red, bg = colors.bg0, reverse = false },
+    DiffAdd = { fg = colors.green, bg = colors.bg0, reverse = false },
+    DiffChange = { fg = colors.aqua, bg = colors.bg0, reverse = false },
+    DiffText = { fg = colors.yellow, bg = colors.bg0, reverse = false },
+    Operator = { fg = colors.orange, italic = false },
+  }
+})
+vim.cmd("colorscheme gruvbox")
+
 ---------------------------- numToStr/Comment.nvim -----------------------------
 require('Comment').setup {}
 
