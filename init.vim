@@ -20,10 +20,6 @@ let g:netrw_liststyle=3
 let g:netrw_bufsettings='noma nomod nu nobl nowrap ro'
 let g:netrw_banner=0
 let mapleader=" "
-let g:python3_host_prog=expand(stdpath("config") . '/venv/bin/python3')
-if has("win64") || has("win32") || has("win16")
-  let g:python3_host_prog=expand(stdpath("config") . '/venv/Scripts/python')
-endif
 
 "================================== Mappings ===================================
 nmap <esc> :noh<CR>

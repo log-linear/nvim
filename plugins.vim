@@ -1,4 +1,9 @@
 "=========================== viml plugin configs ===============================
+let g:python3_host_prog=expand(stdpath("config") . '/venv/bin/python3')
+if has("win64") || has("win32") || has("win16")
+  let g:python3_host_prog=expand(stdpath("config") . '/venv/Scripts/python')
+endif
+
 " Auto-install vim-plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
