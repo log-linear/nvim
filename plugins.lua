@@ -9,15 +9,16 @@ require 'nvim-treesitter.configs'.setup {
 --------------------------- ellisonleao/gruvbox.nvim ---------------------------
 local colors = require('gruvbox.palette')
 require('gruvbox').setup({
+  contrast = "hard",
   overrides = {
-    SignColumn = { bg = colors.dark0 },
-    GruvboxRedSign = { fg = colors.red, bg = colors.dark0, reverse = false },
-    GruvboxGreenSign = { fg = colors.green, bg = colors.dark0, reverse = false },
-    GruvboxYellowSign = { fg = colors.yellow, bg = colors.dark0, reverse = false },
-    GruvboxBlueSign = { fg = colors.blue, bg = colors.dark0, reverse = false },
-    GruvboxPurpleSign = { fg = colors.purple, bg = colors.dark0, reverse = false },
-    GruvboxAquaSign = { fg = colors.aqua, bg = colors.dark0, reverse = false },
-    GruvboxOrangeSign = { fg = colors.orange, bg = colors.dark0, reverse = false },
+    SignColumn = { bg = colors.light0_hard },
+    GruvboxRedSign = { fg = colors.red, bg = colors.light0_hard, reverse = false },
+    GruvboxGreenSign = { fg = colors.green, bg = colors.light0_hard, reverse = false },
+    GruvboxYellowSign = { fg = colors.yellow, bg = colors.light0_hard, reverse = false },
+    GruvboxBlueSign = { fg = colors.blue, bg = colors.light0_hard, reverse = false },
+    GruvboxPurpleSign = { fg = colors.purple, bg = colors.light0_hard, reverse = false },
+    GruvboxAquaSign = { fg = colors.aqua, bg = colors.light0_hard, reverse = false },
+    GruvboxOrangeSign = { fg = colors.orange, bg = colors.light0_hard, reverse = false },
     DiffDelete = { fg = colors.red, bg = colors.bg0, reverse = false },
     DiffAdd = { fg = colors.green, bg = colors.bg0, reverse = false },
     DiffChange = { fg = colors.aqua, bg = colors.bg0, reverse = false },
@@ -179,4 +180,49 @@ end
 remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
 
 ----------------------------- folke/zen-mode.nvim ------------------------------
-require("zen-mode").setup { window = { width = 87 }, }
+require("zen-mode").setup {
+  window = { width = 87 },
+  backdrop = 1,
+}
+
+--------------------------- lewis6991/gitsigns.nvim ----------------------------
+require('gitsigns').setup {
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', function()
+      if vim.wo.diff then return ']c' end
+      vim.schedule(function() gs.next_hunk() end)
+      return '<Ignore>'
+    end, { expr = true })
+
+    map('n', '[c', function()
+      if vim.wo.diff then return '[c' end
+      vim.schedule(function() gs.prev_hunk() end)
+      return '<Ignore>'
+    end, { expr = true })
+
+    -- Actions
+    map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+    map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    map('n', '<leader>hS', gs.stage_buffer)
+    map('n', '<leader>hu', gs.undo_stage_hunk)
+    map('n', '<leader>hR', gs.reset_buffer)
+    map('n', '<leader>hp', gs.preview_hunk)
+    map('n', '<leader>hb', function() gs.blame_line { full = true } end)
+    map('n', '<leader>tb', gs.toggle_current_line_blame)
+    map('n', '<leader>hd', gs.diffthis)
+    map('n', '<leader>hD', function() gs.diffthis('~') end)
+    map('n', '<leader>td', gs.toggle_deleted)
+
+    -- Text object
+    map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+  end
+}

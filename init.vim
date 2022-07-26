@@ -5,7 +5,7 @@ set splitbelow splitright
 set mouse=a
 set scrolloff=3 sidescroll=3
 set number relativenumber
-set signcolumn=auto:2
+set signcolumn=yes:2
 set autoindent smartindent
 set tabstop=4 shiftwidth=4
 set termguicolors
@@ -15,7 +15,6 @@ au TextYankPost * silent! lua vim.highlight.on_yank({timeout=250})
 set incsearch showmatch hlsearch ignorecase smartcase
 set colorcolumn=80
 set nowrap
-highlight ColorColumn ctermbg=238
 let g:netrw_liststyle=3
 let g:netrw_bufsettings='noma nomod nu nobl nowrap ro'
 let g:netrw_banner=0
@@ -79,7 +78,7 @@ let g:r_indent_op_pattern=get(g:, 'r_indent_op_pattern',
 
 au FileType sh,bash,zsh,vim,lua,r,rmd setlocal expandtab shiftwidth=2 tabstop=2
 au FileType python,markdown setlocal expandtab shiftwidth=4 tabstop=4
-au FileType markdown setlocal wrap
+au FileType markdown setlocal wrap linebreak
 for mapcmd in ['ino', 'tno']
   exec 'au FileType sh,bash,zsh,tex,r,rmd ' . mapcmd . ' ;s $'
   exec 'au FileType r,rmd ' . mapcmd . ' ;; <-'

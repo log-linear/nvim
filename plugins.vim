@@ -16,7 +16,6 @@ endif
 call plug#begin()
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sleuth'
-Plug 'mhinz/vim-signify'
 Plug 'karoliskoncevicius/vim-sendtowindow'
 Plug 'tpope/vim-dadbod'
 Plug 'machakann/vim-sandwich'
@@ -34,6 +33,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'windwp/nvim-autopairs'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'folke/zen-mode.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 call plug#end()
 
 "---------------------------- mhinz/vim-signify --------------------------------
@@ -78,13 +78,13 @@ nn <leader>fr :Telescope lsp_references<CR>
 
 "----------------------------- ms-jpq/coq_nvim ---------------------------------
 let g:coq_settings = {
-\ 'auto_start': 'shut-up',
-\ 'keymap': {
-\ 'recommended': v:false,
-\ 'manual_complete': '<c-l>',
-\ 'bigger_preview': '<c-j>',
-\ 'jump_to_mark': '<c-h>',
-\ }
+\   'auto_start': 'shut-up',
+\   'keymap': {
+\     'recommended': v:false,
+\     'manual_complete': '<c-l>',
+\     'bigger_preview': '<c-j>',
+\     'jump_to_mark': '<c-h>',
+\   }
 \ }
 ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
 ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
