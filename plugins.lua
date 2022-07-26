@@ -26,8 +26,8 @@ require('gruvbox').setup({
     Operator = { fg = colors.orange, italic = false },
   }
 })
-vim.cmd("colorscheme gruvbox")
 vim.cmd("set bg=light")
+vim.cmd("colorscheme gruvbox")
 
 ---------------------------- numToStr/Comment.nvim -----------------------------
 require('Comment').setup {}
@@ -182,7 +182,7 @@ remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
 
 ----------------------------- folke/zen-mode.nvim ------------------------------
 require("zen-mode").setup {
-  window = { width = 87 },
+  window = { width = 90 },
   backdrop = 1,
 }
 

@@ -1,5 +1,5 @@
 "============================== General settings ===============================
-set cursorline cursorcolumn
+set cursorline
 set clipboard+=unnamedplus
 set splitbelow splitright
 set mouse=a

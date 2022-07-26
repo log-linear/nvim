@@ -36,13 +36,6 @@ Plug 'folke/zen-mode.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 call plug#end()
 
-"---------------------------- mhinz/vim-signify --------------------------------
-map <leader>hu :SignifyHunkUndo<CR>
-map <leader>hd :SignifyHunkDiff<CR>
-let g:signify_priority    = 5
-let g:signify_sign_add    = '▊'
-let g:signify_sign_change = '▊'
-
 "------------------- karoliskoncevicius/vim-sendtowindow -----------------------
 nmap <A-CR> <Plug>SendDown
 vmap <A-CR> <Plug>SendDownV
