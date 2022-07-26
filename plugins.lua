@@ -27,6 +27,7 @@ require('gruvbox').setup({
   }
 })
 vim.cmd("colorscheme gruvbox")
+vim.cmd("set bg=light")
 
 ---------------------------- numToStr/Comment.nvim -----------------------------
 require('Comment').setup {}
