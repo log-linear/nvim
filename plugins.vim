@@ -15,7 +15,7 @@ endif
 " Load plugins
 call plug#begin()
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-sleuth'
+Plug 'Darazaki/indent-o-matic'
 Plug 'karoliskoncevicius/vim-sendtowindow'
 Plug 'tpope/vim-dadbod'
 Plug 'machakann/vim-sandwich'
@@ -25,6 +25,7 @@ Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
 Plug 'TaDaa/vimade', { 'on': 'VimadeEnable' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'm-demare/hlargs.nvim'
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
@@ -32,11 +33,11 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'neovim/nvim-lspconfig'
 Plug 'windwp/nvim-autopairs'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'folke/zen-mode.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 call plug#end()
 
 "------------------- karoliskoncevicius/vim-sendtowindow -----------------------
+let g:sendtowindow_use_defaults=0
 nmap <A-CR> <Plug>SendDown
 vmap <A-CR> <Plug>SendDownV
 imap <A-CR> <Esc><Plug>SendDown
@@ -55,7 +56,7 @@ nmap ga <Plug>(EasyAlign)
 "---------------------- nvim-telescope/telescope.nvim --------------------------
 nn <leader><leader> :Telescope<CR>
 nn <leader>ff :Telescope find_files<CR>
-nn <leader>af <cmd>lua require('telescope.builtin').find_files({hidden=true, no_ignore=true})<cr>
+nn <leader>af <cmd>lua require('telescope.builtin').find_files({hidden = true, no_ignore = true})<cr>
 nn <leader>gf :Telescope git_files<CR>
 nn <leader>gc :Telescope git_bcommits<CR>
 nn <leader>bl :Telescope buffers<CR>
@@ -83,9 +84,6 @@ ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
 ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
 ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
-
-"--------------------------- folke/zen-mode.nvim -------------------------------
-nn <leader>z :ZenMode<CR>
 
 "------------------------------- TaDaa/vimade ----------------------------------
 let g:vimade = {

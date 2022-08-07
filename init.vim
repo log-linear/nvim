@@ -15,9 +15,11 @@ au TextYankPost * silent! lua vim.highlight.on_yank({timeout=250})
 set incsearch showmatch hlsearch ignorecase smartcase
 set colorcolumn=80
 set nowrap
-let g:netrw_liststyle=3
-let g:netrw_bufsettings='noma nomod nu nobl nowrap ro'
-let g:netrw_banner=0
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
 let mapleader=" "
 
 "================================== Mappings ===================================
@@ -95,11 +97,8 @@ endfor
 au FileType markdown,rmd ino ;e **<left>
 au FileType markdown,rmd ino ;H <esc>yypv$r=o
 au FileType markdown,rmd ino ;h <esc>yypv$r-o
-au FileType tex,markdown nn <cr>x :w<CR> :15sp<CR> :term compile % x && rm "%:r.aux" "%:r.log" & xdg-open %:r.pdf<CR>
-au FileType tex,markdown nn <cr>p :w<CR> :15sp<CR> :term compile % p && rm "%:r.aux" "%:r.log" & xdg-open %:r.pdf<CR>
-au FileType tex,markdown nn <cr>h :w<CR> :15sp<CR> :term compile % h && xdg-open %:r.html<CR>
-au FileType tex,markdown nn <cr>d :w<CR> :15sp<CR> :term compile % d && xdg-open %:r.docx<CR> 
 au FileType tex ino ;; \
+au FileType tex,markdown nn <CR><CR> :w<CR> :execute '!compile "%:p" "'.input('What type of document would you like to compile? Choose from `h` for html, `p` for pdf, `d` for docx, or `x` for a xelatex pdf: ').'"'<CR>
 
 "================================== Plug-ins ===================================
 if !empty(glob(stdpath('config') . '/plugins.vim'))

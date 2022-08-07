@@ -6,6 +6,26 @@ require 'nvim-treesitter.configs'.setup {
   highlight = { enable = true, },
 }
 
+----------------------------- m-demare/hlargs.nvim -----------------------------
+require('hlargs').setup {
+  use_colorpalette = true,
+  colorpalette = {
+    { fg = '#62006f' },
+    { fg = '#49d709' },
+    { fg = '#ff7bb2' },
+    { fg = '#223000' },
+    { fg = '#05b8ff' },
+  },
+  declarations = {
+    python = { 'self', 'cls' },
+    lua = { 'self' }
+  },
+  usages = {
+    python = { 'self', 'cls' },
+    lua = { 'self' }
+  }
+}
+
 --------------------------- ellisonleao/gruvbox.nvim ---------------------------
 local colors = require('gruvbox.palette')
 require('gruvbox').setup({
@@ -99,14 +119,12 @@ local servers = {
   pyright = {},
   r_language_server = { settings = { rich_documentation = false } },
   bashls = {},
-  powershell_es = {},
   texlab = {},
   jsonls = {},
   cssls = {},
   html = {},
   vimls = {},
   sqls = {},
-  ltex = {},
   sumneko_lua = {
     settings = {
       Lua = {
@@ -179,12 +197,6 @@ MUtils.BS = function()
   end
 end
 remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
-
------------------------------ folke/zen-mode.nvim ------------------------------
-require("zen-mode").setup {
-  window = { width = 90 },
-  backdrop = 1,
-}
 
 --------------------------- lewis6991/gitsigns.nvim ----------------------------
 require('gitsigns').setup {
