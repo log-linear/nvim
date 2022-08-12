@@ -17,7 +17,6 @@ call plug#begin()
 Plug 'tpope/vim-fugitive'
 Plug 'Darazaki/indent-o-matic'
 Plug 'karoliskoncevicius/vim-sendtowindow'
-Plug 'tpope/vim-dadbod'
 Plug 'machakann/vim-sandwich'
 Plug 'junegunn/vim-easy-align'
 Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
@@ -41,10 +40,6 @@ let g:sendtowindow_use_defaults=0
 nmap <A-CR> <Plug>SendDown
 vmap <A-CR> <Plug>SendDownV
 imap <A-CR> <Esc><Plug>SendDown
-
-"----------------------------- tpope/vim-dadbod --------------------------------
-au FileType sql vno <A-CR> :DB<CR>
-au FileType sql nn <CR><CR> :w<CR>:DB < %<CR>
 
 "-------------------------- machakann/vim-sandwich -----------------------------
 runtime macros/sandwich/keymap/surround.vim

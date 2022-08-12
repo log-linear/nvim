@@ -35,6 +35,7 @@ nn <cr><cr> :w<CR> :15sp<CR> :term compile %<CR>
 nn <leader>tt :15new<CR><C-\><C-n>:call termopen("zsh")<CR><C-\><C-n><C-w>k
 nn <leader>tp :15new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n><C-w>k
 nn <leader>tr :15new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n><C-w>k
+nn <leader>ts :15new<CR><C-\><C-n>:call termopen("usql")<CR><C-\><C-n><C-w>k
 nn <Leader>ve <esc>:Vexplore<CR>
 nn <leader>cd :cd %:p:h<CR>:pwd<CR>
 nn <leader>.. :cd ..<CR>:pwd<CR>
