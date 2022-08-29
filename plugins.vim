@@ -15,7 +15,6 @@ endif
 " Load plugins
 call plug#begin()
 Plug 'tpope/vim-fugitive'
-Plug 'Darazaki/indent-o-matic'
 Plug 'karoliskoncevicius/vim-sendtowindow'
 Plug 'machakann/vim-sandwich'
 Plug 'junegunn/vim-easy-align'
