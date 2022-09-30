@@ -82,6 +82,14 @@ let g:r_indent_op_pattern=get(g:, 'r_indent_op_pattern',
 au FileType sh,bash,zsh,vim,lua,r,rmd setlocal expandtab shiftwidth=2 tabstop=2
 au FileType python,markdown,sql setlocal expandtab shiftwidth=4 tabstop=4
 au FileType markdown setlocal wrap linebreak
+au BufEnter *.ipynb nn <leader>jp :w<CR> :!jupyter nbconvert --to script %:p<CR> \| :e %:p:r.py<CR>
+au BufEnter *.ipynb nn <leader>jm :w<CR> :!jupyter nbconvert --to markdown %:p<CR> \| :e %:p:r.md<CR>
+au FileType json nn <leader>fo :w<CR> :%!python -m json.tool<CR>
+au FileType markdown,rmd ino ;e **<left>
+au FileType markdown,rmd ino ;H <esc>yypv$r=o
+au FileType markdown,rmd ino ;h <esc>yypv$r-o
+au FileType tex ino ;; \
+au FileType tex,markdown nn <CR><CR> :w<CR> :execute '!compile "%:p" "'.input('What type of document would you like to compile? Choose from `h` for html, `p` for pdf, `d` for docx, or `x` for a xelatex pdf: ').'"'<CR>
 for mapcmd in ['ino', 'tno']
   exec 'au FileType sh,bash,zsh,tex,r,rmd ' . mapcmd . ' ;s $'
   exec 'au FileType r,rmd ' . mapcmd . ' ;; <-'
@@ -90,17 +98,11 @@ for mapcmd in ['ino', 'tno']
   exec 'au FileType r,rmd ' . mapcmd . ' ;in %in%'
   exec 'au FileType r,rmd ' . mapcmd . ' ;r %%'
   exec 'au FileType r,rmd ' . mapcmd . ' ;v <space>\|> vd()'
+  exec 'au FileType r,rmd ' . mapcmd . ' ;V <space>\|> View()'
   exec 'au FileType r,rmd ' . mapcmd . ' ;c <space>\|> colnames()'
   exec 'au FileType r,rmd ' . mapcmd . ' ;o objs()'
   exec 'au FileType python ' . mapcmd . ' ;l ->'
 endfor
-
-au BufEnter *.ipynb nn <leader>jp :w<CR> :!jupyter nbconvert --to script %:p<CR> \| :e %:p:r.py<CR>
-au FileType markdown,rmd ino ;e **<left>
-au FileType markdown,rmd ino ;H <esc>yypv$r=o
-au FileType markdown,rmd ino ;h <esc>yypv$r-o
-au FileType tex ino ;; \
-au FileType tex,markdown nn <CR><CR> :w<CR> :execute '!compile "%:p" "'.input('What type of document would you like to compile? Choose from `h` for html, `p` for pdf, `d` for docx, or `x` for a xelatex pdf: ').'"'<CR>
 
 "================================== Plug-ins ===================================
 if !empty(glob(stdpath('config') . '/plugins.vim'))

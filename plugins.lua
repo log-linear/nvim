@@ -1,20 +1,41 @@
 --============================ lua plugin configs ==============================
 
 ----------------------- nvim-treesitter/nvim-treesitter ------------------------
+local m = require'markid'
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = 'all',
   highlight = { enable = true, },
+  markid = {
+    enable = false,
+    colors = m.colors.dark
+  }
 }
+
+m.colors = {
+  dark = { '#619e9d', '#9E6162', '#81A35C', '#7E5CA3', '#9E9261', '#616D9E', '#97687B', '#689784', '#999C63', '#66639C', '#967869', '#698796', '#9E6189', '#619E76' },
+  bright = { '#f5c0c0', '#f5d3c0', '#f5eac0', '#dff5c0', '#c0f5c8', '#c0f5f1', '#c0dbf5', '#ccc0f5', '#f2c0f5' },
+  medium = {'#c99d9d', '#c9a99d', '#c9b79d', '#c9c39d', '#bdc99d', '#a9c99d', '#9dc9b6', '#9dc2c9', '#9da9c9', '#b29dc9', '#c99dc1' }
+}
+vim.keymap.set('n', '<space>m', ':TST markid<CR>')
 
 ----------------------------- m-demare/hlargs.nvim -----------------------------
 require('hlargs').setup {
   use_colorpalette = true,
   colorpalette = {
-    { fg = '#62006f' },
-    { fg = '#49d709' },
-    { fg = '#ff7bb2' },
-    { fg = '#223000' },
-    { fg = '#05b8ff' },
+    { fg = '#619e9d' },
+    { fg = '#9E6162' },
+    { fg = '#81A35C' },
+    { fg = '#7E5CA3' },
+    { fg = '#9E9261' },
+    { fg = '#616D9E' },
+    { fg = '#97687B' },
+    { fg = '#689784' },
+    { fg = '#999C63' },
+    { fg = '#66639C' },
+    { fg = '#967869' },
+    { fg = '#698796' },
+    { fg = '#9E6189' },
+    { fg = '#619E76' },
   },
   declarations = {
     python = { 'self', 'cls' },

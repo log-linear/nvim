@@ -24,6 +24,7 @@ Plug 'TaDaa/vimade', { 'on': 'VimadeEnable' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'm-demare/hlargs.nvim'
+Plug 'David-Kunz/markid'
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
