@@ -23,7 +23,7 @@ Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
 Plug 'TaDaa/vimade', { 'on': 'VimadeEnable' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-Plug 'm-demare/hlargs.nvim'
+Plug 'nvim-treesitter/playground'
 Plug 'David-Kunz/markid'
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'numToStr/Comment.nvim'

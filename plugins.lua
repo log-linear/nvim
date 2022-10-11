@@ -1,50 +1,99 @@
 --============================ lua plugin configs ==============================
 
 ----------------------- nvim-treesitter/nvim-treesitter ------------------------
+local ts = vim.treesitter
 local m = require'markid'
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = 'all',
   highlight = { enable = true, },
   markid = {
     enable = false,
-    colors = m.colors.dark
+    queries = m.queries
   }
 }
+vim.api.nvim_set_hl(0, 'markid1',  { fg = '#6a295d' })
+vim.api.nvim_set_hl(0, 'markid2',  { fg = '#365e21' })
+vim.api.nvim_set_hl(0, 'markid3',  { fg = '#557cbf' })
+vim.api.nvim_set_hl(0, 'markid4',  { fg = '#896a2a' })
+vim.api.nvim_set_hl(0, 'markid5',  { fg = '#2f3766' })
+vim.api.nvim_set_hl(0, 'markid6',  { fg = '#008374' })
+vim.api.nvim_set_hl(0, 'markid7',  { fg = '#82332c' })
+vim.api.nvim_set_hl(0, 'markid8',  { fg = '#348d9f' })
+vim.api.nvim_set_hl(0, 'markid9',  { fg = '#ac7188' })
+vim.api.nvim_set_hl(0, 'markid10', { fg = '#174233' })
 
-m.colors = {
-  dark = { '#619e9d', '#9E6162', '#81A35C', '#7E5CA3', '#9E9261', '#616D9E', '#97687B', '#689784', '#999C63', '#66639C', '#967869', '#698796', '#9E6189', '#619E76' },
-  bright = { '#f5c0c0', '#f5d3c0', '#f5eac0', '#dff5c0', '#c0f5c8', '#c0f5f1', '#c0dbf5', '#ccc0f5', '#f2c0f5' },
-  medium = {'#c99d9d', '#c9a99d', '#c9b79d', '#c9c39d', '#bdc99d', '#a9c99d', '#9dc9b6', '#9dc2c9', '#9da9c9', '#b29dc9', '#c99dc1' }
-}
+
 vim.keymap.set('n', '<space>m', ':TST markid<CR>')
-
------------------------------ m-demare/hlargs.nvim -----------------------------
-require('hlargs').setup {
-  use_colorpalette = true,
-  colorpalette = {
-    { fg = '#619e9d' },
-    { fg = '#9E6162' },
-    { fg = '#81A35C' },
-    { fg = '#7E5CA3' },
-    { fg = '#9E9261' },
-    { fg = '#616D9E' },
-    { fg = '#97687B' },
-    { fg = '#689784' },
-    { fg = '#999C63' },
-    { fg = '#66639C' },
-    { fg = '#967869' },
-    { fg = '#698796' },
-    { fg = '#9E6189' },
-    { fg = '#619E76' },
-  },
-  declarations = {
-    python = { 'self', 'cls' },
-    lua = { 'self' }
-  },
-  usages = {
-    python = { 'self', 'cls' },
-    lua = { 'self' }
-  }
+m.queries = {
+  default = '(identifier) @markid',
+  bash = '(variable_name) @markid',
+  json = '(pair key: (string) @markid)',
+  python = [[
+    (import_statement name: (dotted_name (identifier) @markid))
+    (import_from_statement name: (dotted_name (identifier) @markid))
+    (assignment (identifier) @markid)
+    (delete_statement (identifier) @markid)
+    (attribute object: (identifier) @markid)
+    (augmented_assignment (identifier) @markid)
+    (typed_default_parameter (identifier) @markid)
+    (default_parameter (identifier) @markid)
+    (tuple_pattern (identifier) @markid)
+    (pattern_list (identifier) @markid)
+    (argument_list (identifier) @markid)
+    (keyword_argument value: (identifier) @markid)
+    (global_statement (identifier) @markid)
+    (nonlocal_statement (identifier) @markid)
+    (typed_parameter (identifier) @markid)
+    (list (identifier) @markid)
+    (list_splat (identifier) @markid)
+    (dictionary_splat (identifier) @markid)
+    (list_splat_pattern (identifier) @markid)
+    (dictionary_splat_pattern (identifier) @markid)
+    (pair (identifier) @markid)
+    (for_statement (identifier) @markid)
+    (set_comprehension (identifier) @markid)
+    (list_comprehension (identifier) @markid)
+    (generator_expression (identifier) @markid)
+    (for_in_clause (identifier) @markid)
+    (comparison_operator (identifier) @markid)
+    (not_operator (identifier) @markid)
+    (binary_operator (identifier) @markid)
+    (subscript (identifier) @markid)
+    (expression_list (identifier) @markid)
+    (parameters (identifier) @markid)
+    (tuple (identifier) @markid)
+    (slice (identifier) @markid)
+    (as_pattern_target (identifier) @markid)
+    (return_statement (identifier) @markid)
+    (if_statement (identifier) @markid)
+    (boolean_operator (identifier) @markid)
+  ]],
+  r = [[
+    (arguments (identifier) @markid)
+    (left_assignment (identifier) @markid)
+    (equals_assignment (identifier) @markid)
+    (subset (identifier) @markid)
+    (subset2 (identifier) @markid)
+    (right_assignment (identifier) @markid)
+    (default_argument value: (identifier) @markid)
+    (binary (identifier) @markid)
+    (unary (identifier) @markid)
+    (pipe (identifier) @markid)
+    (if condition: (identifier) @markid)
+    (for (identifier) @markid)
+    (dollar . (identifier) @markid)
+    (formal_parameters (identifier) @markid)
+    (default_parameter (identifier) @markid)
+  ]],
+  sql = [[
+    (field name: (identifier) @markid)
+    (column_definition name: (identifier) @markid)
+    (field table_alias: (identifier) @markid)
+    (relation table_alias: (identifier) @markid)
+    (table_reference name: (identifier) @markid)
+    (column name: (identifier) @markid)
+    (select_expression alias: (identifier) @markid)
+  ]]
 }
 
 --------------------------- ellisonleao/gruvbox.nvim ---------------------------
@@ -119,7 +168,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>fo', vim.lsp.buf.formatting, bufopts)
+  vim.keymap.set('n', '<space>fo', vim.lsp.buf.format, bufopts)
 end
 
 -- LSP-built-in snippet support
