@@ -24,8 +24,9 @@ Plug 'TaDaa/vimade', { 'on': 'VimadeEnable' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-treesitter/playground'
+Plug 'p00f/nvim-ts-rainbow'
 Plug 'David-Kunz/markid'
-Plug 'ellisonleao/gruvbox.nvim'
+Plug 'mcchrish/zenbones.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
@@ -89,6 +90,15 @@ autocmd BufNew * ++once if !exists('g:vimade_loaded') |
 \ exec 'VimadeEnable' | endif
 autocmd FocusLost * ++once if !exists('g:vimade_loaded') |
 \ exec 'VimadeEnable' | call vimade#FocusLost() | endif
+
+"-------------------------- mcchrish/zenbones.nvim'  ---------------------------
+set background=light
+let g:zenwritten_compat = 1
+let g:zenwritten_lightness = 'bright'
+
+colorscheme zenwritten
+highlight Function guifg=#353535 guibg=NONE guisp=NONE gui=bold cterm=NONE
+highlight ColorColumn guifg=NONE guibg=#E5E5E5 guisp=NONE gui=NONE cterm=NONE
 
 "============================ lua plugin configs ===============================
 if !empty(glob(stdpath('config') . '/plugins.lua'))

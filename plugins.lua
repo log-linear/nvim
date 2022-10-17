@@ -4,6 +4,19 @@
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = 'all',
   highlight = { enable = true, },
+  markid = { enable = true },
+  rainbow = {
+    enable = true,
+    colors = {
+      '#918353',
+      '#483c7a',
+      '#614d07',
+      '#1384bf',
+      '#bf6c68',
+      '#008f8d',
+      '#662631',
+    }
+  }
 }
 
 ------------------------------ David-Kunz/markid -------------------------------
@@ -24,29 +37,6 @@ vim.api.nvim_set_hl(0, 'markid8',  { fg = '#348d9f' })
 vim.api.nvim_set_hl(0, 'markid9',  { fg = '#ac7188' })
 vim.api.nvim_set_hl(0, 'markid10', { fg = '#174233' })
 vim.keymap.set('n', '<space>m', ':TST markid<CR>')
-
---------------------------- ellisonleao/gruvbox.nvim ---------------------------
-local colors = require('gruvbox.palette')
-require('gruvbox').setup({
-  contrast = "hard",
-  overrides = {
-    SignColumn = { bg = colors.light0_hard },
-    GruvboxRedSign = { fg = colors.red, bg = colors.light0_hard, reverse = false },
-    GruvboxGreenSign = { fg = colors.green, bg = colors.light0_hard, reverse = false },
-    GruvboxYellowSign = { fg = colors.yellow, bg = colors.light0_hard, reverse = false },
-    GruvboxBlueSign = { fg = colors.blue, bg = colors.light0_hard, reverse = false },
-    GruvboxPurpleSign = { fg = colors.purple, bg = colors.light0_hard, reverse = false },
-    GruvboxAquaSign = { fg = colors.aqua, bg = colors.light0_hard, reverse = false },
-    GruvboxOrangeSign = { fg = colors.orange, bg = colors.light0_hard, reverse = false },
-    DiffDelete = { fg = colors.red, bg = colors.bg0, reverse = false },
-    DiffAdd = { fg = colors.green, bg = colors.bg0, reverse = false },
-    DiffChange = { fg = colors.aqua, bg = colors.bg0, reverse = false },
-    DiffText = { fg = colors.yellow, bg = colors.bg0, reverse = false },
-    Operator = { fg = colors.orange, italic = false },
-  }
-})
-vim.cmd("set bg=light")
-vim.cmd("colorscheme gruvbox")
 
 ---------------------------- numToStr/Comment.nvim -----------------------------
 require('Comment').setup {}
