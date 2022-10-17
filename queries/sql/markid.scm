@@ -1,0 +1,7 @@
+(column_definition name: (identifier) @markid)
+(column name: (identifier) @markid)
+(field name: (identifier) @markid)
+(field table_alias: (identifier) @markid)
+(relation table_alias: (identifier) @markid)
+(select_expression alias: (identifier) @markid)
+(table_reference name: (identifier) @markid)

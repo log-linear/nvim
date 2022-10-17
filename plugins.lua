@@ -1,15 +1,17 @@
 --============================ lua plugin configs ==============================
 
 ----------------------- nvim-treesitter/nvim-treesitter ------------------------
-local ts = vim.treesitter
-local m = require'markid'
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = 'all',
   highlight = { enable = true, },
-  markid = {
-    enable = false,
-    queries = m.queries
-  }
+}
+
+------------------------------ David-Kunz/markid -------------------------------
+local m = require'markid'
+m.queries = {
+  default = '(identifier) @markid',
+  json = '(pair key: (string) @markid)',
+  bash = '((variable_name) @markid)'
 }
 vim.api.nvim_set_hl(0, 'markid1',  { fg = '#6a295d' })
 vim.api.nvim_set_hl(0, 'markid2',  { fg = '#365e21' })
@@ -21,80 +23,7 @@ vim.api.nvim_set_hl(0, 'markid7',  { fg = '#82332c' })
 vim.api.nvim_set_hl(0, 'markid8',  { fg = '#348d9f' })
 vim.api.nvim_set_hl(0, 'markid9',  { fg = '#ac7188' })
 vim.api.nvim_set_hl(0, 'markid10', { fg = '#174233' })
-
-
 vim.keymap.set('n', '<space>m', ':TST markid<CR>')
-m.queries = {
-  default = '(identifier) @markid',
-  bash = '(variable_name) @markid',
-  json = '(pair key: (string) @markid)',
-  python = [[
-    (import_statement name: (dotted_name (identifier) @markid))
-    (import_from_statement name: (dotted_name (identifier) @markid))
-    (assignment (identifier) @markid)
-    (delete_statement (identifier) @markid)
-    (attribute object: (identifier) @markid)
-    (augmented_assignment (identifier) @markid)
-    (typed_default_parameter (identifier) @markid)
-    (default_parameter (identifier) @markid)
-    (tuple_pattern (identifier) @markid)
-    (pattern_list (identifier) @markid)
-    (argument_list (identifier) @markid)
-    (keyword_argument value: (identifier) @markid)
-    (global_statement (identifier) @markid)
-    (nonlocal_statement (identifier) @markid)
-    (typed_parameter (identifier) @markid)
-    (list (identifier) @markid)
-    (list_splat (identifier) @markid)
-    (dictionary_splat (identifier) @markid)
-    (list_splat_pattern (identifier) @markid)
-    (dictionary_splat_pattern (identifier) @markid)
-    (pair (identifier) @markid)
-    (for_statement (identifier) @markid)
-    (set_comprehension (identifier) @markid)
-    (list_comprehension (identifier) @markid)
-    (generator_expression (identifier) @markid)
-    (for_in_clause (identifier) @markid)
-    (comparison_operator (identifier) @markid)
-    (not_operator (identifier) @markid)
-    (binary_operator (identifier) @markid)
-    (subscript (identifier) @markid)
-    (expression_list (identifier) @markid)
-    (parameters (identifier) @markid)
-    (tuple (identifier) @markid)
-    (slice (identifier) @markid)
-    (as_pattern_target (identifier) @markid)
-    (return_statement (identifier) @markid)
-    (if_statement (identifier) @markid)
-    (boolean_operator (identifier) @markid)
-  ]],
-  r = [[
-    (arguments (identifier) @markid)
-    (left_assignment (identifier) @markid)
-    (equals_assignment (identifier) @markid)
-    (subset (identifier) @markid)
-    (subset2 (identifier) @markid)
-    (right_assignment (identifier) @markid)
-    (default_argument value: (identifier) @markid)
-    (binary (identifier) @markid)
-    (unary (identifier) @markid)
-    (pipe (identifier) @markid)
-    (if condition: (identifier) @markid)
-    (for (identifier) @markid)
-    (dollar . (identifier) @markid)
-    (formal_parameters (identifier) @markid)
-    (default_parameter (identifier) @markid)
-  ]],
-  sql = [[
-    (field name: (identifier) @markid)
-    (column_definition name: (identifier) @markid)
-    (field table_alias: (identifier) @markid)
-    (relation table_alias: (identifier) @markid)
-    (table_reference name: (identifier) @markid)
-    (column name: (identifier) @markid)
-    (select_expression alias: (identifier) @markid)
-  ]]
-}
 
 --------------------------- ellisonleao/gruvbox.nvim ---------------------------
 local colors = require('gruvbox.palette')
