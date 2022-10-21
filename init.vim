@@ -3,7 +3,7 @@ set cursorline
 set clipboard+=unnamedplus
 set splitbelow splitright
 set mouse=a
-set scrolloff=3 sidescroll=3
+set scrolloff=5 sidescroll=5
 set number relativenumber
 set signcolumn=yes:2
 set autoindent smartindent
@@ -25,7 +25,7 @@ let mapleader=" "
 "================================== Mappings ===================================
 nmap <esc> :noh<CR>
 nn <leader>s :%s//g<left><left>
-xn <leader>s :s//g<left><left>
+nn <leader>S :%s/\<<C-r><C-w>\>/
 ino ;B <esc>0D80A=<esc>0:exec "normal! 0r" . &cms<cr>o<bs>
 ino ;b <esc>0D80A-<esc>0:exec "normal! 0r" . &cms<cr>o<bs>
 ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec "normal! 0r" . &cms<cr><esc>o<bs>
@@ -79,30 +79,33 @@ let r_indent_align_args=0
 let g:r_indent_op_pattern=get(g:, 'r_indent_op_pattern',
 \ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\||>\)\s*$')
 
-au FileType sh,bash,zsh,vim,lua,r,rmd setlocal expandtab shiftwidth=2 tabstop=2
-au FileType python,markdown,sql setlocal expandtab shiftwidth=4 tabstop=4
-au FileType markdown setlocal wrap linebreak
-au BufEnter *.ipynb nn <leader>jp :w<CR> :!jupyter nbconvert --to script %:p<CR> \| :e %:p:r.py<CR>
-au BufEnter *.ipynb nn <leader>jm :w<CR> :!jupyter nbconvert --to markdown %:p<CR> \| :e %:p:r.md<CR>
-au FileType json nn <leader>fo :w<CR> :%!python -m json.tool<CR>
-au FileType markdown,rmd ino ;e **<left>
-au FileType markdown,rmd ino ;H <esc>yypv$r=o
-au FileType markdown,rmd ino ;h <esc>yypv$r-o
-au FileType tex ino ;; \
-au FileType tex,markdown nn <CR><CR> :w<CR> :execute '!compile "%:p" "'.input('What type of document would you like to compile? Choose from `h` for html, `p` for pdf, `d` for docx, or `x` for a xelatex pdf: ').'"'<CR>
-for mapcmd in ['ino', 'tno']
-  exec 'au FileType sh,bash,zsh,tex,r,rmd ' . mapcmd . ' ;s $'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;; <-'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;n \|>'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;m %>%'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;in %in%'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;r %%'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;v <space>\|> vd()'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;V <space>\|> View()'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;c <space>\|> colnames()'
-  exec 'au FileType r,rmd ' . mapcmd . ' ;o objs()'
-  exec 'au FileType python ' . mapcmd . ' ;l ->'
-endfor
+augroup ft
+  autocmd!
+  au FileType sh,bash,zsh,vim,lua,r,rmd setlocal expandtab shiftwidth=2 tabstop=2
+  au FileType python,markdown,sql setlocal expandtab shiftwidth=4 tabstop=4
+  au FileType markdown setlocal wrap linebreak
+  au BufEnter *.ipynb nn <leader>jp :w<CR> :!jupyter nbconvert --to script %:p<CR> \| :e %:p:r.py<CR>
+  au BufEnter *.ipynb nn <leader>jm :w<CR> :!jupyter nbconvert --to markdown %:p<CR> \| :e %:p:r.md<CR>
+  au FileType json nn <leader>fo :w<CR> :%!python -m json.tool<CR>
+  au FileType markdown,rmd ino ;e **<left>
+  au FileType markdown,rmd ino ;H <esc>yypv$r=o
+  au FileType markdown,rmd ino ;h <esc>yypv$r-o
+  au FileType tex ino ;; \
+  au FileType tex,markdown nn <CR><CR> :w<CR> :execute '!compile "%:p" "'.input('What type of document would you like to compile? Choose from `h` for html, `p` for pdf, `d` for docx, or `x` for a xelatex pdf: ').'"'<CR>
+  for mapcmd in ['ino', 'tno']
+    exec 'au FileType sh,bash,zsh,tex,r,rmd ' . mapcmd . ' ;s $'
+    exec 'au FileType r,rmd ' . mapcmd . ' ;; <-'
+    exec 'au FileType r,rmd ' . mapcmd . ' ;n \|>'
+    exec 'au FileType r,rmd ' . mapcmd . ' ;m %>%'
+    exec 'au FileType r,rmd ' . mapcmd . ' ;in %in%'
+    exec 'au FileType r,rmd ' . mapcmd . ' ;r %%'
+    exec 'au FileType r,rmd ' . mapcmd . ' ;v <space>\|> vd()'
+    exec 'au FileType r,rmd ' . mapcmd . ' ;V <space>\|> View()'
+    exec 'au FileType r,rmd ' . mapcmd . ' ;c <space>\|> colnames()'
+    exec 'au FileType r,rmd ' . mapcmd . ' ;o objs()'
+    exec 'au FileType python ' . mapcmd . ' ;l ->'
+  endfor
+augroup END
 
 "================================== Plug-ins ===================================
 if !empty(glob(stdpath('config') . '/plugins.vim'))

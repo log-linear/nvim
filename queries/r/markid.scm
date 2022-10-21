@@ -13,3 +13,4 @@
 (subset2 (identifier) @markid)
 (subset (identifier) @markid)
 (unary (identifier) @markid)
+((identifier) @markid (#match? @markid "`.+`"))

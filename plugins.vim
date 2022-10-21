@@ -24,7 +24,6 @@ Plug 'TaDaa/vimade', { 'on': 'VimadeEnable' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-treesitter/playground'
-Plug 'p00f/nvim-ts-rainbow'
 Plug 'David-Kunz/markid'
 Plug 'mcchrish/zenbones.nvim'
 Plug 'numToStr/Comment.nvim'
@@ -97,8 +96,11 @@ let g:zenwritten_compat = 1
 let g:zenwritten_lightness = 'bright'
 
 colorscheme zenwritten
-highlight Function guifg=#353535 guibg=NONE guisp=NONE gui=bold cterm=NONE
-highlight ColorColumn guifg=NONE guibg=#E5E5E5 guisp=NONE gui=NONE cterm=NONE
+augroup highlight
+  autocmd!
+  au BufEnter sh,r,rmd,sql hi Function guifg=#353535 guibg=NONE guisp=NONE gui=bold cterm=NONE
+augroup END
+hi ColorColumn guifg=NONE guibg=#E5E5E5 guisp=NONE gui=NONE cterm=NONE
 
 "============================ lua plugin configs ===============================
 if !empty(glob(stdpath('config') . '/plugins.lua'))

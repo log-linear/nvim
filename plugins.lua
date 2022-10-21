@@ -5,26 +5,16 @@ require 'nvim-treesitter.configs'.setup {
   ensure_installed = 'all',
   highlight = { enable = true, },
   markid = { enable = true },
-  rainbow = {
-    enable = true,
-    colors = {
-      '#918353',
-      '#483c7a',
-      '#614d07',
-      '#1384bf',
-      '#bf6c68',
-      '#008f8d',
-      '#662631',
-    }
-  }
 }
 
 ------------------------------ David-Kunz/markid -------------------------------
-local m = require'markid'
+local m = require 'markid'
 m.queries = {
   default = '(identifier) @markid',
   json = '(pair key: (string) @markid)',
-  bash = '((variable_name) @markid)'
+  bash = '(variable_name) @markid',
+  css = '(property_name) @markid',
+  toml = '(bare_key) @markid',
 }
 vim.api.nvim_set_hl(0, 'markid1',  { fg = '#6a295d' })
 vim.api.nvim_set_hl(0, 'markid2',  { fg = '#365e21' })
@@ -36,7 +26,7 @@ vim.api.nvim_set_hl(0, 'markid7',  { fg = '#82332c' })
 vim.api.nvim_set_hl(0, 'markid8',  { fg = '#348d9f' })
 vim.api.nvim_set_hl(0, 'markid9',  { fg = '#ac7188' })
 vim.api.nvim_set_hl(0, 'markid10', { fg = '#174233' })
-vim.keymap.set('n', '<space>m', ':TST markid<CR>')
+vim.keymap.set('n', '<space>m', ':TSToggle markid<CR>')
 
 ---------------------------- numToStr/Comment.nvim -----------------------------
 require('Comment').setup {}
