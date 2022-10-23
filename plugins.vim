@@ -96,11 +96,8 @@ let g:zenwritten_compat = 1
 let g:zenwritten_lightness = 'bright'
 
 colorscheme zenwritten
-augroup highlight
-  autocmd!
-  au FileType sh,r,rmd,sql hi Function guifg=#353535 guibg=NONE guisp=NONE gui=bold cterm=NONE
-augroup END
 hi ColorColumn guifg=NONE guibg=#E5E5E5 guisp=NONE gui=NONE cterm=NONE
+au FileType sh,r,rmd,sql hi @function guifg=#353535 guibg=NONE guisp=NONE gui=bold cterm=NONE
 
 "============================ lua plugin configs ===============================
 if !empty(glob(stdpath('config') . '/plugins.lua'))
