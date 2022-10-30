@@ -18,6 +18,7 @@
 (generator_expression (identifier) @markid)
 (global_statement (identifier) @markid)
 (if_statement (identifier) @markid)
+(elif_clause (identifier) @markid)
 (import_from_statement name: (dotted_name . (identifier) @markid))
 (import_statement name: (dotted_name . (identifier) @markid))
 (interpolation (identifier) @markid)

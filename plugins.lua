@@ -5,6 +5,7 @@ require 'nvim-treesitter.configs'.setup {
   ensure_installed = 'all',
   highlight = { enable = true, },
   markid = { enable = true },
+  matchup = { enable = true }
 }
 
 ------------------------------ David-Kunz/markid -------------------------------
@@ -176,6 +177,12 @@ MUtils.BS = function()
   end
 end
 remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
+
+--------------------- lukas-reineke/indent-blankline.nvim ----------------------
+require("indent_blankline").setup {
+    show_current_context = true,
+    show_current_context_start = true,
+}
 
 --------------------------- lewis6991/gitsigns.nvim ----------------------------
 require('gitsigns').setup {
