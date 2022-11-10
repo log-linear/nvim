@@ -97,7 +97,7 @@ let g:zenwritten_lightness = 'bright'
 
 colorscheme zenwritten
 hi ColorColumn guifg=NONE guibg=#E5E5E5 guisp=NONE gui=NONE cterm=NONE
-au FileType sh,r,rmd,sql hi @function guifg=#353535 guibg=NONE guisp=NONE gui=bold cterm=NONE
+au FileType sh,r,rmd,sql hi @function guifg=#5C5C5C guibg=NONE guisp=NONE gui=bold cterm=NONE
 
 "============================ lua plugin configs ===============================
 if !empty(glob(stdpath('config') . '/plugins.lua'))

@@ -24,8 +24,10 @@ let mapleader=" "
 
 "================================== Mappings ===================================
 nmap <esc> :noh<CR>
+tno <esc> <C-\><C-n>
 nn <leader>s :%s//g<left><left>
 nn <leader>S :%s/\<<C-r><C-w>\>/
+nn <leader>bs :bufdo %s//gc<left><left><left>
 ino ;B <esc>0D80A=<esc>0:exec "normal! 0r" . &cms<cr>o<bs>
 ino ;b <esc>0D80A-<esc>0:exec "normal! 0r" . &cms<cr>o<bs>
 ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec "normal! 0r" . &cms<cr><esc>o<bs>
@@ -67,10 +69,8 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-c> <C-\><C-n>:close<CR>'
   exec mapcmd . ' <A-d> <C-\><C-n>:bp <BAR> bd #<CR>'
   exec mapcmd . ' <A-D> <C-\><C-n>:bp <BAR> bd! #<CR>'
-  exec mapcmd . ' <A-n> <C-\><C-n>:bn<CR>'
-  exec mapcmd . ' <A-p> <C-\><C-n>:bp<CR>'
-  exec mapcmd . ' <A-s> <C-\><C-n>:sp<CR>:bp<CR>'
-  exec mapcmd . ' <A-v> <C-\><C-n>:vs<CR>:bp<CR>'
+  exec mapcmd . ' <A-s> <C-\><C-n>:sp<CR>'
+  exec mapcmd . ' <A-v> <C-\><C-n>:vs<CR>'
 endfor
 
 "=========================== File-specific settings ============================
