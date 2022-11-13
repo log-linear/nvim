@@ -67,6 +67,8 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-.> <C-\><C-n><C-w>:vertical resize +3<CR>'
   exec mapcmd . ' <A-0> <C-\><C-n><C-w>='
   exec mapcmd . ' <A-c> <C-\><C-n>:close<CR>'
+  exec mapcmd . ' <A-n> <C-\><C-n>:bn<CR>'
+  exec mapcmd . ' <A-p> <C-\><C-n>:bp<CR>'
   exec mapcmd . ' <A-d> <C-\><C-n>:bp <BAR> bd #<CR>'
   exec mapcmd . ' <A-D> <C-\><C-n>:bp <BAR> bd! #<CR>'
   exec mapcmd . ' <A-s> <C-\><C-n>:sp<CR>'
