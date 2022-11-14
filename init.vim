@@ -21,6 +21,7 @@ let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
 let mapleader=" "
+let $EDITOR='nvrl'
 
 "================================== Mappings ===================================
 nmap <esc> :noh<CR>
@@ -34,7 +35,6 @@ ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec "normal! 0r" .
 ino ;h <esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:exec "normal! 0r" . &cms<cr><esc>o<bs>
 ino ;todo <esc>:exec "normal! 0i" . &cms[0]<cr>$a TODO: 
 nn <cr><cr> :w<CR> :15sp<CR> :term compile %<CR>
-let $EDITOR='nvrl'
 nn <leader>tt :15new<CR><C-\><C-n>:call termopen("zsh")<CR><C-\><C-n>:set nobl<CR><C-w>k
 nn <leader>tp :15new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n>:set nobl<CR><C-w>k
 nn <leader>tr :15new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n>:set nobl<CR><C-w>k
@@ -75,6 +75,10 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-s> <C-\><C-n>:sp<CR>'
   exec mapcmd . ' <A-v> <C-\><C-n>:vs<CR>'
 endfor
+tno <A-n> <nop>
+tno <A-p> <nop>
+tno <A-d> <C-\><C-n>:bd!<CR>
+tno <A-c> <C-\><C-n>:bd!<CR>
 
 "=========================== File-specific settings ============================
 let g:pyindent_open_paren=shiftwidth()
