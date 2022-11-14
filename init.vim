@@ -35,10 +35,10 @@ ino ;h <esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:exec "normal! 0r" .
 ino ;todo <esc>:exec "normal! 0i" . &cms[0]<cr>$a TODO: 
 nn <cr><cr> :w<CR> :15sp<CR> :term compile %<CR>
 let $EDITOR='nvr'
-nn <leader>tt :15new<CR><C-\><C-n>:call termopen("zsh")<CR><C-\><C-n><C-w>k
-nn <leader>tp :15new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n><C-w>k
-nn <leader>tr :15new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n><C-w>k
-nn <leader>ts :15new<CR><C-\><C-n>:call termopen("usql")<CR><C-\><C-n><C-w>k
+nn <leader>tt :15new<CR><C-\><C-n>:call termopen("zsh")<CR><C-\><C-n>:set nobl<CR><C-w>k
+nn <leader>tp :15new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n>:set nobl<CR><C-w>k
+nn <leader>tr :15new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n>:set nobl<CR><C-w>k
+nn <leader>ts :15new<CR><C-\><C-n>:call termopen("usql")<CR><C-\><C-n>:set nobl<CR><C-w>k
 nn <Leader>ve <esc>:Vexplore<CR>
 nn <leader>cd :cd %:p:h<CR>:pwd<CR>
 nn <leader>.. :cd ..<CR>:pwd<CR>
