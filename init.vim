@@ -34,7 +34,7 @@ ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec "normal! 0r" .
 ino ;h <esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:exec "normal! 0r" . &cms<cr><esc>o<bs>
 ino ;todo <esc>:exec "normal! 0i" . &cms[0]<cr>$a TODO: 
 nn <cr><cr> :w<CR> :15sp<CR> :term compile %<CR>
-let $EDITOR='nvr'
+let $EDITOR='nvrl'
 nn <leader>tt :15new<CR><C-\><C-n>:call termopen("zsh")<CR><C-\><C-n>:set nobl<CR><C-w>k
 nn <leader>tp :15new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n>:set nobl<CR><C-w>k
 nn <leader>tr :15new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n>:set nobl<CR><C-w>k
