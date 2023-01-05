@@ -15,6 +15,7 @@ au TextYankPost * silent! lua vim.highlight.on_yank({timeout=250})
 set incsearch showmatch hlsearch ignorecase smartcase
 set colorcolumn=80
 set nowrap
+set noea
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
@@ -67,6 +68,8 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-=> <C-\><C-n><C-w>:resize +3<CR>'
   exec mapcmd . ' <A-.> <C-\><C-n><C-w>:vertical resize +3<CR>'
   exec mapcmd . ' <A-0> <C-\><C-n><C-w>='
+  exec mapcmd . ' <A-V> <C-\><C-n><C-w>:vertical winc =<CR>'
+  exec mapcmd . ' <A-S> <C-\><C-n><C-w>:horizontal winc =<CR>'
   exec mapcmd . ' <A-c> <C-\><C-n>:close<CR>'
   exec mapcmd . ' <A-n> <C-\><C-n>:bn<CR>'
   exec mapcmd . ' <A-p> <C-\><C-n>:bp<CR>'
@@ -75,8 +78,6 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-s> <C-\><C-n>:sp<CR>'
   exec mapcmd . ' <A-v> <C-\><C-n>:vs<CR>'
 endfor
-tno <A-n> <nop>
-tno <A-p> <nop>
 tno <A-d> <C-\><C-n>:bd!<CR>
 tno <A-c> <C-\><C-n>:bd!<CR>
 

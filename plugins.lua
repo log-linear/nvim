@@ -8,6 +8,14 @@ require 'nvim-treesitter.configs'.setup {
   matchup = { enable = true }
 }
 
+-------------------------------- danymat/neogen --------------------------------
+require('neogen').setup {}
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap("n", "<Leader>doc", ":lua require('neogen').generate()<CR>", opts)
+
+---------------------------- mfussenegger/nvim-dap -----------------------------
+require('dap-python').setup(vim.api.nvim_list_runtime_paths()[1] .. "/venv/bin/python")
+
 ------------------------------ David-Kunz/markid -------------------------------
 local m = require 'markid'
 m.queries = {
@@ -31,26 +39,6 @@ vim.keymap.set('n', '<space>m', ':TSToggle markid<CR>')
 
 ---------------------------- numToStr/Comment.nvim -----------------------------
 require('Comment').setup {}
-
------------------------- nvim-telescope/telescope.nvim -------------------------
-local maps = {
-  ["<A-a>"] = require('telescope.actions').toggle_all
-}
-require('telescope').setup {
-  defaults = {
-    mappings = {
-      n = maps,
-      i = maps,
-    },
-    layout_strategy = 'flex',
-    layout_config = { prompt_position = 'top', },
-    sorting_strategy = 'ascending'
-  },
-  pickers = {
-    lsp_references = { path_display = { 'shorten' }, },
-  }
-}
-require('telescope').load_extension('fzf')
 
 ---------------------------- neovim/nvim-lspconfig -----------------------------
 -- Mappings
@@ -181,7 +169,6 @@ remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
 --------------------- lukas-reineke/indent-blankline.nvim ----------------------
 require("indent_blankline").setup {
     show_current_context = true,
-    show_current_context_start = true,
 }
 
 --------------------------- lewis6991/gitsigns.nvim ----------------------------

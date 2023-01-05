@@ -21,14 +21,14 @@ Plug 'junegunn/vim-easy-align'
 Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
 Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
 Plug 'TaDaa/vimade', { 'on': 'VimadeEnable' }
-Plug 'nvim-lua/plenary.nvim'
+Plug 'ibhagwan/fzf-lua'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-Plug 'nvim-treesitter/playground'
+Plug 'danymat/neogen'
+Plug 'mfussenegger/nvim-dap'
+Plug 'mfussenegger/nvim-dap-python'
 Plug 'David-Kunz/markid'
 Plug 'mcchrish/zenbones.nvim'
 Plug 'numToStr/Comment.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'neovim/nvim-lspconfig'
 Plug 'windwp/nvim-autopairs'
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -49,21 +49,20 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 "---------------------- nvim-telescope/telescope.nvim --------------------------
-nn <leader><leader> :Telescope<CR>
-nn <leader>ff :Telescope find_files<CR>
-nn <leader>af <cmd>lua require('telescope.builtin').find_files({hidden = true, no_ignore = true})<cr>
-nn <leader>gf :Telescope git_files<CR>
-nn <leader>gc :Telescope git_bcommits<CR>
-nn <leader>bl :Telescope buffers<CR>
-nn <leader>/ :Telescope current_buffer_fuzzy_find<CR>
-nn <leader>of :Telescope oldfiles<CR>
-nn <leader>rg :Telescope live_grep<CR>
-nn <leader>arg <cmd>lua require('telescope.builtin').live_grep({additional_args = function() return { "--no-ignore", "--hidden" } end})<CR>
-nn <leader>wg :Telescope grep_string<CR>
-nn <leader>awg <cmd>lua require('telescope.builtin').grep_string({additional_args = function() return { "--no-ignore", "--hidden" } end})<CR>
-nn <leader>km :Telescope keymaps<CR>
-nn <leader>ft :Telescope filetypes<CR>
-nn <leader>fr :Telescope lsp_references<CR>
+nn <leader><leader> :FzfLua<CR>
+nn <leader>ff :FzfLua files<CR>
+nn <leader>af <cmd>lua require('fzf-lua').files({cmd = "fd --unrestricted"})<cr>
+nn <leader>gf :FzfLua git_files<CR>
+nn <leader>gc :FzfLua git_bcommits<CR>
+nn <leader>bl :FzfLua buffers<CR>
+nn <leader>/ :FzfLua blines<CR>
+nn <leader>of :FzfLua oldfiles<CR>
+nn <leader>rg :FzfLua live_grep<CR>
+nn <leader>arg <cmd>lua require('fzf-lua').files({cmd = "rg --no-ignore --hidden"})<cr>
+nn <leader>gw :FzfLua grep_cword<CR>
+nn <leader>km :FzfLua keymaps<CR>
+nn <leader>ft :FzfLua filetypes<CR>
+nn <leader>fr :FzfLua lsp_references<CR>
 
 "----------------------------- ms-jpq/coq_nvim ---------------------------------
 let g:coq_settings = {
@@ -97,7 +96,23 @@ let g:zenwritten_lightness = 'bright'
 
 colorscheme zenwritten
 hi ColorColumn guifg=NONE guibg=#E5E5E5 guisp=NONE gui=NONE cterm=NONE
-au FileType sh,r,rmd,sql hi @function guifg=#5C5C5C guibg=NONE guisp=NONE gui=bold cterm=NONE
+let fts = [ 'sh', 'r', 'sql', 'rmd', 'bash' ]
+au BufEnter * if index(fts, &ft) > 0 | hi @function guifg=#5C5C5C guibg=NONE guisp=NONE gui=bold cterm=NONE | endif
+au BufLeave * if index(fts, &ft) > 0 | hi @function guifg=#5C5C5C guibg=NONE guisp=NONE gui=NONE cterm=NONE | endif
+
+"-------------------------- mfussenegger/nvim-dap ------------------------------
+nn <silent> <leader>dc <Cmd>lua require'dap'.continue()<CR>
+nn <silent> <leader>dso <Cmd>lua require'dap'.step_over()<CR>
+nn <silent> <leader>dsi <Cmd>lua require'dap'.step_into()<CR>
+nn <silent> <leader>dsx <Cmd>lua require'dap'.step_out()<CR>
+nn <silent> <Leader>db <Cmd>lua require'dap'.toggle_breakpoint()<CR>
+nn <silent> <Leader>dB <Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+nn <silent> <Leader>dlp <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+nn <silent> <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>
+nn <silent> <Leader>dl <Cmd>lua require'dap'.run_last()<CR>
+nn <silent> <leader>dn :lua require('dap-python').test_method()<CR>
+nn <silent> <leader>df :lua require('dap-python').test_class()<CR>
+vno <silent> <leader>ds <ESC>:lua require('dap-python').debug_selection()<CR>
 
 "============================ lua plugin configs ===============================
 if !empty(glob(stdpath('config') . '/plugins.lua'))
