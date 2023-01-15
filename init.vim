@@ -82,11 +82,6 @@ tno <A-d> <C-\><C-n>:bd!<CR>
 tno <A-c> <C-\><C-n>:bd!<CR>
 
 "=========================== File-specific settings ============================
-let g:pyindent_open_paren=shiftwidth()
-let r_indent_align_args=0
-let g:r_indent_op_pattern=get(g:, 'r_indent_op_pattern',
-\ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\||>\)\s*$')
-
 au FileType sh,bash,zsh,vim,lua,r,rmd setlocal expandtab shiftwidth=2 tabstop=2
 au FileType python,markdown,sql setlocal expandtab shiftwidth=4 tabstop=4
 au FileType markdown setlocal wrap linebreak

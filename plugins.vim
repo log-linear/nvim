@@ -20,9 +20,11 @@ Plug 'machakann/vim-sandwich'
 Plug 'junegunn/vim-easy-align'
 Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
 Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
+Plug 'ms-jpq/coq.thirdparty'
 Plug 'TaDaa/vimade', { 'on': 'VimadeEnable' }
 Plug 'ibhagwan/fzf-lua'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'yioneko/nvim-yati'
 Plug 'danymat/neogen'
 Plug 'mfussenegger/nvim-dap'
 Plug 'mfussenegger/nvim-dap-python'
@@ -49,35 +51,26 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 "---------------------- nvim-telescope/telescope.nvim --------------------------
-nn <leader><leader> :FzfLua<CR>
+nn <leader>f :FzfLua<CR>
 nn <leader>ff :FzfLua files<CR>
-nn <leader>af <cmd>lua require('fzf-lua').files({cmd = "fd --unrestricted"})<cr>
-nn <leader>gf :FzfLua git_files<CR>
-nn <leader>gc :FzfLua git_bcommits<CR>
-nn <leader>bl :FzfLua buffers<CR>
-nn <leader>/ :FzfLua blines<CR>
-nn <leader>of :FzfLua oldfiles<CR>
-nn <leader>rg :FzfLua live_grep<CR>
-nn <leader>arg <cmd>lua require('fzf-lua').files({cmd = "rg --no-ignore --hidden"})<cr>
-nn <leader>gw :FzfLua grep_cword<CR>
-nn <leader>km :FzfLua keymaps<CR>
+nn <leader>fF <cmd>lua require('fzf-lua').files({cmd = "fd --unrestricted"})<cr>
+nn <leader>fgf :FzfLua git_files<CR>
+nn <leader>fc :FzfLua git_bcommits<CR>
+nn <leader>fb :FzfLua buffers<CR>
+nn <leader>f/ :FzfLua blines<CR>
+nn <leader>fh :FzfLua help_tags<CR>
+nn <leader>fo :FzfLua oldfiles<CR>
+nn <leader>fs :FzfLua live_grep<CR>
+nn <leader>fS <cmd>lua require('fzf-lua').live_grep({cmd = "rg --no-ignore --hidden"})<cr>
+nn <leader>fw :FzfLua grep_cword<CR>
+nn <leader>fk :FzfLua keymaps<CR>
 nn <leader>ft :FzfLua filetypes<CR>
 nn <leader>fr :FzfLua lsp_references<CR>
 
 "----------------------------- ms-jpq/coq_nvim ---------------------------------
 let g:coq_settings = {
 \   'auto_start': 'shut-up',
-\   'keymap': {
-\     'recommended': v:false,
-\     'manual_complete': '<c-l>',
-\     'bigger_preview': '<c-j>',
-\     'jump_to_mark': '<c-h>',
-\   }
 \ }
-ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
-ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
-ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
 
 "------------------------------- TaDaa/vimade ----------------------------------
 let g:vimade = {
@@ -102,6 +95,7 @@ au BufLeave * if index(fts, &ft) > 0 | hi @function guifg=#5C5C5C guibg=NONE gui
 
 "-------------------------- mfussenegger/nvim-dap ------------------------------
 nn <silent> <leader>dc <Cmd>lua require'dap'.continue()<CR>
+nn <silent> <leader>dp <Cmd>lua require'dap'.pause()<CR>
 nn <silent> <leader>dso <Cmd>lua require'dap'.step_over()<CR>
 nn <silent> <leader>dsi <Cmd>lua require'dap'.step_into()<CR>
 nn <silent> <leader>dsx <Cmd>lua require'dap'.step_out()<CR>

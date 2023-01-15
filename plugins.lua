@@ -5,7 +5,8 @@ require 'nvim-treesitter.configs'.setup {
   ensure_installed = 'all',
   highlight = { enable = true, },
   markid = { enable = true },
-  matchup = { enable = true }
+  indent = { enable = true, disable = { "python" } },
+  yati = { enable = true },
 }
 
 -------------------------------- danymat/neogen --------------------------------
@@ -15,6 +16,7 @@ vim.api.nvim_set_keymap("n", "<Leader>doc", ":lua require('neogen').generate()<C
 
 ---------------------------- mfussenegger/nvim-dap -----------------------------
 require('dap-python').setup(vim.api.nvim_list_runtime_paths()[1] .. "/venv/bin/python")
+vim.fn.sign_define('DapBreakpoint', { text='🛑', texthl='', linehl='', numhl='' })
 
 ------------------------------ David-Kunz/markid -------------------------------
 local m = require 'markid'
@@ -56,6 +58,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set({ 'n', 'i' }, '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set( 'n', 'K', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
   vim.keymap.set('n', '<space>wl',
@@ -64,9 +67,9 @@ local on_attach = function(client, bufnr)
     end, bufopts)
   vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<space>ca', ':FzfLua lsp_code_actions<CR>', bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>fo', vim.lsp.buf.format, bufopts)
+  vim.keymap.set('n', '<space>bf', vim.lsp.buf.format, bufopts)
 end
 
 -- LSP-built-in snippet support
@@ -133,6 +136,13 @@ for server, user_opts in pairs(servers) do
     require('coq').lsp_ensure_capabilities(server_opts)
   )
 end
+
+---------------------------- ms-jpq/coq.thirdparty -----------------------------
+require("coq_3p") {
+  { src = "dap" },
+  { src = "nvimlua", short_name = "nLUA", conf_only = true },
+  { src = "bc", short_name = "MATH", precision = 6 },
+}
 
 ---------------------------- windwp/nvim-autopairs -----------------------------
 -- Configs to handle coq_nvim compatibility
