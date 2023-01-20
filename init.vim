@@ -87,7 +87,7 @@ au FileType python,markdown,sql setlocal expandtab shiftwidth=4 tabstop=4
 au FileType markdown setlocal wrap linebreak
 au BufEnter *.ipynb nn <leader>jp :w<CR> :!jupyter nbconvert --to script %:p<CR> \| :e %:p:r.py<CR>
 au BufEnter *.ipynb nn <leader>jm :w<CR> :!jupyter nbconvert --to markdown %:p<CR> \| :e %:p:r.md<CR>
-au FileType json nn <leader>fo :w<CR> :%!python -m json.tool<CR>
+au FileType json nn <leader>bf :w<CR> :%!python -m json.tool<CR>
 au FileType markdown,rmd ino ;e **<left>
 au FileType markdown,rmd ino ;H <esc>yypv$r=o
 au FileType markdown,rmd ino ;h <esc>yypv$r-o

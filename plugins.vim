@@ -51,13 +51,13 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 "---------------------- nvim-telescope/telescope.nvim --------------------------
-nn <leader>f :FzfLua<CR>
+nn <leader>fzf :FzfLua<CR>
 nn <leader>ff :FzfLua files<CR>
-nn <leader>fF <cmd>lua require('fzf-lua').files({cmd = "fd --unrestricted"})<cr>
+nn <leader>fF <cmd>lua require('fzf-lua').files({cmd = "fd --unrestricted"})<CR>
 nn <leader>fgf :FzfLua git_files<CR>
 nn <leader>fc :FzfLua git_bcommits<CR>
 nn <leader>fb :FzfLua buffers<CR>
-nn <leader>f/ :FzfLua blines<CR>
+nn <leader>/ :FzfLua blines<CR>
 nn <leader>fh :FzfLua help_tags<CR>
 nn <leader>fo :FzfLua oldfiles<CR>
 nn <leader>fs :FzfLua live_grep<CR>

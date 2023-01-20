@@ -5,7 +5,18 @@ require 'nvim-treesitter.configs'.setup {
   ensure_installed = 'all',
   highlight = { enable = true, },
   markid = { enable = true },
-  indent = { enable = true, disable = { "python" } },
+  ignore_install = { "t32" },
+  indent = {
+    enable = true,
+    disable = {
+      "python",
+      "lua",
+      "javascript",
+      "html",
+      "json",
+      "toml",
+    }
+  },
   yati = { enable = true },
 }
 
