@@ -249,6 +249,11 @@ end
 
 ---------------------------- windwp/nvim-autopairs -----------------------------
 require("nvim-autopairs").setup {}
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+require('cmp').event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
 
 --------------------- lukas-reineke/indent-blankline.nvim ----------------------
 require("indent_blankline").setup {
@@ -298,5 +303,6 @@ require('gitsigns').setup {
 
 ------------------------------- levouh/tint.nvim -------------------------------
 require("tint").setup({
-  tint = 75,
+  tint = 65,
+  saturation = .25
 })
