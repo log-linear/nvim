@@ -44,15 +44,6 @@ nn <Leader>ve <esc>:Vexplore<CR>
 nn <leader>cd :cd %:p:h<CR>:pwd<CR>
 nn <leader>.. :cd ..<CR>:pwd<CR>
 set wildcharm=<C-Z>
-cno <expr> <up> wildmenumode() ? "\<left>" : "\<up>"
-cno <expr> <down> wildmenumode() ? "\<right>" : "\<down>"
-cno <expr> <PageUp> wildmenumode() ?
-\ "\<left>\<left>\<left>\<left>\<left>\<left>\<left>\<left>" : "\<PageUp>"
-cno <expr> <PageDown> wildmenumode() ?
-\ "\<right>\<right>\<right>\<right>\<right>\<right>\<right>\<right>" : "\<PageDown>"
-cno <expr> <left> wildmenumode() ? "\<up>" : "\<left>"
-cno <expr> <right> wildmenumode() ? " \<bs>\<C-Z>" : "\<right>"
-cno <expr> <space> wildmenumode() ? "<C-y>" : "<space>"
 
 for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-h> <C-\><C-n><C-w>h'

@@ -20,14 +20,23 @@ require 'nvim-treesitter.configs'.setup {
   yati = { enable = true },
 }
 
+------------------------------- L3MON4D3/LuaSnip -------------------------------
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local luasnip = require("luasnip")
+
 -------------------------------- danymat/neogen --------------------------------
-require('neogen').setup {}
+require('neogen').setup({ snippet_engine = "luasnip" })
 local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<Leader>doc", ":lua require('neogen').generate()<CR>", opts)
 
 ---------------------------- mfussenegger/nvim-dap -----------------------------
 require('dap-python').setup(vim.api.nvim_list_runtime_paths()[1] .. "/venv/bin/python")
-vim.fn.sign_define('DapBreakpoint', { text='🛑', texthl='', linehl='', numhl='' })
+vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
 
 ------------------------------ David-Kunz/markid -------------------------------
 local m = require 'markid'
@@ -38,20 +47,109 @@ m.queries = {
   css = '(property_name) @markid',
   toml = '(bare_key) @markid',
 }
-vim.api.nvim_set_hl(0, 'markid1',  { fg = '#6a295d' })
-vim.api.nvim_set_hl(0, 'markid2',  { fg = '#365e21' })
-vim.api.nvim_set_hl(0, 'markid3',  { fg = '#557cbf' })
-vim.api.nvim_set_hl(0, 'markid4',  { fg = '#896a2a' })
-vim.api.nvim_set_hl(0, 'markid5',  { fg = '#2f3766' })
-vim.api.nvim_set_hl(0, 'markid6',  { fg = '#008374' })
-vim.api.nvim_set_hl(0, 'markid7',  { fg = '#82332c' })
-vim.api.nvim_set_hl(0, 'markid8',  { fg = '#348d9f' })
-vim.api.nvim_set_hl(0, 'markid9',  { fg = '#ac7188' })
+vim.api.nvim_set_hl(0, 'markid1', { fg = '#6a295d' })
+vim.api.nvim_set_hl(0, 'markid2', { fg = '#365e21' })
+vim.api.nvim_set_hl(0, 'markid3', { fg = '#557cbf' })
+vim.api.nvim_set_hl(0, 'markid4', { fg = '#896a2a' })
+vim.api.nvim_set_hl(0, 'markid5', { fg = '#2f3766' })
+vim.api.nvim_set_hl(0, 'markid6', { fg = '#008374' })
+vim.api.nvim_set_hl(0, 'markid7', { fg = '#82332c' })
+vim.api.nvim_set_hl(0, 'markid8', { fg = '#348d9f' })
+vim.api.nvim_set_hl(0, 'markid9', { fg = '#ac7188' })
 vim.api.nvim_set_hl(0, 'markid10', { fg = '#174233' })
 vim.keymap.set('n', '<space>m', ':TSToggle markid<CR>')
 
 ---------------------------- numToStr/Comment.nvim -----------------------------
 require('Comment').setup {}
+
+------------------------------- hrsh7th/nvim-cmp -------------------------------
+-- Set up nvim-cmp.
+local cmp = require 'cmp'
+
+cmp.setup({
+  -- Enable in DAP buffers
+  enabled = function()
+    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+        or require("cmp_dap").is_dap_buffer()
+  end,
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+
+    -- Luasnip "Super-tab" mapping
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif require('luasnip').expand_or_locally_jumpable() then
+        require('luasnip').expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif require('luasnip').jumpable(-1) then
+        require('luasnip').jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+    { name = 'buffer' },
+    { name = 'path' },
+    { name = 'treesitter' }
+  }),
+})
+
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
+    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+
+-- nvim-dap
+cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+  sources = {
+    { name = "dap" },
+  },
+})
 
 ---------------------------- neovim/nvim-lspconfig -----------------------------
 -- Mappings
@@ -69,7 +167,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set({ 'n', 'i' }, '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set( 'n', 'K', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
   vim.keymap.set('n', '<space>wl',
@@ -84,8 +182,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- LSP-built-in snippet support
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Set diagnostics UI
 local signs = { Error = "⮿", Warn = "⚠", Hint = "⯑", Info = "🛈" }
@@ -143,53 +240,18 @@ for server, user_opts in pairs(servers) do
   }
   server_opts = vim.tbl_deep_extend('force', server_opts, user_opts)
 
+  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
   require('lspconfig')[server].setup(
-    require('coq').lsp_ensure_capabilities(server_opts)
+    server_opts
   )
 end
 
----------------------------- ms-jpq/coq.thirdparty -----------------------------
-require("coq_3p") {
-  { src = "dap" },
-  { src = "nvimlua", short_name = "nLUA", conf_only = true },
-  { src = "bc", short_name = "MATH", precision = 6 },
-}
-
 ---------------------------- windwp/nvim-autopairs -----------------------------
--- Configs to handle coq_nvim compatibility
-local remap = vim.api.nvim_set_keymap
-local npairs = require('nvim-autopairs')
-
-npairs.setup({ map_bs = false, map_cr = false })
-
--- skip it, if you use another global object
-_G.MUtils = {}
-
-MUtils.CR = function()
-  if vim.fn.pumvisible() ~= 0 then
-    if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
-      return npairs.esc('<c-y>')
-    else
-      return npairs.esc('<c-e>') .. npairs.autopairs_cr()
-    end
-  else
-    return npairs.autopairs_cr()
-  end
-end
-remap('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true })
-
-MUtils.BS = function()
-  if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({ 'mode' }).mode == 'eval' then
-    return npairs.esc('<c-e>') .. npairs.autopairs_bs()
-  else
-    return npairs.autopairs_bs()
-  end
-end
-remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
+require("nvim-autopairs").setup {}
 
 --------------------- lukas-reineke/indent-blankline.nvim ----------------------
 require("indent_blankline").setup {
-    show_current_context = true,
+  show_current_context = true,
 }
 
 --------------------------- lewis6991/gitsigns.nvim ----------------------------
@@ -232,3 +294,8 @@ require('gitsigns').setup {
     map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end
 }
+
+------------------------------- levouh/tint.nvim -------------------------------
+require("tint").setup({
+  tint = 75,
+})
