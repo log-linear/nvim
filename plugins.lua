@@ -37,7 +37,7 @@ vim.api.nvim_set_keymap("n", "<Leader>doc", ":lua require('neogen').generate()<C
 
 ---------------------------- mfussenegger/nvim-dap -----------------------------
 require('dap-python').setup(vim.api.nvim_list_runtime_paths()[1] .. "/venv/bin/python")
-vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
+vim.fn.sign_define('DapBreakpoint', { text = '⦿', texthl = '', linehl = '', numhl = '' })
 
 ------------------------------ David-Kunz/markid -------------------------------
 local m = require 'markid'
