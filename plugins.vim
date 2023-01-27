@@ -62,7 +62,7 @@ nn <leader><leader>b :FzfLua buffers<CR>
 nn <leader>/ :FzfLua blines<CR>
 nn <leader><leader>h :FzfLua help_tags<CR>
 nn <leader><leader>o :FzfLua oldfiles<CR>
-nn <leader><leader>s :FzfLua live_grep<CR>
+nn <leader><leader>/ :FzfLua live_grep<CR>
 nn <leader><leader>S <cmd>lua require('fzf-lua').live_grep({cmd = "rg --no-ignore --hidden"})<cr>
 nn <leader><leader>w :FzfLua grep_cword<CR>
 nn <leader><leader>k :FzfLua keymaps<CR>

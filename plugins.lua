@@ -97,8 +97,7 @@ cmp.setup({
         fallback()
       end
     end, { "i", "s" }),
-
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
+["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif require('luasnip').jumpable(-1) then
@@ -241,7 +240,6 @@ for server, user_opts in pairs(servers) do
   }
   server_opts = vim.tbl_deep_extend('force', server_opts, user_opts)
 
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
   require('lspconfig')[server].setup(
     server_opts
   )
