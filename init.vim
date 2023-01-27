@@ -61,7 +61,7 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-0> <C-\><C-n><C-w>='
   exec mapcmd . ' <A-V> <C-\><C-n><C-w>:vertical winc =<CR>'
   exec mapcmd . ' <A-S> <C-\><C-n><C-w>:horizontal winc =<CR>'
-  exec mapcmd . ' <A-c> <C-\><C-n>:close<CR>'
+  exec mapcmd . ' <A-q> <C-\><C-n>:quit<CR>'
   exec mapcmd . ' <A-n> <C-\><C-n>:bn<CR>'
   exec mapcmd . ' <A-p> <C-\><C-n>:bp<CR>'
   exec mapcmd . ' <A-d> <C-\><C-n>:bp <BAR> bd #<CR>'
@@ -70,7 +70,7 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-v> <C-\><C-n>:vs<CR>'
 endfor
 tno <A-d> <C-\><C-n>:bd!<CR>
-tno <A-c> <C-\><C-n>:bd!<CR>
+tno <A-q> <C-\><C-n>:bd!<CR>
 
 "=========================== File-specific settings ============================
 au FileType sh,bash,zsh,vim,lua,r,rmd setlocal expandtab shiftwidth=2 tabstop=2

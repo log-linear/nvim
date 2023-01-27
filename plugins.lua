@@ -5,7 +5,6 @@ require 'nvim-treesitter.configs'.setup {
   ensure_installed = 'all',
   highlight = { enable = true, },
   markid = { enable = true },
-  ignore_install = { "t32" },
   indent = {
     enable = true,
     disable = {
@@ -15,6 +14,12 @@ require 'nvim-treesitter.configs'.setup {
       "html",
       "json",
       "toml",
+      "c",
+      "css",
+      "cpp",
+      "typescript",
+      "rust",
+      "vue",
     }
   },
   yati = { enable = true },
@@ -30,6 +35,28 @@ end
 local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
 
+local opts = { silent = true }
+vim.keymap.set(
+  { "s", "i" },
+  "<Tab>",
+  function()
+    if luasnip.expand_or_locally_jumpable()
+      then luasnip.expand_or_jump()
+    end
+  end,
+  opts
+)
+vim.keymap.set(
+  { "s", "i" },
+  "<S-Tab>",
+  function()
+    if luasnip.jumpable(-1)
+      then luasnip.jump(-1)
+    end
+  end,
+  opts
+)
+
 -------------------------------- danymat/neogen --------------------------------
 require('neogen').setup({ snippet_engine = "luasnip" })
 local opts = { noremap = true, silent = true }
@@ -38,6 +65,21 @@ vim.api.nvim_set_keymap("n", "<Leader>doc", ":lua require('neogen').generate()<C
 ---------------------------- mfussenegger/nvim-dap -----------------------------
 require('dap-python').setup(vim.api.nvim_list_runtime_paths()[1] .. "/venv/bin/python")
 vim.fn.sign_define('DapBreakpoint', { text = '⦿', texthl = '', linehl = '', numhl = '' })
+
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap("n", "<leader>dc", ":lua require'dap'.continue()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>dp", ":lua require'dap'.pause()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>dso", ":lua require'dap'.step_over()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>dsi", ":lua require'dap'.step_into()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>dsx", ":lua require'dap'.step_out()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<Leader>db", ":lua require'dap'.toggle_breakpoint()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<Leader>dB", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition:'))<CR>", opts)
+vim.api.nvim_set_keymap("n", "<Leader>dlp", ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", opts)
+vim.api.nvim_set_keymap("n", "<Leader>dr", ":lua require'dap'.repl.open()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<Leader>dl", ":lua require'dap'.run_last()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>dn", ":lua require('dap-python').test_method())", opts)
+vim.api.nvim_set_keymap("n", "<leader>df", ":lua require('dap-python').test_class())", opts)
+vim.api.nvim_set_keymap("n", "<leader>ds", ":lua require('dap-python').debug_selection()<CR>)", opts)
 
 ------------------------------ David-Kunz/markid -------------------------------
 local m = require 'markid'
@@ -73,43 +115,22 @@ cmp.setup({
     return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
         or require("cmp_dap").is_dap_buffer()
   end,
+
   snippet = {
-    expand = function(args)
-      require('luasnip').lsp_expand(args.body)
-    end,
+    expand = function(args) require('luasnip').lsp_expand(args.body) end
   },
+
   mapping = cmp.mapping.preset.insert({
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
-
-    -- Luasnip "Super-tab" mapping
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif require('luasnip').expand_or_locally_jumpable() then
-        require('luasnip').expand_or_jump()
-      elseif has_words_before() then
-        cmp.complete()
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif require('luasnip').jumpable(-1) then
-        require('luasnip').jump(-1)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-
   }),
+
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'nvim_lsp_signature_help' },
     { name = 'luasnip' },
     { name = 'buffer' },
     { name = 'path' },
@@ -121,7 +142,6 @@ cmp.setup({
 cmp.setup.filetype('gitcommit', {
   sources = cmp.config.sources({
     { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-  }, {
     { name = 'buffer' },
   })
 })
@@ -138,17 +158,14 @@ cmp.setup.cmdline({ '/', '?' }, {
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
+    { name = 'path' },
+    { name = 'cmdline' },
   })
 })
 
 -- nvim-dap
 cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-  sources = {
-    { name = "dap" },
-  },
+  sources = { { name = "dap" } },
 })
 
 ---------------------------- neovim/nvim-lspconfig -----------------------------
