@@ -29,13 +29,15 @@ require 'nvim-treesitter.configs'.setup {
 local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
 
-local opts = { silent = true }
+local opts = { silent = true, expr = true }
 vim.keymap.set(
-  { "s", "i" },
+  { "s", "i", },
   "<Tab>",
   function()
     if luasnip.expand_or_locally_jumpable()
-      then luasnip.expand_or_jump()
+      then return "<ESC>:lua require('luasnip').expand_or_jump()<CR>i"
+    else
+      return "<tab>"
     end
   end,
   opts
@@ -45,7 +47,9 @@ vim.keymap.set(
   "<S-Tab>",
   function()
     if luasnip.jumpable(-1)
-      then luasnip.jump(-1)
+      then return "<ESC>:lua require('luasnip').jump(-1)<CR>i"
+    else
+      return "<tab>"
     end
   end,
   opts
