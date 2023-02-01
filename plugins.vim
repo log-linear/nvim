@@ -15,6 +15,7 @@ Plug 'machakann/vim-sandwich'
 Plug 'junegunn/vim-easy-align'
 Plug 'ibhagwan/fzf-lua'
 Plug 'mcchrish/zenbones.nvim'
+Plug 'NvChad/nvim-colorizer.lua'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'David-Kunz/markid'
 Plug 'yioneko/nvim-yati', { 'tag': '*' }
@@ -37,7 +38,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'windwp/nvim-autopairs'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'levouh/tint.nvim'
+Plug 'jghauser/shade.nvim'
 call plug#end()
 
 "------------------- karoliskoncevicius/vim-sendtowindow -----------------------
@@ -56,15 +57,15 @@ nmap ga <Plug>(EasyAlign)
 "----------------------------- ibhagwan/fzf-lua --------------------------------
 nn <leader><leader><leader> :FzfLua<CR>
 nn <leader><leader>f :FzfLua files<CR>
-nn <leader><leader>F <cmd>lua require('fzf-lua').files({cmd = "fd --unrestricted"})<CR>
+nn <leader><leader><leader>f <cmd>lua require('fzf-lua').files({cmd = "fd --unrestricted"})<CR>
 nn <leader><leader>g :FzfLua git_files<CR>
 nn <leader><leader>c :FzfLua git_bcommits<CR>
 nn <leader><leader>b :FzfLua buffers<CR>
 nn <leader>/ :FzfLua blines<CR>
 nn <leader><leader>h :FzfLua help_tags<CR>
 nn <leader><leader>o :FzfLua oldfiles<CR>
-nn <leader><leader>s :FzfLua live_grep<CR>
-nn <leader><leader>S <cmd>lua require('fzf-lua').live_grep({cmd = "rg --no-ignore --hidden"})<cr>
+nn <leader><leader>/ :FzfLua live_grep<CR>
+nn <leader><leader><leader>/ <cmd>lua require('fzf-lua').live_grep({cmd = "rg --no-ignore --hidden"})<cr>
 nn <leader><leader>w :FzfLua grep_cword<CR>
 nn <leader><leader>k :FzfLua keymaps<CR>
 nn <leader><leader>t :FzfLua filetypes<CR>

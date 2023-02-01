@@ -36,10 +36,10 @@ ino ;H <esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec "normal! 0r" .
 ino ;h <esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:exec "normal! 0r" . &cms<cr><esc>o<bs>
 ino ;todo <esc>:exec "normal! 0i" . &cms[0]<cr>$a TODO: 
 nn <cr><cr> :w<CR> :15sp<CR> :term compile %<CR>
-nn <leader>tt :15new<CR><C-\><C-n>:call termopen("zsh")<CR><C-\><C-n>:set nobl<CR><C-w>k
-nn <leader>tp :15new<CR><C-\><C-n>:call termopen("python")<CR><C-\><C-n>:set nobl<CR><C-w>k
-nn <leader>tr :15new<CR><C-\><C-n>:call termopen("radian")<CR><C-\><C-n>:set nobl<CR><C-w>k
-nn <leader>ts :15new<CR><C-\><C-n>:call termopen("usql")<CR><C-\><C-n>:set nobl<CR><C-w>k
+nn <leader>tt :15new<CR><C-\><C-n>:call termopen("zsh")<CR><C-w>k
+nn <leader>tp :15new<CR><C-\><C-n>:call termopen("python")<CR><C-w>k
+nn <leader>tr :15new<CR><C-\><C-n>:call termopen("radian")<CR><C-w>k
+nn <leader>ts :15new<CR><C-\><C-n>:call termopen("usql")<CR><C-w>k
 nn <Leader>ve <esc>:Vexplore<CR>
 nn <leader>cd :cd %:p:h<CR>:pwd<CR>
 nn <leader>.. :cd ..<CR>:pwd<CR>
@@ -59,18 +59,14 @@ for mapcmd in ['nn', 'ino', 'vn', 'tno']
   exec mapcmd . ' <A-=> <C-\><C-n><C-w>:resize +3<CR>'
   exec mapcmd . ' <A-.> <C-\><C-n><C-w>:vertical resize +3<CR>'
   exec mapcmd . ' <A-0> <C-\><C-n><C-w>='
-  exec mapcmd . ' <A-V> <C-\><C-n><C-w>:vertical winc =<CR>'
-  exec mapcmd . ' <A-S> <C-\><C-n><C-w>:horizontal winc =<CR>'
   exec mapcmd . ' <A-q> <C-\><C-n>:quit<CR>'
-  exec mapcmd . ' <A-n> <C-\><C-n>:bn<CR>'
-  exec mapcmd . ' <A-p> <C-\><C-n>:bp<CR>'
-  exec mapcmd . ' <A-d> <C-\><C-n>:bp <BAR> bd #<CR>'
-  exec mapcmd . ' <A-D> <C-\><C-n>:bp <BAR> bd! #<CR>'
+  exec mapcmd . ' <A-n> <C-\><C-n><C-6>'
+  exec mapcmd . ' <A-p> <C-\><C-n><C-6>'
   exec mapcmd . ' <A-s> <C-\><C-n>:sp<CR>'
   exec mapcmd . ' <A-v> <C-\><C-n>:vs<CR>'
+  exec mapcmd . ' <A-S> <C-\><C-n><C-w>:horizontal winc =<CR>'
+  exec mapcmd . ' <A-V> <C-\><C-n><C-w>:vertical winc =<CR>'
 endfor
-tno <A-d> <C-\><C-n>:bd!<CR>
-tno <A-q> <C-\><C-n>:bd!<CR>
 
 "=========================== File-specific settings ============================
 au FileType sh,bash,zsh,vim,lua,r,rmd setlocal expandtab shiftwidth=2 tabstop=2

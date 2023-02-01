@@ -1,5 +1,8 @@
 --============================ lua plugin configs ==============================
 
+-------------------------- NvChad/nvim-colorizer.lua ---------------------------
+require 'colorizer'.setup()
+
 ----------------------- nvim-treesitter/nvim-treesitter ------------------------
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = 'all',
@@ -170,8 +173,8 @@ cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
 -- Mappings
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']e', vim.diagnostic.goto_next, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -314,8 +317,5 @@ require('gitsigns').setup {
   end
 }
 
-------------------------------- levouh/tint.nvim -------------------------------
-require("tint").setup({
-  tint = 65,
-  saturation = .25
-})
+----------------------------- jghauser/shade.nvim ------------------------------
+require("shade").setup()
