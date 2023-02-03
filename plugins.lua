@@ -7,7 +7,6 @@ require 'colorizer'.setup()
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = 'all',
   highlight = { enable = true, },
-  ignore_install = { "t32" },
   markid = { enable = true },
   indent = {
     enable = true,
