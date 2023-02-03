@@ -133,6 +133,7 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
+    { name = 'vim-dadbod-completion' },
     { name = 'luasnip' },
     { name = 'buffer' },
     { name = 'path' },
@@ -168,11 +169,6 @@ cmp.setup.cmdline(':', {
 -- nvim-dap
 cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
   sources = { { name = "dap" } },
-})
-
--- vim-dadbod-completion
-cmp.setup.buffer({
-  sources = { {name = 'vim-dadbod-completion'} }
 })
 
 ---------------------------- neovim/nvim-lspconfig -----------------------------
