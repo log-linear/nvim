@@ -3,5 +3,5 @@
 (field name: (identifier) @markid)
 (field table_alias: (identifier) @markid)
 (relation table_alias: (identifier) @markid)
-(select_expression alias: (identifier) @markid)
+(term (identifier) @markid)
 (table_reference name: (identifier) @markid)

@@ -7,6 +7,7 @@ require 'colorizer'.setup()
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = 'all',
   highlight = { enable = true, },
+  ignore_install = { "t32" },
   markid = { enable = true },
   indent = {
     enable = true,
@@ -30,7 +31,7 @@ require 'nvim-treesitter.configs'.setup {
 
 ------------------------------- L3MON4D3/LuaSnip -------------------------------
 local luasnip = require("luasnip")
-require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_snipmate").lazy_load()
 
 local opts = { silent = true, expr = true }
 vim.keymap.set(
@@ -69,6 +70,7 @@ vim.fn.sign_define('DapBreakpoint', { text = '⦿', texthl = '', linehl = '', nu
 
 local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<leader>dc", ":lua require'dap'.continue()<CR>", opts)
+vim.api.nvim_set_keymap("n", "<Leader>dt", ":lua require'dap'.terminate()<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>dp", ":lua require'dap'.pause()<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>dso", ":lua require'dap'.step_over()<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>dsi", ":lua require'dap'.step_into()<CR>", opts)
@@ -169,6 +171,11 @@ cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
   sources = { { name = "dap" } },
 })
 
+-- vim-dadbod-completion
+cmp.setup.buffer({
+  sources = { {name = 'vim-dadbod-completion'} }
+})
+
 ---------------------------- neovim/nvim-lspconfig -----------------------------
 -- Mappings
 local opts = { noremap = true, silent = true }
@@ -221,7 +228,6 @@ local servers = {
   cssls = {},
   html = {},
   vimls = {},
-  sqls = {},
   sumneko_lua = {
     settings = {
       Lua = {

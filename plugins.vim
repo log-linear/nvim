@@ -10,6 +10,8 @@ endif
 " Load plugins
 call plug#begin()
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-completion'
 Plug 'karoliskoncevicius/vim-sendtowindow'
 Plug 'machakann/vim-sandwich'
 Plug 'junegunn/vim-easy-align'
@@ -17,10 +19,11 @@ Plug 'ibhagwan/fzf-lua'
 Plug 'mcchrish/zenbones.nvim'
 Plug 'NvChad/nvim-colorizer.lua'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/playground'
 Plug 'David-Kunz/markid'
 Plug 'yioneko/nvim-yati', { 'tag': '*' }
 Plug 'L3MON4D3/LuaSnip'
-Plug 'rafamadriz/friendly-snippets'
+Plug 'honza/vim-snippets'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
