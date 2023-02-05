@@ -56,8 +56,8 @@ vim.keymap.set(
   { "s", "i", },
   "<Tab>",
   function()
-    if luasnip.expand_or_locally_jumpable()
-      then return "<ESC>:lua require('luasnip').expand_or_jump()<CR>i"
+    if luasnip.expand_or_jumpable()
+      then return "<Plug>luasnip-expand-or-jump"
     else
       return "<tab>"
     end
