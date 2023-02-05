@@ -13,10 +13,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-completion'
 Plug 'karoliskoncevicius/vim-sendtowindow'
-Plug 'machakann/vim-sandwich'
-Plug 'junegunn/vim-easy-align'
 Plug 'ibhagwan/fzf-lua'
 Plug 'mcchrish/zenbones.nvim'
+Plug 'echasnovski/mini.nvim'
 Plug 'NvChad/nvim-colorizer.lua'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-treesitter/playground'
@@ -36,9 +35,7 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'danymat/neogen'
 Plug 'mfussenegger/nvim-dap'
 Plug 'mfussenegger/nvim-dap-python'
-Plug 'numToStr/Comment.nvim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'windwp/nvim-autopairs'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'jghauser/shade.nvim'
@@ -49,13 +46,6 @@ let g:sendtowindow_use_defaults=0
 nmap <A-CR> <Plug>SendDown
 vmap <A-CR> <Plug>SendDownV
 imap <A-CR> <Esc><Plug>SendDown
-
-"-------------------------- machakann/vim-sandwich -----------------------------
-runtime macros/sandwich/keymap/surround.vim
-
-"------------------------- junegunn/vim-easy-align -----------------------------
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
 
 "----------------------------- ibhagwan/fzf-lua --------------------------------
 nn <leader><leader><leader> :FzfLua<CR>

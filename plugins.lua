@@ -1,7 +1,26 @@
 --============================ lua plugin configs ==============================
 
+---------------------------- echasnovski/mini.nvim -----------------------------
+require('mini.surround').setup({
+  -- Module mappings. Use `''` (empty string) to disable one.
+  mappings = {
+    add = 'ys', -- Add surrounding in Normal and Visual modes
+    delete = 'ds', -- Delete surrounding
+    find = '', -- Find surrounding (to the right)
+    find_left = '', -- Find surrounding (to the left)
+    highlight = '', -- Highlight surrounding
+    replace = 'cs', -- Replace surrounding
+    update_n_lines = '', -- Update `n_lines`
+    suffix_last = '', -- Suffix to search with "prev" method
+    suffix_next = '', -- Suffix to search with "next" method
+  },
+})
+require('mini.align').setup({})
+require('mini.comment').setup({})
+require('mini.pairs').setup({})
+
 -------------------------- NvChad/nvim-colorizer.lua ---------------------------
-require 'colorizer'.setup()
+require 'colorizer'.setup({})
 
 ----------------------- nvim-treesitter/nvim-treesitter ------------------------
 require 'nvim-treesitter.configs'.setup {
@@ -103,9 +122,6 @@ vim.api.nvim_set_hl(0, 'markid8', { fg = '#348d9f' })
 vim.api.nvim_set_hl(0, 'markid9', { fg = '#ac7188' })
 vim.api.nvim_set_hl(0, 'markid10', { fg = '#174233' })
 vim.keymap.set('n', '<space>m', ':TSToggle markid<CR>')
-
----------------------------- numToStr/Comment.nvim -----------------------------
-require('Comment').setup {}
 
 ------------------------------- hrsh7th/nvim-cmp -------------------------------
 -- Set up nvim-cmp.
@@ -254,10 +270,15 @@ local servers = {
             formatCommand = "black --quiet --line-length=80 -",
             formatStdin = true
           },
+        },
+        css = {
+          {
+            formatCommand = "prettier ${--tab-width:tabWidth} ${--single-quote:singleQuote} --parser css",
+          }
         }
       }
     },
-    filetypes = { 'python', }
+    filetypes = { 'python', 'css' }
   },
   openscad_ls = {}
 }
@@ -273,14 +294,6 @@ for server, user_opts in pairs(servers) do
     server_opts
   )
 end
-
----------------------------- windwp/nvim-autopairs -----------------------------
-require("nvim-autopairs").setup {}
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-require('cmp').event:on(
-  'confirm_done',
-  cmp_autopairs.on_confirm_done()
-)
 
 --------------------- lukas-reineke/indent-blankline.nvim ----------------------
 require("indent_blankline").setup {
