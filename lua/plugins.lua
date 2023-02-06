@@ -1,16 +1,70 @@
 return {
+  -- Package manager
   {
     "folke/lazy.nvim",
     version = "*",
   },
+
+  -- Git support
   {
     "tpope/vim-fugitive",
+    event = "VeryLazy"
   },
+  {
+    "lewis6991/gitsigns.nvim",
+    event = "BufReadPre",
+    config = function()
+      require('gitsigns').setup {
+        on_attach = function(bufnr)
+          local gs = package.loaded.gitsigns
+
+          local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+          end
+
+          -- Navigation
+          map('n', ']c', function()
+            if vim.wo.diff then return ']c' end
+            vim.schedule(function() gs.next_hunk() end)
+            return '<Ignore>'
+          end, { expr = true })
+
+          map('n', '[c', function()
+            if vim.wo.diff then return '[c' end
+            vim.schedule(function() gs.prev_hunk() end)
+            return '<Ignore>'
+          end, { expr = true })
+
+          -- Actions
+          map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+          map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+          map('n', '<leader>hS', gs.stage_buffer)
+          map('n', '<leader>hu', gs.undo_stage_hunk)
+          map('n', '<leader>hR', gs.reset_buffer)
+          map('n', '<leader>hp', gs.preview_hunk)
+          map('n', '<leader>hb', function() gs.blame_line { full = true } end)
+          map('n', '<leader>tb', gs.toggle_current_line_blame)
+          map('n', '<leader>hd', gs.diffthis)
+          map('n', '<leader>hD', function() gs.diffthis('~') end)
+
+          -- Text object
+          map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        end
+      }
+    end
+  },
+
+  -- Databases
   {
     "tpope/vim-dadbod",
   },
+
+  -- REPL-like
   {
     "karoliskoncevicius/vim-sendtowindow",
+    event = "WinNew",
     config = function()
       vim.cmd [[
           let g:sendtowindow_use_defaults=0
@@ -20,6 +74,8 @@ return {
         ]]
     end
   },
+
+  -- Fuzzy finder
   {
     "ibhagwan/fzf-lua",
     config = function()
@@ -42,6 +98,8 @@ return {
         ]]
     end
   },
+
+  -- Colorscheme
   {
     "mcchrish/zenbones.nvim",
     lazy = false,
@@ -60,6 +118,8 @@ return {
         ]]
     end
   },
+
+  -- Auto-pairs
   {
     "echasnovski/mini.pairs",
     event = "VeryLazy",
@@ -67,46 +127,48 @@ return {
       require('mini.pairs').setup({})
     end
   },
+
+  -- Surround mappings
   {
-    "echasnovski/mini.surround",
+    "machakann/vim-sandwich",
     event = "VeryLazy",
     config = function()
-      require('mini.surround').setup({
-        -- Module mappings. Use `''` (empty string) to disable one.
-        mappings = {
-          add = 'ys', -- Add surrounding in Normal and Visual modes
-          delete = 'ds', -- Delete surrounding
-          find = '', -- Find surrounding (to the right)
-          find_left = '', -- Find surrounding (to the left)
-          highlight = '', -- Highlight surrounding
-          replace = 'cs', -- Replace surrounding
-          update_n_lines = '', -- Update `n_lines`
-          suffix_last = '', -- Suffix to search with "prev" method
-          suffix_next = '', -- Suffix to search with "next" method
-        },
-      })
+      vim.cmd[[
+        runtime macros/sandwich/keymap/surround.vim
+      ]]
     end
   },
+
+  -- Align text
   {
-    "echasnovski/mini.align",
+    "junegunn/vim-easy-align",
     event = "VeryLazy",
     config = function()
-      require('mini.align').setup({})
+      vim.cmd[[
+        xmap ga <Plug>(EasyAlign)
+        nmap ga <Plug>(EasyAlign)
+      ]]
     end
   },
+
+  -- Comment/uncomment code
   {
-    "echasnovski/mini.comment",
+    "numToStr/Comment.nvim",
     event = "VeryLazy",
     config = function()
-      require('mini.comment').setup({})
+      require("Comment").setup({})
     end
   },
+
+  -- Highlight text backgrounds with matching hex color
   {
     "NvChad/nvim-colorizer.lua",
     config = function()
       require 'colorizer'.setup({})
     end
   },
+
+  -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -161,6 +223,8 @@ return {
       vim.keymap.set('n', '<space>m', ':TSToggle markid<CR>')
     end,
   },
+
+  -- Snippets
   {
     "L3MON4D3/LuaSnip",
     dependencies = {
@@ -197,6 +261,8 @@ return {
       )
     end,
   },
+
+  -- Auto-completion
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -287,6 +353,8 @@ return {
       })
     end,
   },
+
+  -- Easy code doc generation
   {
     "danymat/neogen",
     config = function()
@@ -295,6 +363,8 @@ return {
       vim.api.nvim_set_keymap("n", "<Leader>doc", ":lua require('neogen').generate()<CR>", opts)
     end
   },
+
+  -- Debuggers
   {
     "mfussenegger/nvim-dap",
     dependencies = {
@@ -323,8 +393,14 @@ return {
       vim.api.nvim_set_keymap("n", "<leader>ds", ":lua require('dap-python').debug_selection()<CR>)", opts)
     end
   },
+
+  -- LSP
   {
     "neovim/nvim-lspconfig",
+    event = "BufReadPre",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp"
+    },
     config = function()
       -- Mappings
       local opts = { noremap = true, silent = true }
@@ -426,6 +502,8 @@ return {
       end
     end
   },
+
+  -- Highlight indented lines
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPost",
@@ -435,53 +513,11 @@ return {
       }
     end
   },
-  {
-    "lewis6991/gitsigns.nvim",
-    event = "BufReadPre",
-    config = function()
-      require('gitsigns').setup {
-        on_attach = function(bufnr)
-          local gs = package.loaded.gitsigns
 
-          local function map(mode, l, r, opts)
-            opts = opts or {}
-            opts.buffer = bufnr
-            vim.keymap.set(mode, l, r, opts)
-          end
-
-          -- Navigation
-          map('n', ']c', function()
-            if vim.wo.diff then return ']c' end
-            vim.schedule(function() gs.next_hunk() end)
-            return '<Ignore>'
-          end, { expr = true })
-
-          map('n', '[c', function()
-            if vim.wo.diff then return '[c' end
-            vim.schedule(function() gs.prev_hunk() end)
-            return '<Ignore>'
-          end, { expr = true })
-
-          -- Actions
-          map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-          map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-          map('n', '<leader>hS', gs.stage_buffer)
-          map('n', '<leader>hu', gs.undo_stage_hunk)
-          map('n', '<leader>hR', gs.reset_buffer)
-          map('n', '<leader>hp', gs.preview_hunk)
-          map('n', '<leader>hb', function() gs.blame_line { full = true } end)
-          map('n', '<leader>tb', gs.toggle_current_line_blame)
-          map('n', '<leader>hd', gs.diffthis)
-          map('n', '<leader>hD', function() gs.diffthis('~') end)
-
-          -- Text object
-          map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-        end
-      }
-    end
-  },
+  -- Dim inactive window splits
   {
     "jghauser/shade.nvim",
+    event = "WinNew",
     config = function()
       require("shade").setup()
     end
