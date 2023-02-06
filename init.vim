@@ -95,9 +95,22 @@ for mapcmd in ['ino', 'tno']
 endfor
 
 "================================== Plug-ins ===================================
-if !empty(glob(stdpath('config') . '/plugins.vim'))
-  exec 'source ' . stdpath('config') . '/plugins.vim'
-endif
+lua<<EOF
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup("plugins")
+EOF
 
 "============================ Additional settings ==============================
 if has("win64") || has("win32") || has("win16")
@@ -107,4 +120,3 @@ endif
 if !empty(glob(stdpath("config") . '/work.vim'))
   exec 'source ' . stdpath("config") . '/work.vim'
 endif
-
