@@ -92,7 +92,6 @@ return {
     event = "VeryLazy",
     config = function()
       require('mini.align').setup({})
-      require('mini.comment').setup({})
     end
   },
   {
