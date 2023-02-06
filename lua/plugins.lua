@@ -1,11 +1,11 @@
 return {
-  -- Package manager
+------------------------------- Package manager --------------------------------
   {
     "folke/lazy.nvim",
     version = "*",
   },
 
-  -- Git support
+--------------------------------- Git support ----------------------------------
   {
     "tpope/vim-fugitive",
     event = "VeryLazy"
@@ -56,62 +56,66 @@ return {
     end
   },
 
-  -- Databases
+---------------------------------- Databases -----------------------------------
   {
     "tpope/vim-dadbod",
   },
 
-  -- REPL-like
+------------------------------------- REPL -------------------------------------
   {
     "karoliskoncevicius/vim-sendtowindow",
-    event = "WinNew",
+    keys = {
+      { "<A-CR>", "<Plug>SendDown" },
+      { "<A-CR>", "<Plug>SendDownV" },
+      { "<A-CR>", "<Esc><Plug>SendDown" },
+    },
     config = function()
-      vim.cmd [[
-          let g:sendtowindow_use_defaults=0
-          nmap <A-CR> <Plug>SendDown
-          vmap <A-CR> <Plug>SendDownV
-          imap <A-CR> <Esc><Plug>SendDown
-        ]]
+      vim.g.sendtowindow_use_defaults = 0
     end
   },
 
-  -- Fuzzy finder
+--------------------------------- Fuzzy finder ---------------------------------
   {
     "ibhagwan/fzf-lua",
-    config = function()
-      vim.cmd [[
-          nn <leader><leader><leader> :FzfLua<CR>
-          nn <leader><leader>f :FzfLua files<CR>
-          nn <leader><leader><leader>f <cmd>lua require('fzf-lua').files({cmd = "fd --unrestricted"})<CR>
-          nn <leader><leader>g :FzfLua git_files<CR>
-          nn <leader><leader>c :FzfLua git_bcommits<CR>
-          nn <leader><leader>b :FzfLua buffers<CR>
-          nn <leader>/ :FzfLua blines<CR>
-          nn <leader><leader>h :FzfLua help_tags<CR>
-          nn <leader><leader>o :FzfLua oldfiles<CR>
-          nn <leader><leader>/ :FzfLua live_grep<CR>
-          nn <leader><leader><leader>/ <cmd>lua require('fzf-lua').live_grep({cmd = "rg --no-ignore --hidden"})<cr>
-          nn <leader><leader>w :FzfLua grep_cword<CR>
-          nn <leader><leader>k :FzfLua keymaps<CR>
-          nn <leader><leader>t :FzfLua filetypes<CR>
-          nn <leader><leader>r :FzfLua lsp_references<CR>
-        ]]
-    end
+    keys = 
+    {
+      { "<leader><leader><leader>", "<cmd>FzfLua<CR>" },
+      { "<leader><leader>f", "<cmd>FzfLua files<CR>" },
+      { "<leader><leader><leader>f", "<cmd>lua require('fzf-lua').files({cmd = 'fd --unrestricted'})<CR>" },
+      { "<leader><leader>g", ":FzfLua git_files<CR>" },
+      { "<leader><leader>c", ":FzfLua git_bcommits<CR>" },
+      { "<leader><leader>b", ":FzfLua buffers<CR>" },
+      { "<leader>/", ":FzfLua blines<CR>" },
+      { "<leader><leader>h", ":FzfLua help_tags<CR>" },
+      { "<leader><leader>o", ":FzfLua oldfiles<CR>" },
+      { "<leader><leader>/", ":FzfLua live_grep<CR>" },
+      { "<leader><leader><leader>/", "<cmd>lua require('fzf-lua').live_grep({cmd = 'rg --no-ignore --hidden'})<cr>" },
+      { "<leader><leader>w", ":FzfLua grep_cword<CR>" },
+      { "<leader><leader>k", ":FzfLua keymaps<CR>" },
+      { "<leader><leader>t", ":FzfLua filetypes<CR>" },
+      { "<leader><leader>r", ":FzfLua lsp_references<CR>" },
+    }
   },
 
-  -- Colorscheme
+--------------------------------- Colorscheme ----------------------------------
   {
     "mcchrish/zenbones.nvim",
     lazy = false,
     priority = 1000,
     config = function()
+      vim.opt.background = light
+      vim.g.zenwritten_compat = 1
+      vim.g.zenwritten_lightness = "bright"
+      vim.cmd.colorscheme("zenwritten")
+      vim.cmd.highlight({
+        "ColorColumn",
+        "guifg=NONE",
+        "guibg=#E5E5E5",
+        "guisp=NONE",
+        "gui=NONE",
+        "cterm=NONE",
+      })
       vim.cmd [[
-          set background=light
-          let g:zenwritten_compat = 1
-          let g:zenwritten_lightness = 'bright'
-
-          colorscheme zenwritten
-          hi ColorColumn guifg=NONE guibg=#E5E5E5 guisp=NONE gui=NONE cterm=NONE
           let fts = [ 'sh', 'r', 'sql', 'rmd', 'bash' ]
           au BufEnter * if index(fts, &ft) > 0 | hi @function guifg=#5C5C5C guibg=NONE guisp=NONE gui=bold cterm=NONE | endif
           au BufLeave * if index(fts, &ft) > 0 | hi @function guifg=#5C5C5C guibg=NONE guisp=NONE gui=NONE cterm=NONE | endif
@@ -119,7 +123,7 @@ return {
     end
   },
 
-  -- Auto-pairs
+---------------------------------- Auto-pairs ----------------------------------
   {
     "echasnovski/mini.pairs",
     event = "VeryLazy",
@@ -128,30 +132,25 @@ return {
     end
   },
 
-  -- Surround mappings
+----------------------------------- Surround -----------------------------------
   {
     "machakann/vim-sandwich",
     event = "VeryLazy",
     config = function()
-      vim.cmd[[
-        runtime macros/sandwich/keymap/surround.vim
-      ]]
+      vim.cmd [[ runtime macros/sandwich/keymap/surround.vim ]]
     end
   },
 
-  -- Align text
+---------------------------------- Align text ----------------------------------
   {
     "junegunn/vim-easy-align",
-    event = "VeryLazy",
-    config = function()
-      vim.cmd[[
-        xmap ga <Plug>(EasyAlign)
-        nmap ga <Plug>(EasyAlign)
-      ]]
-    end
+    keys = {
+      { "ga", "<Plug>(EasyAlign)", "n" },
+      { "ga", "<Plug>(EasyAlign)", "x" },
+    },
   },
 
-  -- Comment/uncomment code
+---------------------------- Comment/uncomment code ----------------------------
   {
     "numToStr/Comment.nvim",
     event = "VeryLazy",
@@ -160,7 +159,7 @@ return {
     end
   },
 
-  -- Highlight text backgrounds with matching hex color
+-------------- Highlight text backgrounds with matching hex color --------------
   {
     "NvChad/nvim-colorizer.lua",
     config = function()
@@ -168,7 +167,7 @@ return {
     end
   },
 
-  -- Treesitter
+---------------------------------- Treesitter ----------------------------------
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -224,45 +223,42 @@ return {
     end,
   },
 
-  -- Snippets
+----------------------------------- Snippets -----------------------------------
   {
     "L3MON4D3/LuaSnip",
     dependencies = {
       "honza/vim-snippets"
     },
-    config = function()
-      local luasnip = require("luasnip")
+    config = function ()
       require("luasnip.loaders.from_snipmate").lazy_load()
-
-      local opts = { silent = true, expr = true }
-      vim.keymap.set(
-        { "s", "i", },
-        "<Tab>",
-        function()
-          if luasnip.expand_or_jumpable()
-          then return "<Plug>luasnip-expand-or-jump"
-          else
-            return "<tab>"
-          end
-        end,
-        opts
-      )
-      vim.keymap.set(
-        { "s", "i" },
+    end,
+    keys = {
+      {
+          "<Tab>",
+          function()
+            if require("luasnip").expand_or_locally_jumpable()
+            then return "<Plug>luasnip-expand-or-jump"
+            else
+              return "<tab>"
+            end
+          end,
+          { "i", },
+      },
+      {
         "<S-Tab>",
         function()
-          if luasnip.jumpable(-1)
+          if require("luasnip").jumpable(-1)
           then return "<ESC>:lua require('luasnip').jump(-1)<CR>i"
           else
             return "<tab>"
           end
         end,
-        opts
-      )
-    end,
+        { "s", "i" },
+      }
+    }
   },
 
-  -- Auto-completion
+------------------------------- Auto-completion --------------------------------
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -364,7 +360,7 @@ return {
     end
   },
 
-  -- Debuggers
+---------------------------------- Debuggers -----------------------------------
   {
     "mfussenegger/nvim-dap",
     dependencies = {
@@ -394,7 +390,7 @@ return {
     end
   },
 
-  -- LSP
+------------------------------------- LSP --------------------------------------
   {
     "neovim/nvim-lspconfig",
     event = "BufReadPre",
@@ -503,7 +499,7 @@ return {
     end
   },
 
-  -- Highlight indented lines
+--------------------------- Highlight indented lines ---------------------------
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPost",
@@ -514,7 +510,7 @@ return {
     end
   },
 
-  -- Dim inactive window splits
+-------------------------- Dim inactive window splits --------------------------
   {
     "jghauser/shade.nvim",
     event = "WinNew",
