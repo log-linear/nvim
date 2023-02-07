@@ -363,31 +363,28 @@ return {
   ---------------------------------- Debuggers ---------------------------------
   {
     "mfussenegger/nvim-dap",
-    event = "BufReadPost",
+    keys = {
+      { "<leader>dc", ":lua require'dap'.continue()<CR>", },
+      { "<Leader>dt", ":lua require'dap'.terminate()<CR>", },
+      { "<leader>dp", ":lua require'dap'.pause()<CR>", },
+      { "<leader>dso", ":lua require'dap'.step_over()<CR>", },
+      { "<leader>dsi", ":lua require'dap'.step_into()<CR>", },
+      { "<leader>dsx", ":lua require'dap'.step_out()<CR>", },
+      { "<Leader>db", ":lua require'dap'.toggle_breakpoint()<CR>", },
+      { "<Leader>dB", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition:'))<CR>", },
+      { "<Leader>dlp", ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", },
+      { "<Leader>dr", ":lua require'dap'.repl.open()<CR>", },
+      { "<Leader>dl", ":lua require'dap'.run_last()<CR>", },
+      { "<leader>dn", ":lua require('dap-python').test_method())", },
+      { "<leader>df", ":lua require('dap-python').test_class())", },
+      { "<leader>ds", ":lua require('dap-python').debug_selection()<CR>)", },
+    },
     dependencies = {
       "mfussenegger/nvim-dap-python"
     },
     config = function()
       require('dap-python').setup(vim.api.nvim_list_runtime_paths()[1] .. "/venv/bin/python")
       vim.fn.sign_define('DapBreakpoint', { text = '⦿', texthl = '', linehl = '', numhl = '' })
-
-      local opts = { noremap = true, silent = true }
-      vim.api.nvim_set_keymap("n", "<leader>dc", ":lua require'dap'.continue()<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<Leader>dt", ":lua require'dap'.terminate()<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<leader>dp", ":lua require'dap'.pause()<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<leader>dso", ":lua require'dap'.step_over()<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<leader>dsi", ":lua require'dap'.step_into()<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<leader>dsx", ":lua require'dap'.step_out()<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<Leader>db", ":lua require'dap'.toggle_breakpoint()<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<Leader>dB",
-        ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition:'))<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<Leader>dlp",
-        ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<Leader>dr", ":lua require'dap'.repl.open()<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<Leader>dl", ":lua require'dap'.run_last()<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<leader>dn", ":lua require('dap-python').test_method())", opts)
-      vim.api.nvim_set_keymap("n", "<leader>df", ":lua require('dap-python').test_class())", opts)
-      vim.api.nvim_set_keymap("n", "<leader>ds", ":lua require('dap-python').debug_selection()<CR>)", opts)
     end
   },
 
