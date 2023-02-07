@@ -344,14 +344,19 @@ return {
     end,
   },
 
-  -- Easy code doc generation
+  ------------------------- Easy code doc generation ---------------------------
   {
     "danymat/neogen",
-    event = "BufReadPost",
+    keys = {
+      {
+        "<leader>doc",
+        ":lua require('neogen').generate()<CR>",
+        noremap = true,
+        silent = true 
+      }
+    },
     config = function()
       require('neogen').setup({ snippet_engine = "luasnip" })
-      local opts = { noremap = true, silent = true }
-      vim.api.nvim_set_keymap("n", "<Leader>doc", ":lua require('neogen').generate()<CR>", opts)
     end
   },
 
