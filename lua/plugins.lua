@@ -265,7 +265,6 @@ return {
       "rcarriga/cmp-dap",
       "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
-      "ray-x/cmp-treesitter",
     },
     config = function()
       -- Set up nvim-cmp.
@@ -352,7 +351,7 @@ return {
         "<leader>doc",
         ":lua require('neogen').generate()<CR>",
         noremap = true,
-        silent = true 
+        silent = true
       }
     },
     config = function()
@@ -391,7 +390,20 @@ return {
   ------------------------------------- LSP ------------------------------------
   {
     "neovim/nvim-lspconfig",
-    event = "BufReadPre",
+    event = {
+      "FileType python",
+      "FileType r",
+      "FileType rmd",
+      "FileType bash",
+      "FileType sh",
+      "FileType tex",
+      "FileType json",
+      "FileType css",
+      "FileType html",
+      "FileType lua",
+      "FileType vim",
+      "FileType openscad",
+    },
     dependencies = {
       "hrsh7th/cmp-nvim-lsp"
     },
@@ -471,6 +483,11 @@ return {
                   formatStdin = true
                 },
               },
+              sh = {
+                {
+                  formatCommand = 'shfmt -ci -s -bn'
+                }
+              },
               css = {
                 {
                   formatCommand = "prettier ${--tab-width:tabWidth} ${--single-quote:singleQuote} --parser css",
@@ -478,7 +495,7 @@ return {
               }
             }
           },
-          filetypes = { 'python', 'css' }
+          filetypes = { 'python', 'css', 'sh', 'bash' }
         },
         openscad_ls = {}
       }
