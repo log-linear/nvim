@@ -2,7 +2,7 @@
 local opts = { noremap = true, silent = true }
 local map = vim.keymap.set
 
-map("t", "<esc>", "<C-\\g><C-n>", opts)
+map("t", "<esc>", "<C-\\><C-n>", opts)
 map("n", "<leader>s", ":%s//g<left><left>", opts)
 map("n", "<leader>S", ":%s/<C-r><C-w>/", opts)
 map("n", "<leader>bs", ":bufdo %s//gc<left><left><left>", opts)
