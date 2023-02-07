@@ -12,7 +12,7 @@
   "gitsigns.nvim": { "branch": "main", "commit": "ec4742a7eebf68bec663041d359b95637242b5c3" },
   "indent-blankline.nvim": { "branch": "master", "commit": "8299fe7703dfff4b1752aeed271c3b95281a952d" },
   "indent-o-matic": { "branch": "master", "commit": "3103dde7a47f2855097558ab52162bbbdbe8dc40" },
-  "lazy.nvim": { "branch": "main", "commit": "0e4017152d90cff89232713a5baca24e8411dbaa" },
+  "lazy.nvim": { "branch": "main", "commit": "48c9b37294f31e3875435bca41d0c923fdd6eea4" },
   "markid": { "branch": "main", "commit": "248a785900c29ee52ddf42aa096e9e3478739cb1" },
   "mini.pairs": { "branch": "main", "commit": "50f07af5e47a67e74ec1a9b25bfb2eec93783d44" },
   "neogen": { "branch": "main", "commit": "465af9d6c6fb7f360175991dcc23fc10917e3a06" },
