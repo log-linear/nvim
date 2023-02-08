@@ -2,6 +2,7 @@
 vim.opt.clipboard = "unnamedplus"
 vim.opt.colorcolumn = "80"
 vim.opt.cursorline = true
+vim.opt.ea = false
 vim.opt.expandtab = true
 vim.opt.ignorecase = true
 vim.opt.list = true
@@ -22,4 +23,3 @@ vim.opt.termguicolors = true
 vim.wo.wrap = false
 vim.env.EDITOR = "nvrl"
 vim.g.mapleader = " "
-vim.g.noea = true
