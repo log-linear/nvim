@@ -1,3 +1,4 @@
+--================================= Plugins ====================================
 return {
   ------------------------------- Package manager ------------------------------
   {
@@ -110,6 +111,14 @@ return {
       vim.g.zenwritten_lightness = "bright"
       vim.cmd.colorscheme("zenwritten")
       vim.cmd.highlight({
+        "Type",
+        "guifg=#5F5F5F",
+        "guibg=NONE",
+        "guisp=NONE",
+        "gui=NONE",
+        "cterm=NONE",
+      })
+      vim.cmd.highlight({
         "ColorColumn",
         "guifg=NONE",
         "guibg=#E5E5E5",
@@ -127,11 +136,9 @@ return {
 
   ---------------------------------- Auto-pairs --------------------------------
   {
-    "echasnovski/mini.pairs",
+    "windwp/nvim-autopairs",
     event = "InsertEnter",
-    config = function()
-      require('mini.pairs').setup({})
-    end
+    config = function() require('nvim-autopairs').setup({}) end
   },
 
   ----------------------------------- Surround ---------------------------------
@@ -160,18 +167,14 @@ return {
   {
     "numToStr/Comment.nvim",
     event = "BufReadPost",
-    config = function()
-      require("Comment").setup({})
-    end
+    config = function() require("Comment").setup({}) end
   },
 
   -------------- Highlight text backgrounds with matching hex color ------------
   {
     "NvChad/nvim-colorizer.lua",
     event = "VeryLazy",
-    config = function()
-      require 'colorizer'.setup({})
-    end
+    config = function() require 'colorizer'.setup() end
   },
 
   ---------------------------------- Treesitter --------------------------------
@@ -188,6 +191,7 @@ return {
     config = function()
       require 'nvim-treesitter.configs'.setup {
         ensure_installed = 'all',
+        ignore_install = { "t32" },
         highlight = { enable = true, },
         markid = { enable = true },
         indent = {
@@ -227,7 +231,6 @@ return {
       vim.api.nvim_set_hl(0, 'markid8', { fg = '#348d9f' })
       vim.api.nvim_set_hl(0, 'markid9', { fg = '#ac7188' })
       vim.api.nvim_set_hl(0, 'markid10', { fg = '#174233' })
-      vim.keymap.set('n', '<space>m', ':TSToggle markid<CR>')
     end,
   },
 
@@ -263,12 +266,12 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "rcarriga/cmp-dap",
-      "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
     },
     config = function()
       -- Set up nvim-cmp.
       local cmp = require 'cmp'
+      local get_bufnrs = function() return vim.api.nvim_list_bufs() end
 
       cmp.setup({
         -- Enable in DAP buffers
@@ -298,41 +301,15 @@ return {
           { name = 'nvim_lsp_signature_help' },
           { name = 'vim-dadbod-completion' },
           { name = 'luasnip' },
-          {
-            name = 'buffer',
-            option = {
-              get_bufnrs = function()
-                return vim.api.nvim_list_bufs()
-              end
-            }
-          },
+          { name = 'buffer', option = { get_bufnrs = get_bufnrs } },
           { name = 'path' },
-          { name = 'treesitter' }
         }),
       })
 
       -- Set configuration for specific filetype.
       cmp.setup.filetype('gitcommit', {
         sources = cmp.config.sources({
-          { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-          { name = 'buffer' },
-        })
-      })
-
-      -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline({ '/', '?' }, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = 'buffer' }
-        }
-      })
-
-      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = 'path' },
-          { name = 'cmdline' },
+          { name = 'buffer', option = { get_bufnrs = get_bufnrs } },
         })
       })
 
@@ -369,9 +346,7 @@ return {
       { "<leader>dso", ":lua require'dap'.step_over()<CR>", },
       { "<leader>dsi", ":lua require'dap'.step_into()<CR>", },
       { "<leader>dsx", ":lua require'dap'.step_out()<CR>", },
-      { "<Leader>db", ":lua require'dap'.toggle_breakpoint()<CR>", },
-      { "<Leader>dB", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition:'))<CR>", },
-      { "<Leader>dlp", ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", },
+      { "<Leader>d.", ":lua require'dap'.toggle_breakpoint()<CR>", },
       { "<Leader>dr", ":lua require'dap'.repl.open()<CR>", },
       { "<Leader>dl", ":lua require'dap'.run_last()<CR>", },
       { "<leader>dn", ":lua require('dap-python').test_method())", },
@@ -458,7 +433,7 @@ return {
         cssls = {},
         html = {},
         vimls = {},
-        sumneko_lua = {
+        lua_ls = {
           settings = {
             Lua = {
               -- Settings for use with nvim
@@ -477,22 +452,16 @@ return {
           settings = {
             rootMarkers = { ".git/" },
             languages = {
-              python = {
-                {
-                  formatCommand = "black --quiet --line-length=80 -",
-                  formatStdin = true
-                },
-              },
-              sh = {
-                {
-                  formatCommand = 'shfmt -ci -s -bn'
-                }
-              },
-              css = {
-                {
-                  formatCommand = "prettier ${--tab-width:tabWidth} ${--single-quote:singleQuote} --parser css",
-                }
-              }
+              python = { {
+                formatCommand = "black --quiet --line-length=80 -",
+                formatStdin = true
+              } },
+              sh = { {
+                formatCommand = 'shfmt -ci -s -bn'
+              } },
+              css = { {
+                formatCommand = "prettier ${--tab-width:tabWidth} ${--single-quote:singleQuote} --parser css",
+              } }
             }
           },
           filetypes = { 'python', 'css', 'sh', 'bash' }
@@ -507,9 +476,7 @@ return {
         }
         server_opts = vim.tbl_deep_extend('force', server_opts, user_opts)
 
-        require('lspconfig')[server].setup(
-          server_opts
-        )
+        require('lspconfig')[server].setup(server_opts)
       end
     end
   },
@@ -529,8 +496,12 @@ return {
   {
     "jghauser/shade.nvim",
     event = "WinNew",
-    config = function()
-      require("shade").setup()
-    end
+    config = function() require("shade").setup() end
+  },
+
+  ------------------------ Make parent dirs on write ---------------------------
+  {
+    'jghauser/mkdir.nvim'
   }
+
 }

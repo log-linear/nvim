@@ -19,12 +19,12 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
 
 ----------------------------- environment settings -----------------------------
-vim.cmd[[
-  if has("win64") || has("win32") || has("win16")
-    exec 'source ' . stdpath("config") . '/win.vim'
-  endif
+if vim.loop.os_uname().sysname == "Windows_NT" then
+  local winvimpath = vim.fn.stdpath("config") .. "/win.vim"
+  vim.fn.execute("source" .. winvimpath)
+end
 
-  if !empty(glob(stdpath("config") . '/work.vim'))
-    exec 'source ' . stdpath("config") . '/work.vim'
-  endif
-]]
+local workvimpath = vim.fn.stdpath("config") .. "/work.vim"
+if vim.loop.fs_stat(workvimpath) then
+  vim.fn.execute("source" .. vim.fn.stdpath("config") .. "/work.vim")
+end
