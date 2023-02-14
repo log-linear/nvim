@@ -82,9 +82,9 @@ return {
   {
     "ibhagwan/fzf-lua",
     keys = {
-      { "<leader><leader><leader>", "<cmd>FzfLua<CR>" },
+      { "<leader><leader>", "<cmd>FzfLua<CR>" },
       { "<leader><leader>f", "<cmd>FzfLua files<CR>" },
-      { "<leader><leader><leader>f", "<cmd>lua require('fzf-lua').files({cmd = 'fd --unrestricted'})<CR>" },
+      { "<leader><leader>F", "<cmd>lua require('fzf-lua').files({cmd = 'fd --unrestricted'})<CR>" },
       { "<leader><leader>g", "<cmd>FzfLua git_files<CR>" },
       { "<leader><leader>c", "<cmd>FzfLua git_bcommits<CR>" },
       { "<leader><leader>b", "<cmd>FzfLua buffers<CR>" },
@@ -92,7 +92,6 @@ return {
       { "<leader><leader>h", "<cmd>FzfLua help_tags<CR>" },
       { "<leader><leader>o", "<cmd>FzfLua oldfiles<CR>" },
       { "<leader><leader>/", "<cmd>FzfLua live_grep<CR>" },
-      { "<leader><leader><leader>/", "<cmd>lua require('fzf-lua').live_grep({cmd = 'rg --no-ignore --hidden'})<cr>" },
       { "<leader><leader>w", "<cmd>FzfLua grep_cword<CR>" },
       { "<leader><leader>k", "<cmd>FzfLua keymaps<CR>" },
       { "<leader><leader>t", "<cmd>FzfLua filetypes<CR>" },
@@ -103,12 +102,12 @@ return {
   --------------------------------- Colorscheme --------------------------------
   {
     "mcchrish/zenbones.nvim",
+    dependencies = { "rktjmp/lush.nvim" },
     lazy = false,
     priority = 1000,
     config = function()
       vim.opt.background = "light"
-      vim.g.zenwritten_compat = 1
-      vim.g.zenwritten_lightness = "bright"
+      vim.g.zenwritten_darken_noncurrent_window = true
       vim.cmd.colorscheme("zenwritten")
       vim.cmd.highlight({
         "Type",
@@ -137,6 +136,10 @@ return {
   ---------------------------------- Auto-pairs --------------------------------
   {
     "windwp/nvim-autopairs",
+    keys = {
+      { "]p", ":lua require('nvim-autopairs').enable()<CR>"},
+      { "[p", ":lua require('nvim-autopairs').disable()<CR>"}
+    },
     event = "InsertEnter",
     config = function() require('nvim-autopairs').setup({}) end
   },
@@ -494,14 +497,18 @@ return {
 
   -------------------------- Dim inactive window splits ------------------------
   {
-    "jghauser/shade.nvim",
+    "levouh/tint.nvim",
     event = "WinNew",
-    config = function() require("shade").setup() end
+    config = function() require("tint").setup({ tint = 65, }) end
   },
 
   ------------------------ Make parent dirs on write ---------------------------
   {
-    'jghauser/mkdir.nvim'
-  }
+    "folke/zen-mode.nvim",
+    keys = { { "<leader>zm", ":ZenMode<CR>" } },
+    config = function()
+      require("zen-mode").setup{ window = { backdrop = 1, } }
+    end
+  },
 
 }
