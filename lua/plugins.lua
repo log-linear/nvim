@@ -10,6 +10,8 @@ return {
   {
     "tpope/vim-fugitive",
   },
+
+  -------------------------- git markers in gutter -----------------------------
   {
     "lewis6991/gitsigns.nvim",
     event = "BufReadPre",
@@ -102,29 +104,15 @@ return {
   --------------------------------- Colorscheme --------------------------------
   {
     "mcchrish/zenbones.nvim",
-    dependencies = { "rktjmp/lush.nvim" },
     lazy = false,
     priority = 1000,
     config = function()
       vim.opt.background = "light"
-      vim.g.zenwritten_darken_noncurrent_window = true
+      vim.g.zenwritten_compat = 1
       vim.cmd.colorscheme("zenwritten")
-      vim.cmd.highlight({
-        "Type",
-        "guifg=#5F5F5F",
-        "guibg=NONE",
-        "guisp=NONE",
-        "gui=NONE",
-        "cterm=NONE",
-      })
-      vim.cmd.highlight({
-        "ColorColumn",
-        "guifg=NONE",
-        "guibg=#E5E5E5",
-        "guisp=NONE",
-        "gui=NONE",
-        "cterm=NONE",
-      })
+      vim.cmd.highlight({ "Type", "guifg=#5F5F5F", })
+      vim.cmd.highlight({ "link", "NormalNC", "Normal" })
+      vim.cmd.highlight({ "ColorColumn", "guibg=#E5E5E5", })
       vim.cmd [[
           let fts = [ 'sh', 'r', 'sql', 'rmd', 'bash' ]
           au BufEnter * if index(fts, &ft) > 0 | hi @function guifg=#5C5C5C guibg=NONE guisp=NONE gui=bold cterm=NONE | endif
@@ -137,8 +125,8 @@ return {
   {
     "windwp/nvim-autopairs",
     keys = {
-      { "]p", ":lua require('nvim-autopairs').enable()<CR>"},
-      { "[p", ":lua require('nvim-autopairs').disable()<CR>"}
+      { "]op", ":lua require('nvim-autopairs').enable()<CR>"},
+      { "[op", ":lua require('nvim-autopairs').disable()<CR>"}
     },
     event = "InsertEnter",
     config = function() require('nvim-autopairs').setup({}) end
@@ -177,7 +165,9 @@ return {
   {
     "NvChad/nvim-colorizer.lua",
     event = "VeryLazy",
-    config = function() require 'colorizer'.setup() end
+    config = function()
+      require 'colorizer'.setup({ user_default_options = { names = false } })
+    end
   },
 
   ---------------------------------- Treesitter --------------------------------
@@ -280,7 +270,7 @@ return {
         -- Enable in DAP buffers
         enabled = function()
           return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-              or require("cmp_dap").is_dap_buffer()
+            or require("cmp_dap").is_dap_buffer()
         end,
 
         snippet = {
@@ -412,6 +402,8 @@ return {
         vim.keymap.set('n', '<space>ca', ':FzfLua lsp_code_actions<CR>', bufopts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
         vim.keymap.set('n', '<space>bf', vim.lsp.buf.format, bufopts)
+        vim.keymap.set('n', ']ol', ':LspStart<CR>', bufopts)
+        vim.keymap.set('n', '[ol', ':LspStop<CR>', bufopts)
       end
 
       -- LSP-built-in snippet support
@@ -507,7 +499,21 @@ return {
     "folke/zen-mode.nvim",
     keys = { { "<leader>zm", ":ZenMode<CR>" } },
     config = function()
-      require("zen-mode").setup{ window = { backdrop = 1, } }
+      require("zen-mode").setup{
+        window = {
+          backdrop = 1,
+          width = 80,
+          options = {
+            signcolumn = "yes",
+            number = false,
+            relativenumber = false,
+            cursorline = false,
+            cursorcolumn = false,
+            colorcolumn = "0"
+          }
+        },
+        plugins = { gitsigns = { enabled = true } }
+      }
     end
   },
 
