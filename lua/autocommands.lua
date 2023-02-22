@@ -10,6 +10,12 @@ end
 au("WinEnter", { "term://*" }, function() vim.cmd [[startinsert]] end)
 au("TextYankPost", { "*" }, function() vim.highlight.on_yank({ timeout = 250 }) end)
 
+-- Create parent dirs on write
+au("BufWritePre", { "*" }, function(ctx)
+  local dir = vim.fn.fnamemodify(ctx.file, ":p:h")
+  vim.fn.mkdir(dir, "p")
+end)
+
 -- Filetypes
 au("BufEnter", { "*.ipynb" }, function()
   map("n", "<leader>jp", ":w<CR> :!jupyter nbconvert --to script %:p<CR> | :e %:p:r.py<CR>", opts)

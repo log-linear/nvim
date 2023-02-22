@@ -1,20 +1,31 @@
 --================================= Plugins ====================================
 return {
   ------------------------------- Package manager ------------------------------
-  {
-    "folke/lazy.nvim",
-    version = "*",
-  },
+  { "folke/lazy.nvim", version = "*", },
 
   --------------------------------- Git support --------------------------------
+  { "tpope/vim-fugitive" },
+
+  ------------------------------- file manager ---------------------------------
+
   {
-    "tpope/vim-fugitive",
+    'stevearc/oil.nvim',
+    config = function()
+      require("oil").setup({
+        keymaps = {
+          ["<C-s>"] = "actions.select_split",
+          ["<C-v>"] = "actions.select_vsplit",
+        },
+      })
+      vim.keymap.set("n", "<leader>fm", ":vnew +Oil<CR><C-W>H")
+    end
   },
 
   -------------------------- git markers in gutter -----------------------------
   {
     "lewis6991/gitsigns.nvim",
-    event = "BufReadPre",
+    event = { "BufReadPre", "BufNewFile" },
+    -- event = "VeryLazy",
     config = function()
       require('gitsigns').setup {
         on_attach = function(bufnr)
@@ -62,9 +73,7 @@ return {
   {
     "tpope/vim-dadbod",
     ft = "sql",
-    dependencies = {
-      "kristijanhusak/vim-dadbod-completion",
-    }
+    dependencies = { "kristijanhusak/vim-dadbod-completion", }
   },
 
   ------------------------------------- REPL -----------------------------------
@@ -75,9 +84,7 @@ return {
       { "<A-CR>", "<Plug>SendDownV" },
       { "<A-CR>", "<Esc><Plug>SendDown" },
     },
-    config = function()
-      vim.g.sendtowindow_use_defaults = 0
-    end
+    config = function() vim.g.sendtowindow_use_defaults = 0 end
   },
 
   --------------------------------- Fuzzy finder -------------------------------
@@ -94,6 +101,7 @@ return {
       { "<leader><leader>h", "<cmd>FzfLua help_tags<CR>" },
       { "<leader><leader>o", "<cmd>FzfLua oldfiles<CR>" },
       { "<leader><leader>/", "<cmd>FzfLua live_grep<CR>" },
+      { "<leader><leader>?", "<cmd>lua require('fzf-lua').live_grep({cmd = 'rg -uuu'})<cr>" },
       { "<leader><leader>w", "<cmd>FzfLua grep_cword<CR>" },
       { "<leader><leader>k", "<cmd>FzfLua keymaps<CR>" },
       { "<leader><leader>t", "<cmd>FzfLua filetypes<CR>" },
@@ -110,13 +118,14 @@ return {
       vim.opt.background = "light"
       vim.g.zenwritten_compat = 1
       vim.cmd.colorscheme("zenwritten")
-      vim.cmd.highlight({ "Type", "guifg=#5F5F5F", })
+      vim.cmd.highlight({ "Comment", "gui=NONE" })
+      vim.cmd.highlight({ "Type", "guifg=#5F5F5F" })
       vim.cmd.highlight({ "link", "NormalNC", "Normal" })
       vim.cmd.highlight({ "ColorColumn", "guibg=#E5E5E5", })
       vim.cmd [[
           let fts = [ 'sh', 'r', 'sql', 'rmd', 'bash' ]
-          au BufEnter * if index(fts, &ft) > 0 | hi @function guifg=#5C5C5C guibg=NONE guisp=NONE gui=bold cterm=NONE | endif
-          au BufLeave * if index(fts, &ft) > 0 | hi @function guifg=#5C5C5C guibg=NONE guisp=NONE gui=NONE cterm=NONE | endif
+          au BufEnter * if index(fts, &ft) > 0 | hi Function guifg=#5C5C5C gui=bold | endif
+          au BufLeave * if index(fts, &ft) > 0 | hi Function guifg=#353535 gui=NONE | endif
       ]]
     end
   },
@@ -125,8 +134,8 @@ return {
   {
     "windwp/nvim-autopairs",
     keys = {
-      { "]op", ":lua require('nvim-autopairs').enable()<CR>"},
-      { "[op", ":lua require('nvim-autopairs').disable()<CR>"}
+      { "]tp", ":lua require('nvim-autopairs').enable()<CR>"},
+      { "[tp", ":lua require('nvim-autopairs').disable()<CR>"}
     },
     event = "InsertEnter",
     config = function() require('nvim-autopairs').setup({}) end
@@ -157,36 +166,59 @@ return {
   ---------------------------- Comment/uncomment code --------------------------
   {
     "numToStr/Comment.nvim",
-    event = "BufReadPost",
+    event = "VeryLazy",
     config = function() require("Comment").setup({}) end
   },
 
   -------------- Highlight text backgrounds with matching hex color ------------
   {
     "NvChad/nvim-colorizer.lua",
-    event = "VeryLazy",
-    config = function()
-      require 'colorizer'.setup({ user_default_options = { names = false } })
-    end
+    keys = { { "<leader>co", ":ColorizerToggle<CR>" } },
+    config = function() require 'colorizer'.setup({}) end
   },
+
+  ----------------------------- Indent detection -------------------------------
+  { "Darazaki/indent-o-matic", lazy = false },
 
   ---------------------------------- Treesitter --------------------------------
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = {
-      "nvim-treesitter/playground",
       "David-Kunz/markid",
       "yioneko/nvim-yati",
-      "Darazaki/indent-o-matic"
     },
     config = function()
       require 'nvim-treesitter.configs'.setup {
         ensure_installed = 'all',
         ignore_install = { "t32" },
         highlight = { enable = true, },
-        markid = { enable = true },
+        markid = {
+          enable = true,
+          colors = {
+            "#880023",
+            "#007e2c",
+            "#9837e8",
+            "#be8613",
+            "#002fb0",
+            "#f64d00",
+            "#6a6dff",
+            "#a81d00",
+            "#0083e5",
+            "#ff1c41",
+            "#0b0884",
+            "#689d5c",
+            "#ea005b",
+            "#003a20",
+            "#ee58aa",
+            "#5e4800",
+            "#c674b9",
+            "#892a00",
+            "#006891",
+            "#764c45",
+          }
+        },
         indent = {
           enable = true,
           disable = {
@@ -206,44 +238,28 @@ return {
         },
         yati = { enable = true },
       }
-      local m = require 'markid'
-      m.queries = {
-        default = '(identifier) @markid',
-        json = '(pair key: (string) @markid)',
-        bash = '(variable_name) @markid',
-        css = '(property_name) @markid',
-        toml = '(bare_key) @markid',
-      }
-      vim.api.nvim_set_hl(0, 'markid1', { fg = '#6a295d' })
-      vim.api.nvim_set_hl(0, 'markid2', { fg = '#365e21' })
-      vim.api.nvim_set_hl(0, 'markid3', { fg = '#557cbf' })
-      vim.api.nvim_set_hl(0, 'markid4', { fg = '#896a2a' })
-      vim.api.nvim_set_hl(0, 'markid5', { fg = '#2f3766' })
-      vim.api.nvim_set_hl(0, 'markid6', { fg = '#008374' })
-      vim.api.nvim_set_hl(0, 'markid7', { fg = '#82332c' })
-      vim.api.nvim_set_hl(0, 'markid8', { fg = '#348d9f' })
-      vim.api.nvim_set_hl(0, 'markid9', { fg = '#ac7188' })
-      vim.api.nvim_set_hl(0, 'markid10', { fg = '#174233' })
+      vim.keymap.set("n", "[tt", ":TSDisable highlight<CR>:TSDisable markid<CR>:TSDisable indent<CR>:TSDisable yati<CR>")
+      vim.keymap.set("n", "]tt", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>")
     end,
   },
+
+  { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
 
   ----------------------------------- Snippets ---------------------------------
   {
     "L3MON4D3/LuaSnip",
     dependencies = {
-      "honza/vim-snippets"
+      "honza/vim-snippets",
+      config = function()
+        require("luasnip.loaders.from_snipmate").lazy_load()
+      end,
     },
-    config = function()
-      require("luasnip.loaders.from_snipmate").lazy_load()
-    end,
     keys = {
-      {
-        "<tab>",
+      { "<tab>",
         function()
           return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
         end,
-        expr = true, silent = true, mode = "i",
-      },
+        expr = true, mode = "i", },
       { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
       { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
     },
@@ -321,7 +337,6 @@ return {
         "<leader>doc",
         ":lua require('neogen').generate()<CR>",
         noremap = true,
-        silent = true
       }
     },
     config = function()
@@ -334,7 +349,7 @@ return {
     "mfussenegger/nvim-dap",
     keys = {
       { "<leader>dc", ":lua require'dap'.continue()<CR>", },
-      { "<Leader>dt", ":lua require'dap'.terminate()<CR>", },
+      { "<Leader>dT", ":lua require'dap'.terminate()<CR>", },
       { "<leader>dp", ":lua require'dap'.pause()<CR>", },
       { "<leader>dso", ":lua require'dap'.step_over()<CR>", },
       { "<leader>dsi", ":lua require'dap'.step_into()<CR>", },
@@ -342,13 +357,11 @@ return {
       { "<Leader>d.", ":lua require'dap'.toggle_breakpoint()<CR>", },
       { "<Leader>dr", ":lua require'dap'.repl.open()<CR>", },
       { "<Leader>dl", ":lua require'dap'.run_last()<CR>", },
-      { "<leader>dn", ":lua require('dap-python').test_method())", },
-      { "<leader>df", ":lua require('dap-python').test_class())", },
+      { "<leader>dtm", ":lua require('dap-python').test_method())", },
+      { "<leader>dtc", ":lua require('dap-python').test_class())", },
       { "<leader>ds", ":lua require('dap-python').debug_selection()<CR>)", },
     },
-    dependencies = {
-      "mfussenegger/nvim-dap-python"
-    },
+    dependencies = { "mfussenegger/nvim-dap-python" },
     config = function()
       require('dap-python').setup(vim.api.nvim_list_runtime_paths()[1] .. "/venv/bin/python")
       vim.fn.sign_define('DapBreakpoint', { text = '⦿', texthl = '', linehl = '', numhl = '' })
@@ -372,12 +385,10 @@ return {
       "FileType vim",
       "FileType openscad",
     },
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp"
-    },
+    dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = function()
       -- Mappings
-      local opts = { noremap = true, silent = true }
+      local opts = { noremap = true }
       vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
       vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, opts)
       vim.keymap.set('n', ']e', vim.diagnostic.goto_next, opts)
@@ -385,7 +396,7 @@ return {
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
       local on_attach = function(client, bufnr)
-        local bufopts = { noremap = true, silent = true, buffer = bufnr }
+        local bufopts = { noremap = true, buffer = bufnr }
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -402,8 +413,8 @@ return {
         vim.keymap.set('n', '<space>ca', ':FzfLua lsp_code_actions<CR>', bufopts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
         vim.keymap.set('n', '<space>bf', vim.lsp.buf.format, bufopts)
-        vim.keymap.set('n', ']ol', ':LspStart<CR>', bufopts)
-        vim.keymap.set('n', '[ol', ':LspStop<CR>', bufopts)
+        vim.keymap.set('n', ']tl', ':LspStart<CR>', bufopts)
+        vim.keymap.set('n', '[tl', ':LspStop<CR>', bufopts)
       end
 
       -- LSP-built-in snippet support
@@ -479,11 +490,9 @@ return {
   --------------------------- Highlight indented lines -------------------------
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require("indent_blankline").setup {
-        show_current_context = true,
-      }
+      require("indent_blankline").setup { show_current_context = true }
     end
   },
 
@@ -494,7 +503,7 @@ return {
     config = function() require("tint").setup({ tint = 65, }) end
   },
 
-  ------------------------ Make parent dirs on write ---------------------------
+  ------------------------- Distraction-free writing ---------------------------
   {
     "folke/zen-mode.nvim",
     keys = { { "<leader>zm", ":ZenMode<CR>" } },

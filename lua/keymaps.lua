@@ -16,7 +16,6 @@ map("n", "<leader>tt", [[:15new<CR><C-\><C-n>:call termopen('zsh')<CR><C-w>k]], 
 map("n", "<leader>tp", [[:15new<CR><C-\><C-n>:call termopen('python')<CR><C-w>k]], opts)
 map("n", "<leader>tr", [[:15new<CR><C-\><C-n>:call termopen('radian')<CR><C-w>k]], opts)
 map("n", "<leader>ts", [[:15new<CR><C-\><C-n>:call termopen('usql')<CR><C-w>k]], opts)
-map("n", "<leader>ve", ":Vexplore<cr>", opts)
 map("n", "<leader>cd", ":cd %:p:h<CR>:pwd<CR>", opts)
 map("n", "<leader>..", ":cd ..<CR>:pwd<CR>", opts)
 
