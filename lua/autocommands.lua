@@ -13,7 +13,8 @@ au("TextYankPost", { "*" }, function() vim.highlight.on_yank({ timeout = 250 }) 
 -- Create parent dirs on write
 au("BufWritePre", { "*" }, function(ctx)
   local dir = vim.fn.fnamemodify(ctx.file, ":p:h")
-  vim.fn.mkdir(dir, "p")
+  if vim.tbl_contains({ "oil" }, vim.bo.ft) then return
+  elseif vim.fn.isdirectory(dir) == 0 then vim.fn.mkdir(dir, "p") end
 end)
 
 -- Filetypes
