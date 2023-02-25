@@ -1,4 +1,3 @@
-; (aliased_import alias: (identifier) @markid (#match? @markid "^[a-z_].*"))
 (argument_list (identifier) @markid (#match? @markid "^[a-z_].*"))
 (as_pattern_target (identifier) @markid (#match? @markid "^[a-z_].*"))
 (assignment (identifier) @markid (#match? @markid "^[a-z_].*"))
@@ -19,8 +18,6 @@
 (global_statement (identifier) @markid (#match? @markid "^[a-z_].*"))
 (if_statement (identifier) @markid (#match? @markid "^[a-z_].*"))
 (elif_clause (identifier) @markid (#match? @markid "^[a-z_].*"))
-; (import_from_statement name: (dotted_name . (identifier) @markid (#match? @markid "^[a-z_].*")))
-; (import_statement name: (dotted_name . (identifier) @markid (#match? @markid "^[a-z_].*")))
 (interpolation (identifier) @markid (#match? @markid "^[a-z_].*"))
 (keyword_argument value: (identifier) @markid (#match? @markid "^[a-z_].*"))
 (list_comprehension (identifier) @markid (#match? @markid "^[a-z_].*"))

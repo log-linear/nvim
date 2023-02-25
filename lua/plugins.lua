@@ -196,26 +196,26 @@ return {
         markid = {
           enable = true,
           colors = {
-            "#4d1400",
+            "#7b2f00",
             "#003fa8",
             "#dc0019",
             "#1e79ce",
             "#a53400",
-            "#211866",
+            "#004e73",
             "#007c30",
             "#930091",
-            "#008069",
+            "#558500",
             "#e42358",
-            "#203200",
+            "#005c0e",
             "#b8005a",
             "#5c799e",
             "#a46a1c",
             "#87005b",
             "#573800",
-            "#3c1f36",
+            "#6f00ad",
             "#840019",
             "#93675f",
-            "#481223",
+            "#c55d00",
           }
         },
         indent = {
@@ -467,9 +467,7 @@ return {
                 formatCommand = "black --quiet --line-length=80 -",
                 formatStdin = true
               } },
-              sh = { {
-                formatCommand = 'shfmt -ci -s -bn'
-              } },
+              sh = { { formatCommand = 'shfmt -ci -s -bn' } },
               css = { {
                 formatCommand = "prettier ${--tab-width:tabWidth} ${--single-quote:singleQuote} --parser css",
               } }
