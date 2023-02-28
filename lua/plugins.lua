@@ -74,14 +74,8 @@ return {
     ft = "sql",
     dependencies = { "kristijanhusak/vim-dadbod-completion", },
     config = function()
-      vim.cmd[[
-        xnoremap <expr> <Plug>(DBExe)     db#op_exec()
-        nnoremap <expr> <Plug>(DBExe)     db#op_exec()
-
-        xmap <A-CR>  <Plug>(DBExe)
-        nmap <A-CR>  <Plug>(DBExe)
-        omap <A-CR>  <Plug>(DBExe)
-      ]]
+      vim.keymap.set({"x", "n"}, "<Plug>(DBExe)", "db#op_exec()", {expr = true})
+      vim.keymap.set({"x", "n", "o"}, "<A-CR>", "<Plug>(DBExe)")
     end
   },
 
