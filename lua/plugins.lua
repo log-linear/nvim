@@ -72,7 +72,17 @@ return {
   {
     "tpope/vim-dadbod",
     ft = "sql",
-    dependencies = { "kristijanhusak/vim-dadbod-completion", }
+    dependencies = { "kristijanhusak/vim-dadbod-completion", },
+    config = function()
+      vim.cmd[[
+        xnoremap <expr> <Plug>(DBExe)     db#op_exec()
+        nnoremap <expr> <Plug>(DBExe)     db#op_exec()
+
+        xmap <A-CR>  <Plug>(DBExe)
+        nmap <A-CR>  <Plug>(DBExe)
+        omap <A-CR>  <Plug>(DBExe)
+      ]]
+    end
   },
 
   ------------------------------------- REPL -----------------------------------
