@@ -2,8 +2,8 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-local function au(mode, pattern, callback)
-  vim.api.nvim_create_autocmd(mode, { pattern = pattern, callback = callback })
+local function au(event, pattern, callback)
+  vim.api.nvim_create_autocmd(event, { pattern = pattern, callback = callback })
 end
 
 -- General

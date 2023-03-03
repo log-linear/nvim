@@ -24,7 +24,6 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    -- event = "VeryLazy",
     config = function()
       require('gitsigns').setup {
         on_attach = function(bufnr)
@@ -75,7 +74,7 @@ return {
     dependencies = { "kristijanhusak/vim-dadbod-completion", },
     config = function()
       vim.keymap.set({"x", "n"}, "<Plug>(DBExe)", "db#op_exec()", {expr = true})
-      vim.keymap.set({"x", "n", "o"}, "<A-CR>", "<Plug>(DBExe)")
+      vim.keymap.set({"x", "n", "o"}, "<CR>db", "<Plug>(DBExe)")
     end
   },
 
@@ -83,9 +82,8 @@ return {
   {
     "karoliskoncevicius/vim-sendtowindow",
     keys = {
-      { "<A-CR>", "<Plug>SendDown" },
-      { "<A-CR>", "<Plug>SendDownV" },
-      { "<A-CR>", "<Esc><Plug>SendDown" },
+      { "<A-CR>", "<Esc><Plug>SendDown", mode = { "n", "i" } },
+      { "<A-CR>", "<Plug>SendDownV", mode = "x" },
     },
     config = function() vim.g.sendtowindow_use_defaults = 0 end
   },
