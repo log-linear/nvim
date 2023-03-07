@@ -119,7 +119,6 @@ return {
       vim.opt.background = "light"
       vim.g.zenwritten_compat = 1
       vim.cmd.colorscheme("zenwritten")
-      vim.cmd.highlight({ "Comment", "gui=NONE" })
       vim.cmd.highlight({ "Type", "guifg=#5F5F5F" })
       vim.cmd.highlight({ "link", "NormalNC", "Normal" })
       vim.cmd.highlight({ "ColorColumn", "guibg=#E5E5E5", })
@@ -505,7 +504,7 @@ return {
   {
     "levouh/tint.nvim",
     event = "WinNew",
-    config = function() require("tint").setup({ tint = 65, }) end
+    config = function() require("tint").setup({ tint = 65, saturation = 0.4}) end
   },
 
   ------------------------- Distraction-free writing ---------------------------
