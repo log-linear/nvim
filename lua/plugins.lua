@@ -1,4 +1,9 @@
 --================================= Plugins ====================================
+-- pre-set any global plugin variables
+vim.g.zenwritten_compat = 1
+vim.g.sandwich_no_default_key_mappings = 1
+vim.g.sendtowindow_use_defaults = 0
+
 return {
   ------------------------------- Package manager ------------------------------
   { "folke/lazy.nvim", version = "*", },
@@ -74,7 +79,7 @@ return {
     dependencies = { "kristijanhusak/vim-dadbod-completion", },
     config = function()
       vim.keymap.set({"x", "n"}, "<Plug>(DBExe)", "db#op_exec()", {expr = true})
-      vim.keymap.set({"x", "n", "o"}, "<CR>db", "<Plug>(DBExe)")
+      vim.keymap.set({"x", "n", "o"}, "<leader><CR>", "<Plug>(DBExe)")
     end
   },
 
@@ -85,7 +90,6 @@ return {
       { "<A-CR>", "<Esc><Plug>SendDown", mode = { "n", "i" } },
       { "<A-CR>", "<Plug>SendDownV", mode = "x" },
     },
-    config = function() vim.g.sendtowindow_use_defaults = 0 end
   },
 
   --------------------------------- Fuzzy finder -------------------------------
@@ -117,7 +121,6 @@ return {
     priority = 1000,
     config = function()
       vim.opt.background = "light"
-      vim.g.zenwritten_compat = 1
       vim.cmd.colorscheme("zenwritten")
       vim.cmd.highlight({ "Type", "guifg=#5F5F5F" })
       vim.cmd.highlight({ "link", "NormalNC", "Normal" })
@@ -360,6 +363,7 @@ return {
       { "<leader>dso", ":lua require'dap'.step_over()<CR>", },
       { "<leader>dsi", ":lua require'dap'.step_into()<CR>", },
       { "<leader>dsx", ":lua require'dap'.step_out()<CR>", },
+      { "<leader>dsb", ":lua require'dap'.step_back()<CR>", },
       { "<Leader>d.", ":lua require'dap'.toggle_breakpoint()<CR>", },
       { "<Leader>dr", ":lua require'dap'.repl.open()<CR>", },
       { "<Leader>dl", ":lua require'dap'.run_last()<CR>", },
