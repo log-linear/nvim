@@ -23,5 +23,3 @@ vim.opt.termguicolors = true
 vim.wo.wrap = false
 vim.env.EDITOR = "nvrl"
 vim.g.mapleader = " "
-vim.g.loaded_netrw = 0
-vim.g.loaded_netrwPlugin = 0

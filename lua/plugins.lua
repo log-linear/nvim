@@ -8,9 +8,6 @@ return {
   ------------------------------- Package manager ------------------------------
   { "folke/lazy.nvim", version = "*", },
 
-  --------------------------------- Git support --------------------------------
-  { "tpope/vim-fugitive" },
-
   ------------------------------- file manager ---------------------------------
   {
     'stevearc/oil.nvim',
@@ -24,6 +21,9 @@ return {
       vim.keymap.set("n", "<leader>fm", ":vnew +Oil<CR><C-W>H")
     end
   },
+
+  --------------------------------- Git support --------------------------------
+  { "tpope/vim-fugitive" },
 
   -------------------------- git markers in gutter -----------------------------
   {
