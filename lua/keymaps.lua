@@ -18,6 +18,8 @@ map("n", "<leader>tr", [[:15new<CR><C-\><C-n>:call termopen('radian')<CR><C-w>k]
 map("n", "<leader>ts", [[:15new<CR><C-\><C-n>:call termopen('usql')<CR><C-w>k]], opts)
 map("n", "<leader>cd", ":cd %:p:h<CR>:pwd<CR>", opts)
 map("n", "<leader>..", ":cd ..<CR>:pwd<CR>", opts)
+map("i", "<c-e>", "<esc><C-e>i", opts)
+map("i", "<c-y>", "<esc><C-y>i", opts)
 
 local modes = { "n", "i", "v", "t" }
 map(modes, "<A-h>", [[<C-\><C-n><C-w>h]], opts)

@@ -8,20 +8,6 @@ return {
   ------------------------------- Package manager ------------------------------
   { "folke/lazy.nvim", version = "*", },
 
-  ------------------------------- file manager ---------------------------------
-  {
-    'stevearc/oil.nvim',
-    config = function()
-      require("oil").setup({
-        keymaps = {
-          ["<C-s>"] = "actions.select_split",
-          ["<C-v>"] = "actions.select_vsplit",
-        },
-      })
-      vim.keymap.set("n", "<leader>fm", ":vnew +Oil<CR><C-W>H")
-    end
-  },
-
   --------------------------------- Git support --------------------------------
   { "tpope/vim-fugitive" },
 
@@ -94,25 +80,59 @@ return {
 
   --------------------------------- Fuzzy finder -------------------------------
   {
-    "ibhagwan/fzf-lua",
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = 'make', },
+      "nvim-telescope/telescope-file-browser.nvim",
+      "nvim-telescope/telescope-dap.nvim",
+      "debugloop/telescope-undo.nvim",
+    },
     keys = {
-      { "<leader><leader>", "<cmd>FzfLua<CR>" },
-      { "<leader><leader>f", "<cmd>FzfLua files<CR>" },
-      { "<leader><leader>F", "<cmd>lua require('fzf-lua').files({cmd = 'fd --unrestricted'})<CR>" },
-      { "<leader><leader>g", "<cmd>FzfLua git_files<CR>" },
-      { "<leader><leader>c", "<cmd>FzfLua git_bcommits<CR>" },
-      { "<leader><leader>b", "<cmd>FzfLua buffers<CR>" },
-      { "<leader>/", "<cmd>FzfLua blines<CR>" },
-      { "<leader><leader>h", "<cmd>FzfLua help_tags<CR>" },
-      { "<leader><leader>o", "<cmd>FzfLua oldfiles<CR>" },
-      { "<leader><leader>/", "<cmd>FzfLua live_grep<CR>" },
-      { "<leader><leader>?", "<cmd>lua require('fzf-lua').live_grep({cmd = 'rg -uuu'})<cr>" },
-      { "<leader><leader>w", "<cmd>FzfLua grep_cword<CR>" },
-      { "<leader><leader>k", "<cmd>FzfLua keymaps<CR>" },
-      { "<leader><leader>t", "<cmd>FzfLua filetypes<CR>" },
-      { "<leader><leader>r", "<cmd>FzfLua lsp_references<CR>" },
-    }
+      { "<leader><leader>", "<cmd>Telescope<CR>" },
+      { "<leader><leader>f", "<cmd>Telescope find_files<CR>" },
+      { "<leader><leader>F", "<cmd>:Telescope file_browser<CR>" },
+      { "<leader><leader>g", "<cmd>Telescope git_files<CR>" },
+      { "<leader><leader>c", "<cmd>Telescope git_bcommits<CR>" },
+      { "<leader><leader>b", "<cmd>Telescope buffers<CR>" },
+      { "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<CR>" },
+      { "<leader><leader>h", "<cmd>Telescope help_tags<CR>" },
+      { "<leader><leader>o", "<cmd>Telescope oldfiles<CR>" },
+      { "<leader><leader>/", "<cmd>Telescope live_grep<CR>" },
+      { "<leader><leader>?", "<cmd>lua require('telescope.builtin').live_grep({additional_args = function() return { '--no-ignore', '--hidden' } end})<cr>" },
+      { "<leader><leader>w", "<cmd>Telescope grep_string<CR>" },
+      { "<leader><leader>k", "<cmd>Telescope keymaps<CR>" },
+      { "<leader><leader>t", "<cmd>Telescope filetypes<CR>" },
+      { "<leader><leader>r", "<cmd>Telescope lsp_references<CR>" },
+      { "<leader><leader>u", "<cmd>Telescope undo<CR>" },
+    },
+    config = function()
+      local maps = {
+        ["<A-a>"] = require("telescope.actions").toggle_all,
+        ["<C-s>"] = require("telescope.actions").select_horizontal,
+        ["<C-x>"] = require("telescope.actions").delete_buffer 
+      }
+      require('telescope').setup {
+        defaults = {
+          mappings = { n = maps, i = maps, },
+          layout_strategy = 'flex',
+          layout_config = { prompt_position = 'top', },
+          sorting_strategy = 'ascending'
+        },
+        extensions = {
+          file_browser = { respect_gitignore = false, hidden = true, },
+        },
+        pickers = { lsp_references = { path_display = { 'shorten' }, }, }
+      }
+      require("telescope").load_extension("file_browser")
+      require("telescope").load_extension("dap")
+      require("telescope").load_extension("fzf")
+      require("telescope").load_extension("undo")
+    end
   },
+
+  ------------------------------------ UI --------------------------------------
+  { "stevearc/dressing.nvim" },
 
   --------------------------------- Colorscheme --------------------------------
   {
@@ -420,7 +440,7 @@ return {
           end, bufopts)
         vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
         vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-        vim.keymap.set('n', '<space>ca', ':FzfLua lsp_code_actions<CR>', bufopts)
+        vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
         vim.keymap.set('n', '<space>bf', vim.lsp.buf.format, bufopts)
         vim.keymap.set('n', ']tl', ':LspStart<CR>', bufopts)
