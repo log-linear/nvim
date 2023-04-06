@@ -42,11 +42,8 @@ return {
           -- Actions
           map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
           map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-          map('n', '<leader>hS', gs.stage_buffer)
           map('n', '<leader>hu', gs.undo_stage_hunk)
-          map('n', '<leader>hR', gs.reset_buffer)
           map('n', '<leader>hp', gs.preview_hunk)
-          map('n', '<leader>hb', function() gs.blame_line { full = true } end)
           map('n', '<leader>tb', gs.toggle_current_line_blame)
           map('n', '<leader>hd', gs.diffthis)
           map('n', '<leader>hD', function() gs.diffthis('~') end)
@@ -85,32 +82,32 @@ return {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = 'make', },
       "nvim-telescope/telescope-file-browser.nvim",
-      "nvim-telescope/telescope-dap.nvim",
       "debugloop/telescope-undo.nvim",
+      "nvim-telescope/telescope-live-grep-args.nvim",
     },
     keys = {
-      { "<leader><leader>", "<cmd>Telescope<CR>" },
-      { "<leader><leader>f", "<cmd>Telescope find_files<CR>" },
-      { "<leader><leader>F", "<cmd>:Telescope file_browser<CR>" },
-      { "<leader><leader>g", "<cmd>Telescope git_files<CR>" },
-      { "<leader><leader>c", "<cmd>Telescope git_bcommits<CR>" },
-      { "<leader><leader>b", "<cmd>Telescope buffers<CR>" },
-      { "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<CR>" },
-      { "<leader><leader>h", "<cmd>Telescope help_tags<CR>" },
-      { "<leader><leader>o", "<cmd>Telescope oldfiles<CR>" },
-      { "<leader><leader>/", "<cmd>Telescope live_grep<CR>" },
-      { "<leader><leader>?", "<cmd>lua require('telescope.builtin').live_grep({additional_args = function() return { '--no-ignore', '--hidden' } end})<cr>" },
-      { "<leader><leader>w", "<cmd>Telescope grep_string<CR>" },
-      { "<leader><leader>k", "<cmd>Telescope keymaps<CR>" },
-      { "<leader><leader>t", "<cmd>Telescope filetypes<CR>" },
-      { "<leader><leader>r", "<cmd>Telescope lsp_references<CR>" },
-      { "<leader><leader>u", "<cmd>Telescope undo<CR>" },
+      { "<leader>f", "<cmd>Telescope<CR>" },
+      { "<leader>ff", "<cmd>Telescope find_files<CR>" },
+      { "<leader>fF", "<cmd>lua require('telescope.builtin').find_files({hidden = true, no_ignore = true})<CR>" },
+      { "<leader>fb", "<cmd>:Telescope file_browser<CR>" },
+      { "<leader>gf", "<cmd>Telescope git_files<CR>" },
+      { "<leader>gc", "<cmd>Telescope git_bcommits<CR>" },
+      { "<leader>bl", "<cmd>Telescope buffers<CR>" },
+      { "<leader>b/", "<cmd>Telescope current_buffer_fuzzy_find<CR>" },
+      { "<leader>fh", "<cmd>Telescope help_tags<CR>" },
+      { "<leader>fo", "<cmd>Telescope oldfiles<CR>" },
+      { "<leader>/", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>" },
+      { "<leader>*", "<cmd>Telescope grep_string<CR>" },
+      { "<leader>km", "<cmd>Telescope keymaps<CR>" },
+      { "<leader>ft", "<cmd>Telescope filetypes<CR>" },
+      { "<leader>lr", "<cmd>Telescope lsp_references<CR>" },
+      { "<leader>u", "<cmd>Telescope undo<CR>" },
     },
     config = function()
       local maps = {
         ["<A-a>"] = require("telescope.actions").toggle_all,
         ["<C-s>"] = require("telescope.actions").select_horizontal,
-        ["<C-x>"] = require("telescope.actions").delete_buffer 
+        ["<C-x>"] = require("telescope.actions").delete_buffer,
       }
       require('telescope').setup {
         defaults = {
@@ -125,14 +122,10 @@ return {
         pickers = { lsp_references = { path_display = { 'shorten' }, }, }
       }
       require("telescope").load_extension("file_browser")
-      require("telescope").load_extension("dap")
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("undo")
     end
   },
-
-  ------------------------------------ UI --------------------------------------
-  { "stevearc/dressing.nvim" },
 
   --------------------------------- Colorscheme --------------------------------
   {
@@ -157,8 +150,8 @@ return {
   {
     "windwp/nvim-autopairs",
     keys = {
-      { "]tp", ":lua require('nvim-autopairs').enable()<CR>"},
-      { "[tp", ":lua require('nvim-autopairs').disable()<CR>"}
+      { "]tp", ":lua require('nvim-autopairs').enable()<CR>" },
+      { "[tp", ":lua require('nvim-autopairs').disable()<CR>" },
     },
     event = "InsertEnter",
     config = function() require('nvim-autopairs').setup({}) end
@@ -216,7 +209,12 @@ return {
       require 'nvim-treesitter.configs'.setup {
         ensure_installed = 'all',
         ignore_install = { "t32" },
-        highlight = { enable = true, },
+        highlight = {
+          enable = true,
+          disable = function(lang, bufnr) -- Disable in large buffers
+            return vim.api.nvim_buf_line_count(bufnr) > 50000
+          end,
+        },
         markid = {
           enable = true,
           colors = {
@@ -393,7 +391,7 @@ return {
     },
     dependencies = { "mfussenegger/nvim-dap-python" },
     config = function()
-      require('dap-python').setup(vim.api.nvim_list_runtime_paths()[1] .. "/venv/bin/python")
+      require('dap-python').setup(vim.api.nvim_list_runtime_paths()[1] .. "/.venv/bin/python")
       vim.fn.sign_define('DapBreakpoint', { text = '⦿', texthl = '', linehl = '', numhl = '' })
     end
   },

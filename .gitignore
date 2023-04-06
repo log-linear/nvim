@@ -2,4 +2,5 @@ plugged/*
 autoload/*
 site/*
 venv
+.venv
 work.vim
