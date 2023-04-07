@@ -93,14 +93,15 @@ return {
       { "<leader>gf", "<cmd>Telescope git_files<CR>" },
       { "<leader>gc", "<cmd>Telescope git_bcommits<CR>" },
       { "<leader>bl", "<cmd>Telescope buffers<CR>" },
-      { "<leader>b/", "<cmd>Telescope current_buffer_fuzzy_find<CR>" },
+      { "<leader>%", "<cmd>Telescope current_buffer_fuzzy_find<CR>" },
       { "<leader>fh", "<cmd>Telescope help_tags<CR>" },
       { "<leader>fo", "<cmd>Telescope oldfiles<CR>" },
       { "<leader>/", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>" },
       { "<leader>*", "<cmd>Telescope grep_string<CR>" },
-      { "<leader>km", "<cmd>Telescope keymaps<CR>" },
+      { "<leader>*", "<cmd>Telescope commands<CR>" },
+      { "<leader>fm", "<cmd>Telescope keymaps<CR>" },
       { "<leader>ft", "<cmd>Telescope filetypes<CR>" },
-      { "<leader>lr", "<cmd>Telescope lsp_references<CR>" },
+      { "<leader>fr", "<cmd>Telescope lsp_references<CR>" },
       { "<leader>u", "<cmd>Telescope undo<CR>" },
     },
     config = function()
@@ -534,21 +535,7 @@ return {
     "folke/zen-mode.nvim",
     keys = { { "<leader>zm", ":ZenMode<CR>" } },
     config = function()
-      require("zen-mode").setup{
-        window = {
-          backdrop = 1,
-          width = 80,
-          options = {
-            signcolumn = "yes",
-            number = false,
-            relativenumber = false,
-            cursorline = false,
-            cursorcolumn = false,
-            colorcolumn = "0"
-          }
-        },
-        plugins = { gitsigns = { enabled = true } }
-      }
+      require("zen-mode").setup{ window = { backdrop = 1, width = 80, }, }
     end
   },
 
