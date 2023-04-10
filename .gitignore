@@ -3,4 +3,5 @@ autoload/*
 site/*
 venv
 .venv
-work.vim
+*work*.vim
+*work*.lua

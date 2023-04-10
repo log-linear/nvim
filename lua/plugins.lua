@@ -11,6 +11,9 @@ return {
   --------------------------------- Git support --------------------------------
   { "tpope/vim-fugitive" },
 
+  ---------------------- lua plugin dependency/library -------------------------
+  { "nvim-lua/plenary.nvim" },
+
   -------------------------- git markers in gutter -----------------------------
   {
     "lewis6991/gitsigns.nvim",
@@ -79,7 +82,6 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = 'make', },
       "nvim-telescope/telescope-file-browser.nvim",
       "debugloop/telescope-undo.nvim",
@@ -105,23 +107,34 @@ return {
       { "<leader>u", "<cmd>Telescope undo<CR>" },
     },
     config = function()
-      local maps = {
+      local default_maps = {
         ["<A-a>"] = require("telescope.actions").toggle_all,
         ["<C-s>"] = require("telescope.actions").select_horizontal,
+      }
+      local buffers_maps = {
         ["<C-x>"] = require("telescope.actions").delete_buffer,
       }
+      local lga_maps = {
+        ["<C-space>"] = require("telescope.actions").to_fuzzy_refine,
+      }
+
       require('telescope').setup {
         defaults = {
-          mappings = { n = maps, i = maps, },
+          mappings = { n = default_maps, i = default_maps, },
           layout_strategy = 'flex',
           layout_config = { prompt_position = 'top', },
-          sorting_strategy = 'ascending'
+          sorting_strategy = 'ascending',
         },
         extensions = {
           file_browser = { respect_gitignore = false, hidden = true, },
+          live_grep_args = { mappings = { n = lga_maps, i = lga_maps } },
         },
-        pickers = { lsp_references = { path_display = { 'shorten' }, }, }
+        pickers = {
+          lsp_references = { path_display = { 'shorten' }, },
+          buffers = { mappings = { n = buffers_maps, i = buffers_maps } }
+        }
       }
+
       require("telescope").load_extension("file_browser")
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("undo")
@@ -264,8 +277,6 @@ return {
       vim.keymap.set("n", "]tt", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>")
     end,
   },
-
-  { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
 
   ----------------------------------- Snippets ---------------------------------
   {
@@ -535,7 +546,7 @@ return {
     "folke/zen-mode.nvim",
     keys = { { "<leader>zm", ":ZenMode<CR>" } },
     config = function()
-      require("zen-mode").setup{ window = { backdrop = 1, width = 80, }, }
+      require("zen-mode").setup{ window = { backdrop = 1, width = 100, }, }
     end
   },
 
