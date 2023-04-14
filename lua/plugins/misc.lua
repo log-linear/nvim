@@ -1,7 +1,4 @@
 return {
-  ----------------------------- Indent detection -------------------------------
-  { "Darazaki/indent-o-matic", lazy = false },
-
   -------------------------- Dim inactive window splits ------------------------
   {
     "levouh/tint.nvim",

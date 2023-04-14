@@ -24,7 +24,7 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
   vim.fn.execute("source" .. winvimpath)
 end
 
-local workvimpath = vim.fn.stdpath("config") .. "/work.vim"
+local workvimpath = vim.fn.stdpath("config") .. "/work.lua"
 if vim.loop.fs_stat(workvimpath) then
-  vim.fn.execute("source" .. vim.fn.stdpath("config") .. "/work.vim")
+  vim.fn.execute("source" .. vim.fn.stdpath("config") .. "/work.lua")
 end

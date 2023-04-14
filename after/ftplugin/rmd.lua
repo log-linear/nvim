@@ -1,5 +1,6 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
+vim.opt.shiftwidth = 2
 
 -- Multi-modal mappings
 map({ "i", "t" }, ";;", "<-", opts)
