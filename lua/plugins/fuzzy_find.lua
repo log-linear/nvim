@@ -19,7 +19,7 @@ return {
     { "<leader>fo", "<cmd>Telescope oldfiles<CR>" },
     { "<leader>/",  "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>" },
     { "<leader>*",  "<cmd>Telescope grep_string<CR>" },
-    { "<leader>*",  "<cmd>Telescope commands<CR>" },
+    { "<leader>:",  "<cmd>Telescope commands<CR>" },
     { "<leader>fm", "<cmd>Telescope keymaps<CR>" },
     { "<leader>ft", "<cmd>Telescope filetypes<CR>" },
     { "<leader>fr", "<cmd>Telescope lsp_references<CR>" },
@@ -29,12 +29,10 @@ return {
     local default_maps = {
       ["<A-a>"] = require("telescope.actions").toggle_all,
       ["<C-s>"] = require("telescope.actions").select_horizontal,
+      ["<C-space>"] = require("telescope.actions").to_fuzzy_refine,
     }
     local buffers_maps = {
       ["<C-x>"] = require("telescope.actions").delete_buffer,
-    }
-    local lga_maps = {
-      ["<C-space>"] = require("telescope.actions").to_fuzzy_refine,
     }
 
     require("telescope").load_extension("file_browser")
@@ -49,7 +47,6 @@ return {
       },
       extensions = {
         file_browser = { respect_gitignore = false, hidden = true, },
-        live_grep_args = { mappings = { n = lga_maps, i = lga_maps } },
       },
       pickers = {
         lsp_references = { path_display = { 'shorten' }, },

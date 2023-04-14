@@ -1,10 +1,9 @@
-vim.g.zenwritten_compat = 1
-
 return {
   "mcchrish/zenbones.nvim",
-  lazy = false,
+  event = "VimEnter",
   priority = 1000,
   config = function()
+    vim.g.zenwritten_compat = 1
     vim.opt.background = "light"
     vim.cmd.colorscheme("zenwritten")
     vim.cmd.highlight({ "Type", "guifg=#5F5F5F" })
