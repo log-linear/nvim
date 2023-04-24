@@ -1,5 +1,6 @@
 return {
   "nvim-telescope/telescope.nvim",
+  tag = "0.1.1",
   dependencies = {
     { "nvim-telescope/telescope-fzf-native.nvim", build = 'make', },
     "nvim-telescope/telescope-file-browser.nvim",
@@ -22,7 +23,7 @@ return {
     { "<leader>:",  "<cmd>Telescope commands<CR>" },
     { "<leader>fm", "<cmd>Telescope keymaps<CR>" },
     { "<leader>ft", "<cmd>Telescope filetypes<CR>" },
-    { "<leader>fr", "<cmd>Telescope lsp_references<CR>" },
+    { "gr", "<cmd>Telescope lsp_references<CR>" },
     { "<leader>u",  "<cmd>Telescope undo<CR>" },
   },
   config = function()

@@ -40,7 +40,6 @@ return {
       vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
       vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
       vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-      vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
       vim.keymap.set('n', '<space>bf', vim.lsp.buf.format, bufopts)
       vim.keymap.set('n', ']tl', ':LspStart<CR>', bufopts)
       vim.keymap.set('n', '[tl', ':LspStop<CR>', bufopts)
