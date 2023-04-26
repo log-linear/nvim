@@ -14,9 +14,14 @@ return {
     "FileType vim",
     "FileType openscad",
   },
-  dependencies = { "hrsh7th/cmp-nvim-lsp" },
+  dependencies = {
+    "hrsh7th/cmp-nvim-lsp",
+    "williamboman/mason-lspconfig.nvim",
+  },
+
   config = function()
     -- Mappings
+    require("mason-lspconfig").setup()
     local opts = { noremap = true }
     vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
     vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, opts)
