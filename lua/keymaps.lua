@@ -10,7 +10,6 @@ map("i", ";b", "<esc>0D80A-<esc>0:exec 'normal! 0R' . &cms<cr>a<bs><bs><bs>---<e
 map("i", ";H", "<esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec 'normal! 0R' . &cms<cr>a<bs><bs><bs>===<esc>o<esc>0C", opts)
 map("i", ";h", "<esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:exec 'normal! 0R' . &cms<cr>a<bs><bs><bs>---<esc>o<esc>0C", opts)
 map("i", ";todo", "<esc>:exec 'normal! 0i' . &cms<cr>a<bs><bs><bs><esc>$a TODO: ", opts)
-map("n", "<cr><cr>", ":w<CR> :15sp<CR> :term compile %<CR>", opts)
 map("n", "<leader>tt", [[:15new<CR><C-\><C-n>:call termopen($SHELL)<CR><C-w>k]], opts)
 map("n", "<leader>tp", [[:15new<CR><C-\><C-n>:call termopen('python')<CR><C-w>k]], opts)
 map("n", "<leader>tr", [[:15new<CR><C-\><C-n>:call termopen('radian')<CR><C-w>k]], opts)
