@@ -1,6 +1,35 @@
 return {
-  --------------------------------- Git support --------------------------------
-  { "tpope/vim-fugitive" },
+  -------------------------- Dim inactive window splits ------------------------
+  {
+    "levouh/tint.nvim",
+    event = "WinNew",
+    config = function() require("tint").setup({ tint = 65, saturation = 0.4 }) end
+  },
+
+  ------------------------- Distraction-free writing ---------------------------
+  {
+    "folke/zen-mode.nvim",
+    keys = { { "<leader>zm", ":ZenMode<CR>" } },
+    config = function()
+      require("zen-mode").setup { window = { backdrop = 1, width = 100, }, }
+    end
+  },
+
+  ------------------------- Indent line highlighting ---------------------------
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require("indent_blankline").setup { show_current_context = true }
+    end
+  },
+
+  ----------------------------- Highlight colors -------------------------------
+  {
+    "NvChad/nvim-colorizer.lua",
+    keys = { { "<leader>co", ":ColorizerToggle<CR>" } },
+    config = function() require 'colorizer'.setup({}) end
+  },
 
   -------------------------- git markers in gutter -----------------------------
   {
