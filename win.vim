@@ -1,7 +1,7 @@
 "======================= Windows-specific configuration  =======================
 
 "------------------------------- Mapping fixes ---------------------------------
-nn <leader>tt :15new<CR><C-\><C-n>:call termopen("powershell")<CR><C-\><C-n><C-w>k
+nn <leader>tt :15new<CR><C-\><C-n>:call termopen("pwsh.exe")<CR><C-\><C-n><C-w>k
 au FileType r nmap <CR><CR> :w<CR>:15sp<CR>:term Rscript "%:p"<CR>
 au FileType rmd nmap <CR><CR> :w<CR>:15sp<CR>:term Rscript -e "rmarkdown::render(r'(%:p)')"<CR>
 au FileType python nmap <CR><CR> :w<CR>:15sp<CR>:term python "%"<CR>

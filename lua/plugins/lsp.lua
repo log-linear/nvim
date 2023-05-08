@@ -22,10 +22,12 @@ return {
     -- Mason interop
     require("mason-lspconfig").setup()
 
-    -- Global mappings.
+    -- Global mappings
     vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
     vim.keymap.set('n', '[e', vim.diagnostic.goto_prev)
     vim.keymap.set('n', ']e', vim.diagnostic.goto_next)
+    vim.keymap.set('n', '[d', function () vim.diagnostic.disable(0) end)
+    vim.keymap.set('n', ']d', function () vim.diagnostic.enable(0) end)
     vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
     -- Buffer local options

@@ -60,8 +60,8 @@ return {
       },
       yati = { enable = true },
     }
-    vim.keymap.set("n", "[tt",
+    vim.keymap.set("n", "[t",
     ":TSDisable highlight<CR>:TSDisable markid<CR>:TSDisable indent<CR>:TSDisable yati<CR>")
-    vim.keymap.set("n", "]tt", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>")
+    vim.keymap.set("n", "]t", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>")
   end,
 }
