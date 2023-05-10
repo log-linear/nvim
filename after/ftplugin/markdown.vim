@@ -1,5 +1,6 @@
 set wrap
 set linebreak
+set tw=80
 
 ino ;e **<left>
 ino ;H <esc>yypv$r=o

@@ -11,6 +11,5 @@ return {
     vim.cmd.highlight({ "ColorColumn", "guibg=#E5E5E5", })
     vim.cmd.highlight({ "IndentBlanklineContextChar", "guifg=#353535", "gui=nocombine" })
     vim.cmd.highlight({ "Function", "guifg=#5C5C5C", "gui=bold" })
-    vim.cmd.highlight({ "Special", "guifg=#6f6f6f", "gui=bold,italic" })
   end
 }
