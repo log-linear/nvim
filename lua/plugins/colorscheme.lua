@@ -5,7 +5,7 @@ return {
     vim.g.zenwritten_compat = 1
     vim.opt.background = "light"
     vim.cmd.colorscheme("zenwritten")
-    vim.cmd.highlight({ "Type", "guifg=#5f5f5f", "gui=italic" })
+    vim.cmd.highlight({ "Type", "guifg=#353535", "gui=italic" })
     vim.cmd.highlight({ "link", "NormalNC", "Normal" })
     vim.cmd.highlight({ "DiagnosticUnnecessary", "guibg=#DDDDDD" })
     vim.cmd.highlight({ "ColorColumn", "guibg=#E5E5E5", })
