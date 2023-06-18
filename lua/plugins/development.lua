@@ -45,7 +45,7 @@ return {
     },
     dependencies = { "mfussenegger/nvim-dap-python" },
     config = function()
-      require('dap-python').setup(vim.api.nvim_list_runtime_paths()[1] .. "/.venv/bin/python")
+      require('dap-python').setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
       vim.fn.sign_define('DapBreakpoint', { text = '⦿', texthl = '', linehl = '', numhl = '' })
     end
   },

@@ -26,8 +26,8 @@ return {
     vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
     vim.keymap.set('n', '[e', vim.diagnostic.goto_prev)
     vim.keymap.set('n', ']e', vim.diagnostic.goto_next)
-    vim.keymap.set('n', '[d', function () vim.diagnostic.disable(0) end)
-    vim.keymap.set('n', ']d', function () vim.diagnostic.enable(0) end)
+    vim.keymap.set('n', '[d', function() vim.diagnostic.disable(0) end)
+    vim.keymap.set('n', ']d', function() vim.diagnostic.enable(0) end)
     vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
     -- Buffer local options
@@ -66,19 +66,17 @@ return {
     end
     vim.diagnostic.config({ virtual_text = false, })
 
-    -- Use a loop to conveniently call 'setup' on multiple servers and
-    -- map buffer local keybindings when the language server attaches
-    local servers = {
-      pyright = {},
-      ruff_lsp = {},
-      r_language_server = { settings = { rich_documentation = false } },
-      bashls = {},
-      texlab = {},
-      jsonls = {},
-      cssls = {},
-      html = {},
-      vimls = {},
-      lua_ls = {
+    -- Set-up servers
+    local lspconfig = require("lspconfig")
+    local server_opts = {
+      capabilities = capabilities,
+      flags = { debounce_text_changes = 150 },
+    }
+    require("mason-lspconfig").setup_handlers {
+      -- Default config for any servers installed through Mason
+      function(server_name) lspconfig[server_name].setup(server_opts) end,
+      -- Custom configs
+      ["lua_ls"] = function() lspconfig.lua_ls.setup {
         settings = {
           Lua = {
             -- Settings for use with nvim
@@ -91,8 +89,9 @@ return {
             telemetry = { enable = false, },
           },
         },
-      },
-      efm = {
+        server_opts
+      } end,
+      ["efm"] = function() lspconfig.efm.setup {
         init_options = { documentFormatting = true },
         settings = {
           rootMarkers = { ".git/" },
@@ -107,18 +106,9 @@ return {
             } }
           }
         },
-        filetypes = { 'python', 'css', 'sh', 'bash' }
-      },
-      openscad_ls = {}
+        filetypes = { 'python', 'css', 'sh', 'bash' },
+        server_opts
+      } end,
     }
-    for server, user_opts in pairs(servers) do
-      local server_opts = {
-        capabilities = capabilities,
-        flags = { debounce_text_changes = 150 }
-      }
-      server_opts = vim.tbl_deep_extend('force', server_opts, user_opts)
-
-      require('lspconfig')[server].setup(server_opts)
-    end
   end
 }
