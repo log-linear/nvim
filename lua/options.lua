@@ -6,6 +6,7 @@ vim.opt.ea = false
 vim.opt.expandtab = true
 vim.opt.ignorecase = true
 vim.opt.list = true
+vim.opt.listchars = { tab = '│·', extends = '→', precedes = '←', nbsp = '·', trail = '·' }
 vim.opt.mouse = "a"
 vim.opt.number = true
 vim.opt.relativenumber = true

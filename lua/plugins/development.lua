@@ -46,6 +46,7 @@ return {
     dependencies = { "mfussenegger/nvim-dap-python" },
     config = function()
       require('dap-python').setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
+      require('dap.ext.vscode').load_launchjs()
       vim.fn.sign_define('DapBreakpoint', { text = '⦿', texthl = '', linehl = '', numhl = '' })
     end
   },
