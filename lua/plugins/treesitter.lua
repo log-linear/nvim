@@ -60,12 +60,16 @@ return {
       },
       yati = { enable = true },
     }
-    vim.keymap.set("n", "[tt",
-    ":TSDisable highlight<CR>:TSDisable markid<CR>:TSDisable indent<CR>:TSDisable yati<CR>")
-    vim.keymap.set("n", "]tt", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>")
-    vim.keymap.set("n", "[th", ":TSDisable highlight<CR>")
-    vim.keymap.set("n", "]th", ":TSEnable highlight<CR>")
-    vim.keymap.set("n", "[tm", ":TSDisable markid<CR>")
-    vim.keymap.set("n", "]tm", ":TSEnable markid<CR>")
+    vim.keymap.set(
+      "n",
+      "[tt",
+      ":TSDisable highlight<CR>:TSDisable markid<CR>:TSDisable indent<CR>:TSDisable yati<CR>",
+      { desc = "Treesitter: Disable all modules"}
+    )
+    vim.keymap.set("n", "]tt", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>", { desc = "Treesitter: Enable all modules" })
+    vim.keymap.set("n", "[th", ":TSDisable highlight<CR>", { desc = "Treesitter: Disable highlighting" })
+    vim.keymap.set("n", "]th", ":TSEnable highlight<CR>", { desc = "Treesitter: Enable highlighting" })
+    vim.keymap.set("n", "[tm", ":TSDisable markid<CR>", { desc = "Treesitter: Disable markid" })
+    vim.keymap.set("n", "]tm", ":TSEnable markid<CR>", { desc = "Treesitter: Enable markid" })
   end,
 }
