@@ -9,7 +9,7 @@ return {
   ------------------------- Distraction-free writing ---------------------------
   {
     "folke/zen-mode.nvim",
-    keys = { { "<leader>zm", ":ZenMode<CR>" } },
+    keys = { { "<leader>zm", ":ZenMode<CR>", desc = "zen-mode: Toggle" } },
     config = function()
       require("zen-mode").setup { window = { backdrop = 1, width = 100, }, }
     end
@@ -27,7 +27,7 @@ return {
   ----------------------------- Highlight colors -------------------------------
   {
     "NvChad/nvim-colorizer.lua",
-    keys = { { "<leader>co", ":ColorizerToggle<CR>" } },
+    keys = { { "<leader>co", ":ColorizerToggle<CR>", desc = "nvim-colorizer: Toggle colorizer" } },
     config = function() require 'colorizer'.setup({}) end
   },
 

@@ -13,8 +13,8 @@ return {
   {
     "junegunn/vim-easy-align",
     keys = {
-      { "ga", "<Plug>(EasyAlign)", "n" },
-      { "ga", "<Plug>(EasyAlign)", "x" },
+      { "ga", "<Plug>(EasyAlign)", "n", "vim-easy-align: Align operator" },
+      { "ga", "<Plug>(EasyAlign)", "x", "vim-easy-align: Visual mode alignment"},
     }
   },
 
@@ -29,8 +29,8 @@ return {
   {
     "windwp/nvim-autopairs",
     keys = {
-      { "]p", ":lua require('nvim-autopairs').enable()<CR>" },
-      { "[p", ":lua require('nvim-autopairs').disable()<CR>" },
+      { "]p", ":lua require('nvim-autopairs').enable()<CR>", "Autopairs: Enable" },
+      { "[p", ":lua require('nvim-autopairs').disable()<CR>", "Autopairs: Disable" },
     },
     event = "InsertEnter",
     config = function() require('nvim-autopairs').setup({}) end
