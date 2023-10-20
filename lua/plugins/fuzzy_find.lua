@@ -3,14 +3,12 @@ return {
   branch = "0.1.x",
   dependencies = {
     { "nvim-telescope/telescope-fzf-native.nvim", build = 'make', },
-    "nvim-telescope/telescope-file-browser.nvim",
     "debugloop/telescope-undo.nvim",
     "nvim-telescope/telescope-live-grep-args.nvim",
   },
   keys = {
     { "<leader>ff", "<cmd>Telescope find_files<CR>", desc = "Telescope: Files" },
     { "<leader>fF", "<cmd>lua require('telescope.builtin').find_files({hidden = true, no_ignore = true})<CR>", desc = "Telescope: All files" },
-    { "<leader>fb", "<cmd>:Telescope file_browser<CR>", desc = "Telescope: File browser" },
     { "<leader>gf", "<cmd>Telescope git_files<CR>", desc = "Telescope: Git files" },
     { "<leader>gc", "<cmd>Telescope git_bcommits<CR>", desc = "Telescope: Browse current buffer git commits" },
     { "<leader>bl", "<cmd>Telescope buffers<CR>", desc = "Telescope: Switch buffer" },
@@ -35,7 +33,6 @@ return {
       ["<C-x>"] = require("telescope.actions").delete_buffer,
     }
 
-    require("telescope").load_extension("file_browser")
     require("telescope").load_extension("fzf")
     require("telescope").load_extension("undo")
     require('telescope').setup {

@@ -34,5 +34,15 @@ return {
     },
     event = "InsertEnter",
     config = function() require('nvim-autopairs').setup({}) end
+  },
+
+  ------------------------------- File browser ---------------------------------
+  {
+    "stevearc/oil.nvim",
+    opts = {},
+    config = function()
+      require('oil').setup()
+      vim.keymap.set("n", "fb", ":vs ./<CR>", { desc = "Open file browser" })
+    end
   }
 }

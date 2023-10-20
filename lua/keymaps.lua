@@ -4,6 +4,8 @@ local map = vim.keymap.set
 map("n", "<leader>s", ":%s//g<left><left>", { desc = "Search and replace" })
 map("n", "<leader>S", ":%s/<C-r><C-w>/", { desc = "Search and replace word under cursor" })
 map("n", "<leader>bs", ":bufdo %s//gc<left><left><left>", { desc = "Buffer search and replace" })
+map("n", "]b", ":bn<cr>", { desc = "Next buffer" })
+map("n", "[b", ":bp<cr>", { desc = "Next buffer" })
 map("i", ";B", "<esc>0D80A=<esc>0:exec 'normal! 0R' . &cms<cr>a<bs><bs><bs>===<esc>o<esc>0C", { desc = "Create `===` block" })
 map("i", ";b", "<esc>0D80A-<esc>0:exec 'normal! 0R' . &cms<cr>a<bs><bs><bs>---<esc>o<esc>0C", { desc = "Create `---` block" })
 map("i", ";H", "<esc>:center<cr>2hv0r=A<space><esc>40A=<esc>d80<bar>0:exec 'normal! 0R' . &cms<cr>a<bs><bs><bs>===<esc>o<esc>0C", { desc = "Create `===` header"})
