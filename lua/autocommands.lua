@@ -8,6 +8,7 @@ end
 
 -- General
 au("WinEnter", { "term://*" }, function() vim.cmd [[startinsert]] end)
+au("BufEnter", { "term://*" }, function() vim.opt.wrap = false end)
 au("TextYankPost", { "*" }, function() vim.highlight.on_yank({ timeout = 250 }) end)
 
 -- Create parent dirs on write
