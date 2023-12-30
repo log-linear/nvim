@@ -5,10 +5,13 @@ return {
   dependencies = {
     "David-Kunz/markid",
     "yioneko/nvim-yati",
+    "nvim-treesitter/nvim-treesitter-context",
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    "RRethy/nvim-treesitter-textsubjects",
   },
   config = function()
-    require 'nvim-treesitter.configs'.setup {
-      ensure_installed = 'all',
+    require "nvim-treesitter.configs".setup {
+      ensure_installed = "all",
       ignore_install = { "t32" },
       highlight = {
         enable = true,
@@ -59,17 +62,69 @@ return {
         }
       },
       yati = { enable = true },
+      textobjects = {
+        select = {
+          enable = true,
+          lookahead = true,
+          keymaps = {
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
+            ["ac"] = "@class.outer",
+            ["ic"] = "@class.inner",
+            ["ab"] = "@block.outer",
+            ["ib"] = "@block.inner",
+          },
+        },
+        move = {
+          enable = true,
+          set_jumps = true, -- whether to set jumps in the jumplist
+          goto_next_start = {
+            ["]f"] = "@function.outer",
+            ["]]"] = { query = "@class.outer", desc = "Next class start" },
+            ["]b"] = { query = "@block.outer", desc = "Next block start" },
+          },
+          goto_next_end = {
+            ["]F"] = "@function.outer",
+            ["]["] = "@class.outer",
+            ["]B"] = { query = "@block.outer", desc = "Next block end" },
+          },
+          goto_previous_start = {
+            ["[f"] = "@function.outer",
+            ["[["] = "@class.outer",
+            ["[b"] = { query = "@block.outer", desc = "Previous block start" },
+          },
+          goto_previous_end = {
+            ["[F"] = "@function.outer",
+            ["[]"] = "@class.outer",
+            ["[B"] = { query = "@block.outer", desc = "Previous block end" },
+          },
+        },
+      },
+      textsubjects = {
+        enable = true,
+        prev_selection = "<bs>", -- (Optional) keymap to select the previous selection
+        keymaps = {
+          ["<cr>"] = "textsubjects-smart",
+          [";"] = "textsubjects-container-outer",
+          ["i;"] = "textsubjects-container-inner",
+          ["i;"] = { "textsubjects-container-inner", desc = "Select inside containers (classes, functions, etc.)" },
+        },
+      },
     }
-    vim.keymap.set(
-      "n",
-      "[tt",
-      ":TSDisable highlight<CR>:TSDisable markid<CR>:TSDisable indent<CR>:TSDisable yati<CR>",
-      { desc = "Treesitter: Disable all modules"}
-    )
-    vim.keymap.set("n", "]tt", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>", { desc = "Treesitter: Enable all modules" })
-    vim.keymap.set("n", "[th", ":TSDisable highlight<CR>", { desc = "Treesitter: Disable highlighting" })
-    vim.keymap.set("n", "]th", ":TSEnable highlight<CR>", { desc = "Treesitter: Enable highlighting" })
-    vim.keymap.set("n", "[tm", ":TSDisable markid<CR>", { desc = "Treesitter: Disable markid" })
-    vim.keymap.set("n", "]tm", ":TSEnable markid<CR>", { desc = "Treesitter: Enable markid" })
+    require "treesitter-context".setup {
+      enable = false,
+      mode = "topline",
+      multiline_threshold = 1
+    }
+    vim.keymap.set("n", "]tt", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>",
+      { desc = "TS: Enable all modules" })
+    vim.keymap.set("n", "]tt", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>",
+      { desc = "TS: Enable all modules" })
+    vim.keymap.set("n", "[th", ":TSDisable highlight<CR>", { desc = "TS: Disable highlighting" })
+    vim.keymap.set("n", "]th", ":TSEnable highlight<CR>", { desc = "TS: Enable highlighting" })
+    vim.keymap.set("n", "[tm", ":TSDisable markid<CR>", { desc = "TS: Disable markid" })
+    vim.keymap.set("n", "]tm", ":TSEnable markid<CR>", { desc = "TS: Enable markid" })
+    vim.keymap.set("n", "[tc", ":TSContextDisable<CR>", { desc = "TS: Disable context" })
+    vim.keymap.set("n", "]tc", ":TSContextEnable<CR>", { desc = "TS: Enable context" })
   end,
 }
