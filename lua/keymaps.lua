@@ -42,4 +42,6 @@ map(modes, "<A-s>", [[<Cmd>sp<CR>]])
 map(modes, "<A-v>", [[<Cmd>vs<CR>]])
 map(modes, "<A-S>", [[<C-\><C-n><C-w>:horizontal winc =<CR>]])
 map(modes, "<A-V>", [[<C-\><C-n><C-w>:vertical winc =<CR>]])
+map(modes, "<A-n>", "<cmd>bn<CR>")
+map(modes, "<A-p>", "<cmd>bp<CR>")
 

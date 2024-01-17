@@ -1,25 +1,4 @@
 return {
-  ------------------------------- Buffer line ----------------------------------
-  {
-    "romgrk/barbar.nvim",
-    dependencies = {
-      "lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
-    },
-    event = "BufLeave",
-    init = function()
-      vim.g.barbar_auto_setup = false
-      local map = vim.keymap.set
-      local modes = { "n", "i", "v", "t" }
-      map(modes, "<A-n>", [[<Cmd>BufferNext<cr>]], { desc = "Next buffer" })
-      map(modes, "<A-p>", [[<Cmd>BufferPrevious<cr>]], { desc = "Previous buffer" })
-      map(modes, "<A-d>", [[<Cmd>BufferClose<cr>]], { desc = "Previous buffer" })
-    end,
-    opts = {
-      icons = { filetype = { enabled = false } },
-      auto_hide = 1,
-    },
-  },
-
   -------------------------- Dim inactive window splits ------------------------
   {
     "levouh/tint.nvim",
