@@ -47,14 +47,14 @@ return {
           end
 
           -- Navigation
-          map('n', ']c', function()
-            if vim.wo.diff then return ']c' end
+          map('n', ']h', function()
+            if vim.wo.diff then return ']h' end
             vim.schedule(function() gs.next_hunk() end)
             return '<Ignore>'
           end, { expr = true, desc = "gitsigns: Next change" })
 
-          map('n', '[c', function()
-            if vim.wo.diff then return '[c' end
+          map('n', '[h', function()
+            if vim.wo.diff then return '[h' end
             vim.schedule(function() gs.prev_hunk() end)
             return '<Ignore>'
           end, { expr = true, desc = "gitsigns: Previous change" })

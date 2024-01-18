@@ -81,21 +81,25 @@ return {
           goto_next_start = {
             ["]f"] = "@function.outer",
             ["]]"] = { query = "@class.outer", desc = "Next class start" },
+            ["]c"] = { query = "@class.outer", desc = "Next class start" },
             ["]b"] = { query = "@block.outer", desc = "Next block start" },
           },
           goto_next_end = {
             ["]F"] = "@function.outer",
             ["]["] = "@class.outer",
+            ["]C"] = "@class.outer",
             ["]B"] = { query = "@block.outer", desc = "Next block end" },
           },
           goto_previous_start = {
             ["[f"] = "@function.outer",
             ["[["] = "@class.outer",
+            ["[c"] = "@class.outer",
             ["[b"] = { query = "@block.outer", desc = "Previous block start" },
           },
           goto_previous_end = {
             ["[F"] = "@function.outer",
             ["[]"] = "@class.outer",
+            ["[C"] = "@class.outer",
             ["[B"] = { query = "@block.outer", desc = "Previous block end" },
           },
         },
