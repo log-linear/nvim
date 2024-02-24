@@ -13,6 +13,7 @@ return {
     "FileType lua",
     "FileType vim",
     "FileType openscad",
+    "FileType yaml",
   },
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
