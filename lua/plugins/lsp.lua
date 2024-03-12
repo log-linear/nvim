@@ -2,6 +2,7 @@ return {
   "neovim/nvim-lspconfig",
   event = {
     "FileType python",
+    "FileType dot",
     "FileType r",
     "FileType rmd",
     "FileType bash",
