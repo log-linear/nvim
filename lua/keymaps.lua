@@ -1,9 +1,5 @@
 --================================= Mappings ===================================
 local map = vim.keymap.set
-vim.cmd[[
-  nnoremap <expr> j &wrap ? 'gj' : 'j'
-  nnoremap <expr> k &wrap ? 'gk' : 'k'
-]]
 
 map("n", "<leader>s",  ":%s//g<left><left>",                                                                                              { desc = "Search and replace" })
 map("n", "<leader>S",  ":%s/<C-r><C-w>/",                                                                                                 { desc = "Search and replace word under cursor" })

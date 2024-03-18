@@ -42,7 +42,7 @@ return {
     opts = {},
     config = function()
       require('oil').setup()
-      vim.keymap.set("n", "fb", [[:vs ./<CR><C-\><C-n><C-w>H]], { desc = "Open file browser" })
+      vim.keymap.set("n", "<leader>fb", [[:vs ./<CR><C-\><C-n><C-w>H]], { desc = "Open file browser" })
     end
   }
 }
