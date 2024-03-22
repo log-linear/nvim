@@ -1,21 +1,5 @@
 return {
   "neovim/nvim-lspconfig",
-  event = {
-    "FileType python",
-    "FileType dot",
-    "FileType r",
-    "FileType rmd",
-    "FileType bash",
-    "FileType sh",
-    "FileType tex",
-    "FileType json",
-    "FileType css",
-    "FileType html",
-    "FileType lua",
-    "FileType vim",
-    "FileType openscad",
-    "FileType yaml",
-  },
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     "williamboman/mason-lspconfig.nvim",

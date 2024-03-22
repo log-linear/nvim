@@ -21,10 +21,10 @@ require("lazy").setup("plugins")
 ----------------------------- environment settings -----------------------------
 if vim.loop.os_uname().sysname == "Windows_NT" then
   local winvimpath = vim.fn.stdpath("config") .. "/win.vim"
-  vim.fn.execute("source" .. winvimpath)
+  vim.fn.execute("source " .. winvimpath)
 end
 
 local workvimpath = vim.fn.stdpath("config") .. "/work.lua"
 if vim.loop.fs_stat(workvimpath) then
-  vim.fn.execute("source" .. vim.fn.stdpath("config") .. "/work.lua")
+  vim.fn.execute("source " .. vim.fn.stdpath("config") .. "/work.lua")
 end
