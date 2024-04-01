@@ -6,6 +6,7 @@ return {
     "debugloop/telescope-undo.nvim",
     "nvim-telescope/telescope-live-grep-args.nvim",
   },
+  cmd = "Telescope",
   keys = {
     { "<leader>ff", "<cmd>Telescope find_files<CR>",                                                           desc = "Telescope: Files" },
     { "<leader>fF", "<cmd>lua require('telescope.builtin').find_files({hidden = true, no_ignore = true})<CR>", desc = "Telescope: All files" },
@@ -51,5 +52,7 @@ return {
         buffers = { mappings = { n = buffers_maps, i = buffers_maps } }
       }
     }
+
+    vim.cmd.amenu([[PopUp.LSP:\ Show\ References :Telescope lsp_references<CR>]])
   end
 }

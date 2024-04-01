@@ -37,6 +37,11 @@ return {
         vim.keymap.set('n', '<space>bf', function()
           vim.lsp.buf.format { async = true }
         end, { buffer = ev.buf, desc = "LSP: Format buffer" })
+
+        vim.cmd.amenu([[PopUp.LSP:\ Go\ to\ Definition :lua vim.lsp.buf.definition()<CR>]])
+        vim.cmd.amenu([[PopUp.LSP:\ Show\ References :Telescope lsp_references<CR>]])
+        vim.cmd.amenu([[PopUp.LSP:\ Rename :lua vim.lsp.buf.rename()<CR>]])
+        vim.cmd.amenu([[PopUp.LSP:\ Code\ Actions :lua vim.lsp.buf.code_action()<CR>]])
       end,
     })
 

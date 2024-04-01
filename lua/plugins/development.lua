@@ -50,6 +50,21 @@ return {
       require('dap-python').setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
       require('dap.ext.vscode').load_launchjs()
       vim.fn.sign_define('DapBreakpoint', { text = '⦿', texthl = '', linehl = '', numhl = '' })
+      vim.cmd.amenu([[PopUp.DAP:\ Continue/start\ debugging\ session :lua require'dap'.continue()<CR>]])
+      vim.cmd.amenu([[PopUp.DAP:\ Terminate\ debugging\ session :lua require'dap'.terminate()<CR>]])
+      vim.cmd.amenu([[PopUp.DAP:\ Pause\ debugging\ session :lua require'dap'.pause()<CR>]])
+      vim.cmd.amenu([[PopUp.DAP:\ Step\ Over :lua require'dap'.step_over()<CR>]])
+      vim.cmd.amenu([[PopUp.DAP:\ Step\ Into :lua require'dap'.step_into()<CR>]])
+      vim.cmd.amenu([[PopUp.DAP:\ Step\ Out :lua require'dap'.step_out()<CR>]])
+      vim.cmd.amenu([[PopUp.DAP:\ Step\ Back :lua require'dap'.step_back()<CR>]])
+      -- vim.cmd.amenu([[PopUp.DAP:\ Go\ down\ current\ stacktrace :lua require'dap'.down()<CR>]])
+      -- vim.cmd.amenu([[PopUp.DAP:\ Go\ up\ current\ stacktrace :lua require'dap'.up()<CR>]])
+      vim.cmd.amenu([[PopUp.DAP:\ Toggle\ breakpoint :lua require'dap'.toggle_breakpoint()<CR>]])
+      vim.cmd.amenu([[PopUp.DAP:\ Open\ REPL :lua require'dap'.repl.open({height = 25})<CR>]])
+      -- vim.cmd.amenu([[PopUp.DAP:\ Run\ last\ debugging\ session\ configuration :lua require'dap'.run_last()<CR>]])
+      vim.cmd.amenu([[PopUp.DAP:\ Test\ method :lua require('dap-python').test_method()]])
+      vim.cmd.amenu([[PopUp.DAP:\ Test\ class :lua require('dap-python').test_class()]])
+      vim.cmd.amenu([[PopUp.DAP:\ Debug\ selection :lua require('dap-python').debug_selection()<CR>]])
     end
   },
 
