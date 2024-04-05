@@ -131,9 +131,10 @@ return {
           local configs = require("nvim-treesitter.configs")
           local queries = configs.get_module("markid").queries
           if vim.treesitter.query.get(lang, 'markid') then
-            return true
+              return true
+          else
+              return pcall(vim.treesitter.query.parse, lang, queries[lang] or queries['default'])
           end
-          return pcall(vim.treesitter.parse_query, lang, queries[lang] or queries['default'])
         end
       }
     }
