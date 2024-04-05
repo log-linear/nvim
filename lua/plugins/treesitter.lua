@@ -122,6 +122,21 @@ return {
       mode = "topline",
       multiline_threshold = 1
     }
+
+    local m = require'markid'
+    require'nvim-treesitter.configs'.setup {
+      markid = {
+        enable = true,
+        is_supported = function(lang)
+          local configs = require("nvim-treesitter.configs")
+          local queries = configs.get_module("markid").queries
+          if vim.treesitter.query.get(lang, 'markid') then
+            return true
+          end
+          return pcall(vim.treesitter.parse_query, lang, queries[lang] or queries['default'])
+        end
+      }
+    }
     vim.keymap.set("n", "]tt", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>",
       { desc = "TS: Enable all modules" })
     vim.keymap.set("n", "]tt", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>",
