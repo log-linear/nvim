@@ -1,5 +1,9 @@
 return {
   "mcchrish/zenbones.nvim",
+  dependencies = {
+    "rktjmp/lush.nvim",
+  },
+  enabled = false,
   event = "VimEnter",
   config = function()
     vim.g.zenwritten_compat = 1
