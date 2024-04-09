@@ -107,6 +107,7 @@ return {
       vim.keymap.set(modes, "<A-n>", "<Cmd>BufferNext<CR>")
       vim.keymap.set(modes, "<A-P>", "<Cmd>BufferMovePrevious<CR>")
       vim.keymap.set(modes, "<A-N>", "<Cmd>BufferMoveNext<CR>")
+      vim.keymap.set(modes, "<A-d>", "<Cmd>BufferWipe<CR>")
     end
   },
 
