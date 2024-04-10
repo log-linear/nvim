@@ -161,7 +161,7 @@ if &background ==# 'dark'
     highlight! link BufferCurrent TabLineSel
     highlight Title guifg=#EBDCB4 guibg=NONE guisp=NONE gui=bold cterm=bold
     highlight Todo guifg=NONE guibg=NONE guisp=NONE gui=bold,underline cterm=bold,underline
-    highlight Type guifg=#ebdbb2 guibg=NONE guisp=NONE gui=none cterm=NONE
+    highlight Type guifg=#ebdbb2 guibg=NONE guisp=NONE gui=italic cterm=NONE
     highlight! link helpSpecial Type
     highlight! link markdownCode Type
     highlight Underlined guifg=NONE guibg=NONE guisp=NONE gui=underline cterm=underline
@@ -359,7 +359,7 @@ else
     highlight! link BufferCurrent TabLineSel
     highlight Title guifg=#3C3836 guibg=NONE guisp=NONE gui=bold cterm=bold
     highlight Todo guifg=NONE guibg=NONE guisp=NONE gui=bold,underline cterm=bold,underline
-    highlight Type guifg=#1d2021 guibg=NONE guisp=NONE gui=none cterm=NONE
+    highlight Type guifg=#1d2021 guibg=NONE guisp=NONE gui=italic cterm=NONE
     highlight! link helpSpecial Type
     highlight! link markdownCode Type
     highlight Underlined guifg=NONE guibg=NONE guisp=NONE gui=underline cterm=underline
