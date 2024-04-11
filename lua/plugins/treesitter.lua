@@ -1,4 +1,14 @@
-local f = require("functions")
+-- callback for disabling Treesitter modules
+function enabled(lang, buf, max_filesize, max_line_count)
+  local max_filesize = max_filesize or (50000 * 1024) -- 50000 KB
+  local max_line_count = max_line_count or 50000  -- 50000 KB
+  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+  if ok and stats and stats.size > max_filesize then
+    return true
+  elseif vim.api.nvim_buf_line_count(buf) > max_line_count then
+    return true
+  end
+end
 
 return {
   "nvim-treesitter/nvim-treesitter",
@@ -20,7 +30,7 @@ return {
       modules = {},
       highlight = {
         enable = true,
-        disable = f.disabled,
+        disable = enabled,
       },
       indent = {
         enable = true,
@@ -37,7 +47,7 @@ return {
           "typescript",
           "rust",
           "vue",
-        }
+        },
       },
       yati = { enable = true },
       textobjects = {
