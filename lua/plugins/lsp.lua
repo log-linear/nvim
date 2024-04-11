@@ -1,9 +1,12 @@
+local f = require("functions")
+
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     "williamboman/mason-lspconfig.nvim",
   },
+  cond = f.enabled,
   config = function()
     -- Mason interop
     require("mason-lspconfig").setup()

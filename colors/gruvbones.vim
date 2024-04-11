@@ -26,6 +26,7 @@ if &background ==# 'dark'
     let g:terminal_color_14 = '#7FCE75'
     let g:terminal_color_15 = '#EBDCB4'
     highlight Normal guifg=#EBDCB4 guibg=#282828 guisp=NONE gui=NONE cterm=NONE
+    highlight! link NormalNC Normal
     highlight Bold guifg=NONE guibg=NONE guisp=NONE gui=bold cterm=bold
     highlight BufferVisible guifg=#F0E4CA guibg=NONE guisp=NONE gui=NONE cterm=NONE
     highlight BufferVisibleIndex guifg=#F0E4CA guibg=NONE guisp=NONE gui=NONE cterm=NONE
@@ -38,6 +39,7 @@ if &background ==# 'dark'
     highlight Comment guifg=#727272 guibg=NONE guisp=NONE gui=italic cterm=italic
     highlight Conceal guifg=#A19576 guibg=NONE guisp=NONE gui=bold,italic cterm=bold,italic
     highlight Constant guifg=#AFA280 guibg=NONE guisp=NONE gui=italic cterm=italic
+    highlight String guifg=#a89984 guibg=NONE guisp=NONE gui=italic cterm=italic
     highlight! link TroubleSource Constant
     highlight! link WhichKeyValue Constant
     highlight! link helpOption Constant
@@ -224,6 +226,7 @@ else
     let g:terminal_color_14 = '#306646'
     let g:terminal_color_15 = '#3C3836'
     highlight Normal guifg=#3C3836 guibg=#f9f5d7 guisp=NONE gui=NONE cterm=NONE
+    highlight! link NormalNC Normal
     highlight Bold guifg=NONE guibg=NONE guisp=NONE gui=bold cterm=bold
     highlight BufferVisible guifg=#706966 guibg=NONE guisp=NONE gui=NONE cterm=NONE
     highlight BufferVisibleIndex guifg=#706966 guibg=NONE guisp=NONE gui=NONE cterm=NONE
@@ -236,6 +239,7 @@ else
     highlight Comment guifg=#959277 guibg=NONE guisp=NONE gui=italic cterm=italic
     highlight Conceal guifg=#66605C guibg=NONE guisp=NONE gui=bold,italic cterm=bold,italic
     highlight Constant guifg=#6B6461 guibg=NONE guisp=NONE gui=italic cterm=italic
+    highlight String guifg=#7c6f64 guibg=NONE guisp=NONE gui=italic cterm=italic
     highlight! link TroubleSource Constant
     highlight! link WhichKeyValue Constant
     highlight! link helpOption Constant

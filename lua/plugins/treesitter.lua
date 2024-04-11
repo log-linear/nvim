@@ -1,3 +1,5 @@
+local f = require("functions")
+
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
@@ -18,34 +20,7 @@ return {
       modules = {},
       highlight = {
         enable = true,
-        disable = function(lang, bufnr) -- Disable in large buffers
-          return vim.api.nvim_buf_line_count(bufnr) > 50000
-        end,
-      },
-      markid = {
-        enable = true,
-        colors = {
-          "#7b2f00",
-          "#003fa8",
-          "#dc0019",
-          "#1e79ce",
-          "#a53400",
-          "#004e73",
-          "#007c30",
-          "#930091",
-          "#558500",
-          "#e42358",
-          "#005c0e",
-          "#b8005a",
-          "#5c799e",
-          "#a46a1c",
-          "#87005b",
-          "#573800",
-          "#6f00ad",
-          "#840019",
-          "#93675f",
-          "#c55d00",
-        }
+        disable = f.disabled,
       },
       indent = {
         enable = true,
@@ -127,6 +102,29 @@ return {
     require'nvim-treesitter.configs'.setup {
       markid = {
         enable = true,
+        disable = f.disabled,
+        colors = {
+          "#7b2f00",
+          "#003fa8",
+          "#dc0019",
+          "#1e79ce",
+          "#a53400",
+          "#004e73",
+          "#007c30",
+          "#930091",
+          "#558500",
+          "#e42358",
+          "#005c0e",
+          "#b8005a",
+          "#5c799e",
+          "#a46a1c",
+          "#87005b",
+          "#573800",
+          "#6f00ad",
+          "#840019",
+          "#93675f",
+          "#c55d00",
+        },
         is_supported = function(lang)
           local configs = require("nvim-treesitter.configs")
           local queries = configs.get_module("markid").queries
