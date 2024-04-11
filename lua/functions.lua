@@ -9,6 +9,8 @@ function M.disabled(lang, buf, max_filesize, max_line_count)
     return true
   elseif vim.api.nvim_buf_line_count(buf) > max_line_count then
     return true
+  else
+    return false
   end
 end
 
