@@ -16,6 +16,11 @@ map("n", "<leader>cd", ":cd %:p:h<CR>:pwd<CR>",                                 
 map("n", "<leader>..", ":cd ..<CR>:pwd<CR>",                                                                                              { desc = "Change to parent directory" })
 map("i", "<c-e>", "<esc><C-e>i", opts)
 map("i", "<c-y>", "<esc><C-y>i", opts)
+map("v", "p", "\"_dP")  -- Don't rewrite clipboard when pasting over something
+map(
+  "n",
+  "dd",
+  function() if vim.api.nvim_get_current_line():find("^%s*$") then return '"_dd' end return "dd" end, { expr = true }) 
 
 local modes = { "n", "i", "v", "t" }
 map(modes, "<A-h>", [[<C-\><C-n><C-w>h]])
