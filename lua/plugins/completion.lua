@@ -10,6 +10,7 @@ return {
       "FelipeLema/cmp-async-path",
       "rcarriga/cmp-dap",
       "saadparwaiz1/cmp_luasnip",
+      "R-nvim/cmp-r",
     },
     config = function()
       -- Set up nvim-cmp.
@@ -48,6 +49,7 @@ return {
           { name = 'luasnip' },
           { name = 'buffer',                 option = { get_bufnrs = get_bufnrs } },
           { name = 'async_path' },
+          { name = "cmp_r" }
         }),
       })
 
@@ -62,6 +64,9 @@ return {
       cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
         sources = { { name = "dap" } },
       })
+
+      -- R.nvim
+      require("cmp_r").setup({ })
     end,
   },
 

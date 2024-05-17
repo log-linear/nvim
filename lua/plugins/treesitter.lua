@@ -14,7 +14,6 @@ return {
   config = function()
     require "nvim-treesitter.configs".setup {
       ensure_installed = "all",
-      ignore_install = { "t32" },
       sync_install = false,
       auto_install = false,
       modules = {},
