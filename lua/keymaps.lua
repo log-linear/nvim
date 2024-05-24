@@ -11,7 +11,6 @@ map("i", ";h",         "<esc>:center<cr>2hv0r-A<space><esc>40A-<esc>d80<bar>0:ex
 map("i", ";todo",      "<esc>:exec 'normal! 0i' . &cms<cr>a<bs><bs><bs><esc>$a TODO: ",                                                   { desc = "Add a `TODO:` comment" })
 map("n", "<leader>tt", [[:15new<CR><C-\><C-n>:call termopen($SHELL)<CR>:set nobl<CR>:set wfb<CR><C-w>k]],                                             { desc = "Open a new terminal" })
 map("n", "<leader>tp", [[:15new<CR><C-\><C-n>:call termopen('python')<CR>:set nobl<CR>:set wfb<CR><C-w>k]],                                           { desc = "Open a new Python console" })
-map("n", "<leader>tr", [[:15new<CR><C-\><C-n>:call termopen('radian')<CR>:set nobl<CR>:set wfb<CR><C-w>k]],                                           { desc = "Open a new R console" })
 map("n", "<leader>cd", ":cd %:p:h<CR>:pwd<CR>",                                                                                           { desc = "Change to current buffer file directory" })
 map("n", "<leader>..", ":cd ..<CR>:pwd<CR>",                                                                                              { desc = "Change to parent directory" })
 map("i", "<c-e>", "<esc><C-e>i", opts)
