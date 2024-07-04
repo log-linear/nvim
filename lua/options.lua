@@ -19,6 +19,7 @@ vim.opt.smartcase = true
 vim.opt.smartindent = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.opt.switchbuf = "useopen,uselast"
 vim.opt.tabstop = 4
 vim.opt.termguicolors = true
 vim.opt.syntax = "on"

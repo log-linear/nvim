@@ -16,6 +16,7 @@ return {
       ensure_installed = "all",
       sync_install = false,
       auto_install = false,
+      ignore_install = false,
       modules = {},
       highlight = {
         enable = true,
