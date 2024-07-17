@@ -5,7 +5,7 @@ return {
     lazy = false,
     config = function ()
       local opts = {
-        R_args = {"--quiet", "--no-save"},
+        R_args = { "--quiet", "--no-save" },
         hook = {
           on_filetype = function ()
             vim.keymap.set("n", "<leader>tr", "<Plug>RStart", {})

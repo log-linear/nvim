@@ -66,40 +66,38 @@ return {
       })
 
       -- R.nvim
-      require("cmp_r").setup{
-        fun_data_1 = {
-          "select",
-          "rename",
-          "mutate",
-          "filter",
-          "group_by",
-          "pivot_longer",
-          "pivot_wider",
-          "unnest_longer",
-          "unnest_wider",
-          "hoist",
-          "separate_wider_delim",
-          "complete",
-          "drop_na",
-          "fill",
-        },
-        fun_data_2 = {
-          mutate = { "*" },
-          rename = { "*" },
-          filter = { "*" },
-          group_by = { "*" },
-          ggplot = { "aes" },
-          with = { "*" },
-          summarize = { "*" },
-          summarise = { "*" },
-          hoist = { "*" },
-          separate_wider_delim = { "*" },
-          complete = { "*" },
-          drop_na = { "*" },
-          fill = { "*" },
-        }
+      vim.g.R_fun_data_1 = {
+        "select",
+        "rename",
+        "mutate",
+        "filter",
+        "group_by",
+        "pivot_longer",
+        "pivot_wider",
+        "unnest_longer",
+        "unnest_wider",
+        "hoist",
+        "separate_wider_delim",
+        "complete",
+        "drop_na",
+        "fill",
       }
-    end,
+      vim.g.R_fun_data_2 = {
+        mutate = { "*" },
+        rename = { "*" },
+        filter = { "*" },
+        group_by = { "*" },
+        ggplot = { "aes" },
+        with = { "*" },
+        summarize = { "*" },
+        summarise = { "*" },
+        hoist = { "*" },
+        separate_wider_delim = { "*" },
+        complete = { "*" },
+        drop_na = { "*" },
+        fill = { "*" },
+      }
+    end
   },
 
   --------------------------------- Snippets -----------------------------------

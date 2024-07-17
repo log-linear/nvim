@@ -43,6 +43,9 @@ return {
       textobjects = {
         select = {
           enable = true,
+          disable = {
+            "r",  -- Seems to be broken as of July 2024
+          },
           lookahead = true,
           keymaps = {
             ["af"] = { query = "@function.outer", desc = "TS: Select outer part of a function region" },
