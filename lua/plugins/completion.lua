@@ -7,7 +7,7 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-buffer",
-      "FelipeLema/cmp-async-path",
+      "https://codeberg.org/FelipeLema/cmp-async-path",
       "rcarriga/cmp-dap",
       "saadparwaiz1/cmp_luasnip",
       "R-nvim/cmp-r",
