@@ -12,6 +12,6 @@
 ; (left_assignment (identifier) @markid)
 ; (pipe (identifier) @markid)
 ; (right_assignment (identifier) @markid)
-; (subset2 (identifier) @markid)
-; (subset (identifier) @markid)
+(subset2 (identifier) @markid)
+(subset (identifier) @markid)
 ; (unary (identifier) @markid)
