@@ -36,6 +36,13 @@ return {
     config = function() require('nvim-autopairs').setup({}) end
   },
 
+  -------------------------- Auto-closingtag pairs -----------------------------
+  {
+    "windwp/nvim-ts-autotag",
+    event = "InsertEnter",
+    config = function() require('nvim-ts-autotag').setup({}) end
+  },
+
   ------------------------------- File browser ---------------------------------
   {
     "stevearc/oil.nvim",
