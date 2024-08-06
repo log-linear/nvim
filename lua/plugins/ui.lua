@@ -87,30 +87,6 @@ return {
     opts = {},
   },
 
-  ------------------------------ buffer tab bar --------------------------------
-  {
-    'romgrk/barbar.nvim',
-    dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-    --   'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-    },
-    enabled = check_work_env,
-    event = "BufNew",
-    init = function() vim.g.barbar_auto_setup = false end,
-    version = '^1.0.0', -- optional: only update when a new 1.x version is released
-    config = function ()
-      require"barbar".setup{
-        icons = { filetype = { enabled = false } },
-      }
-      local modes = { "n", "i", "v", "t" }
-      vim.keymap.set(modes, "<A-p>", "<Cmd>BufferPrevious<CR>")
-      vim.keymap.set(modes, "<A-n>", "<Cmd>BufferNext<CR>")
-      vim.keymap.set(modes, "<A-P>", "<Cmd>BufferMovePrevious<CR>")
-      vim.keymap.set(modes, "<A-N>", "<Cmd>BufferMoveNext<CR>")
-      vim.keymap.set(modes, "<A-d>", "<Cmd>BufferWipe<CR>")
-    end
-  },
-
   ----------------------------- code breadcrumbs -------------------------------
   {
     'Bekaboo/dropbar.nvim',

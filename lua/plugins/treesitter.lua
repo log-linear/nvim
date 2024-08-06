@@ -10,8 +10,10 @@ return {
     "nvim-treesitter/nvim-treesitter-context",
     "nvim-treesitter/nvim-treesitter-textobjects",
     "RRethy/nvim-treesitter-textsubjects",
+    "LiadOz/nvim-dap-repl-highlights",
   },
   config = function()
+    require('nvim-dap-repl-highlights').setup()
     require "nvim-treesitter.configs".setup {
       ensure_installed = "all",
       sync_install = false,

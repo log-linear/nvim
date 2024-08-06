@@ -36,7 +36,7 @@ return {
     config = function() require('nvim-autopairs').setup({}) end
   },
 
-  -------------------------- Auto-closingtag pairs -----------------------------
+  -------------------------- Auto-closing tag pairs ----------------------------
   {
     "windwp/nvim-ts-autotag",
     event = "InsertEnter",
