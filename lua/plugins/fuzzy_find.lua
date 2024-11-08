@@ -16,7 +16,7 @@ return {
     { "<leader>%",  "<cmd>Telescope current_buffer_fuzzy_find<CR>",                                            desc = "Telescope: Fuzzy search current buffer" },
     { "<leader>fh", "<cmd>Telescope help_tags<CR>",                                                            desc = "Telescope: Help tags" },
     { "<leader>fo", "<cmd>Telescope oldfiles<CR>",                                                             desc = "Telescope: Old files" },
-    { "<leader>fj", "<cmd>Telescope jumplist<CR>",                                                             desc = "Telescope: Old files" },
+    { "<leader>gj", "<cmd>Telescope jumplist<CR>",                                                             desc = "Telescope: Jump list" },
     { "<leader>/",  "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",            desc = "Telescope: Live grep search" },
     { "<leader>*",  "<cmd>Telescope grep_string<CR>",                                                          desc = "Telescope: grep search word under cursor" },
     { "<leader>:",  "<cmd>Telescope commands<CR>",                                                             desc = "Telescope: Commands" },

@@ -93,5 +93,6 @@ return {
 
   --------------------------------- Git support --------------------------------
   { "tpope/vim-fugitive" },
+  { "idanarye/vim-merginal" },
 
 }
