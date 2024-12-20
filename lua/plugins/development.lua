@@ -91,6 +91,28 @@ return {
     end
   },
 
+  --------------------------- Extended refactoring -----------------------------
+  {
+    "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    keys = {
+      { "cre", ":Refactor extract<CR>", mode={"x"} },
+      { "crf", ":Refactor extract_to_file<CR>", mode={"x"} },
+      { "crv", ":Refactor extract_var<CR>", mode={"x"} },
+      { "cri", ":Refactor inline_var<CR>", mode={"n", "x"} },
+      { "crI", ":Refactor inline_func<CR>", mode={"n"} },
+      { "crb", ":Refactor extract_block<CR>", mode={"n"} },
+      { "crbf", ":Refactor extract_block_to_file<CR>", mode={"n"} },
+    },
+    lazy = false,
+    config = function()
+      require("refactoring").setup()
+    end,
+  },
+
   --------------------------------- Git support --------------------------------
   { "tpope/vim-fugitive" },
   { "idanarye/vim-merginal" },

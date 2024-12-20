@@ -20,15 +20,6 @@ return {
     end
   },
 
-  ------------------------- Indent line highlighting ---------------------------
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("ibl").setup { indent = {char = "▏"}}
-    end
-  },
-
   ----------------------------- Highlight colors -------------------------------
   {
     "NvChad/nvim-colorizer.lua",
@@ -109,6 +100,24 @@ return {
       vim.keymap.set(modes, "<A-N>", "<Cmd>BufferMoveNext<CR>")
       vim.keymap.set(modes, "<A-d>", "<Cmd>BufferWipe<CR>")
     end
+  },
+
+  -------------------------------- key hints -----------------------------------
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+      preset = "helix",
+    },
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
+    },
   },
 
   ----------------------------- code breadcrumbs -------------------------------

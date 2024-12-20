@@ -12,10 +12,10 @@ return {
 
     -- Global mappings
     vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = "LSP: Show diagnostics" })
-    vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = "LSP: Go to previous diagnostic error"})
-    vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = "LSP: Go to next diagnostic error"})
-    vim.keymap.set('n', '[d', function() vim.diagnostic.disable(0) end, { desc = "LSP: Disable disagnostics" })
-    vim.keymap.set('n', ']d', function() vim.diagnostic.enable(0) end, { desc = "LSP: Disable disagnostics" })
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "LSP: Go to previous diagnostic error"})
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "LSP: Go to next diagnostic error"})
+    vim.keymap.set('n', '[D', function() vim.diagnostic.enable(false) end, { desc = "LSP: Disable disagnostics" })
+    vim.keymap.set('n', ']D', function() vim.diagnostic.enable(true) end, { desc = "LSP: Disable disagnostics" })
     vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
     -- Buffer local options
