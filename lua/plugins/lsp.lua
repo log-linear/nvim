@@ -1,5 +1,3 @@
-local f = require("functions")
-
 return {
   "neovim/nvim-lspconfig",
   dependencies = {

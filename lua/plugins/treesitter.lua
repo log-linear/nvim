@@ -1,5 +1,3 @@
-local f = require("functions")
-
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
