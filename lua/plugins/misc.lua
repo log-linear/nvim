@@ -1,7 +1,7 @@
 vim.cmd[[highlight! link SnacksIndent IblIndent]]
 vim.cmd[[highlight! link SnacksIndentScope IblScope]]
-vim.keymap.set("n", "]r", ":lua Snacks.words.jump(1, false)<CR>")
-vim.keymap.set("n", "[r", ":lua Snacks.words.jump(-1, false)<CR>")
+vim.keymap.set("n", "]r", ":lua Snacks.words.jump(1, false)<CR>", { desc = "Next reference" })
+vim.keymap.set("n", "[r", ":lua Snacks.words.jump(-1, false)<CR>", { desc = "Previous reference" })
 
 return {
   ----------------------------- Lots of goodies --------------------------------

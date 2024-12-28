@@ -98,7 +98,7 @@ return {
       },
     }
     require "treesitter-context".setup {
-      enable = false,
+      enable = true,
       mode = "topline",
       multiline_threshold = 1
     }
