@@ -4,7 +4,7 @@ return {
 
   {
     "R-nvim/R.nvim",
-    lazy = false,
+    ft = { "r", "rmd" },
     config = function ()
       local opts = {
         R_args = { "--quiet", "--no-save" },

@@ -75,10 +75,8 @@ return {
   ----------------------------- select/input ui --------------------------------
   {
     'stevearc/dressing.nvim',
-    enabled = check_work_env,
     opts = {},
   },
-
   ------------------------------ buffer tab bar --------------------------------
   {
     'romgrk/barbar.nvim',

@@ -30,7 +30,7 @@ return {
               or require("cmp_dap").is_dap_buffer()
         end,
         snippet = {
-          expand = function(args) require('luasnip').lsp_expand(args.body) end
+          expand = function(arg) vim.snippet.expand(arg.body) end
         },
         preselect = cmp.PreselectMode.None,
         mapping = cmp.mapping.preset.insert({
@@ -102,26 +102,52 @@ return {
 
   --------------------------------- Snippets -----------------------------------
   {
-    "L3MON4D3/LuaSnip",
+    "garymjr/nvim-snippets",
     dependencies = {
-      {
-        "honza/vim-snippets",
-        config = function()
-          require("luasnip.loaders.from_snipmate").lazy_load()
-        end,
-      }
+      "rafamadriz/friendly-snippets"
     },
     keys = {
       {
-        "<tab>",
+        "<c-n>",
         function()
-          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+          if vim.snippet.active({ direction = 1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(1)
+            end)
+            return
+          end
+          return "<c-n>"
         end,
         expr = true,
+        silent = true,
         mode = "i",
       },
-      { "<tab>",   function() require("luasnip").jump(1) end,  mode = "s" },
-      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+      {
+        "<c-n>",
+        function()
+          vim.schedule(function()
+            vim.snippet.jump(1)
+          end)
+        end,
+        expr = true,
+        silent = true,
+        mode = "s",
+      },
+      {
+        "<c-p>",
+        function()
+          if vim.snippet.active({ direction = -1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(-1)
+            end)
+            return
+          end
+          return "<c-p>"
+        end,
+        expr = true,
+        silent = true,
+        mode = { "i", "s" },
+      },
     },
-  },
+  }
 }

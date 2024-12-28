@@ -22,7 +22,6 @@ return {
       modules = {},
       highlight = {
         enable = true,
-        disable = f.disabled,
       },
       indent = {
         enable = true,
@@ -47,6 +46,7 @@ return {
           enable = true,
           disable = {
             "r",  -- Seems to be broken as of July 2024
+            "dart"
           },
           lookahead = true,
           keymaps = {
@@ -106,8 +106,8 @@ return {
     local m = require'markid'
     require'nvim-treesitter.configs'.setup {
       markid = {
-        enable = true,
-        disable = f.disabled,
+        enable = false,
+        disable = { "dart" },
         colors = {
           "#7b2f00",
           "#003fa8",

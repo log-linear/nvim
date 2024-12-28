@@ -36,9 +36,6 @@ return {
         vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, { buffer = ev.buf, desc = "LSP: Show type definition" })
         vim.keymap.set('n', 'crn', vim.lsp.buf.rename, { buffer = ev.buf, desc = "LSP: Rename" })
         vim.keymap.set({ 'n', 'v' }, 'crr', vim.lsp.buf.code_action, { buffer = ev.buf, desc = "LSP: Show code actions" })
-        vim.keymap.set('n', '<space>bf', function()
-          vim.lsp.buf.format { async = true }
-        end, { buffer = ev.buf, desc = "LSP: Format buffer" })
 
         vim.cmd.amenu([[PopUp.LSP:\ Go\ to\ Definition :lua vim.lsp.buf.definition()<CR>]])
         vim.cmd.amenu([[PopUp.LSP:\ Show\ References :Telescope lsp_references<CR>]])
@@ -83,24 +80,6 @@ return {
             telemetry = { enable = false, },
           },
         },
-        server_opts
-      } end,
-      ["efm"] = function() lspconfig.efm.setup {
-        init_options = { documentFormatting = true },
-        settings = {
-          rootMarkers = { ".git/" },
-          languages = {
-            python = { {
-              formatCommand = "black --quiet --line-length=80 -",
-              formatStdin = true
-            } },
-            sh = { { formatCommand = 'shfmt -ci -s -bn' } },
-            css = { {
-              formatCommand = "prettier ${--tab-width:tabWidth} ${--single-quote:singleQuote} --parser css",
-            } }
-          }
-        },
-        filetypes = { 'python', 'css', 'sh', 'bash' },
         server_opts
       } end,
     }
