@@ -1,3 +1,59 @@
+-- Fix for pyright docstrings, from https://vi.stackexchange.com/questions/44233/pyright-lsp-leading-spaces-appears-as-nbsp-in-hover
+local util = require("vim.lsp.util")
+-- The function that replace those quirky html symbols.
+local function _split_lines(value)
+  value = string.gsub(value, "&nbsp;", " ")
+  value = string.gsub(value, "&gt;", ">")
+  value = string.gsub(value, "&lt;", "<")
+  value = string.gsub(value, "\\", "")
+  value = string.gsub(value, "```python", "")
+  value = string.gsub(value, "```", "")
+  return vim.split(value, "\n", { plain = true, trimempty = true })
+end
+
+-- The function name is the same as what you found in the neovim repo.
+-- I just remove those unused codes.
+-- Actually, this function doesn't "convert input to markdown".
+-- I just keep the function name the same for reference.
+local function _convert_input_to_markdown_lines(input, contents)
+  contents = contents or {}
+  assert(type(input) == "table", "Expected a table for LSP input")
+  if input.kind then
+    local value = input.value or ""
+    vim.list_extend(contents, _split_lines(value))
+  end
+  if (contents[1] == "" or contents[1] == nil) and #contents == 1 then
+    return {}
+  end
+  return contents
+end
+
+-- The overwritten hover function that pyright will uses.
+-- Other language servers will use the default one.
+local function _pyright_hover(_, result, ctx, config)
+  config = config or {}
+  config.focus_id = ctx.method
+  if vim.api.nvim_get_current_buf() ~= ctx.bufnr then
+    -- Ignore result since buffer changed. This happens for slow language servers.
+    return
+  end
+  if not (result and result.contents) then
+    if config.silent ~= true then
+      vim.notify("No information available")
+    end
+    return
+  end
+  local contents ---@type string[]
+  contents = _convert_input_to_markdown_lines(result.contents)
+  if vim.tbl_isempty(contents) then
+    if config.silent ~= true then
+      vim.notify("No information available")
+    end
+    return
+  end
+  return util.open_floating_preview(contents, "python", config)
+end
+
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
@@ -9,7 +65,6 @@ return {
     require("mason-lspconfig").setup()
 
     -- Global mappings
-    vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = "LSP: Show diagnostics" })
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "LSP: Go to previous diagnostic error"})
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "LSP: Go to next diagnostic error"})
     vim.keymap.set('n', '[D', function() vim.diagnostic.enable(false) end, { desc = "LSP: Disable disagnostics" })
@@ -62,8 +117,10 @@ return {
 
     -- Auto set-up any servers installed through Mason
     require("mason-lspconfig").setup_handlers {
+
       -- Default config
       function(server_name) lspconfig[server_name].setup(server_opts) end,
+
       -- Custom configs
       ["lua_ls"] = function() lspconfig.lua_ls.setup {
         settings = {
@@ -80,6 +137,19 @@ return {
         },
         server_opts
       } end,
+
+      ["basedpyright"] = function()
+        lspconfig.basedpyright.setup({
+          handlers = {
+            -- The actual hover function assignment.
+            ["textDocument/hover"] = vim.lsp.with(_pyright_hover, {
+              max_width = 120,
+              zindex = 500,
+            }),
+          },
+        })
+      end,
+
     }
   end
 }
