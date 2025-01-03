@@ -232,7 +232,7 @@ else
     highlight BufferVisibleIndex guifg=#706966 guibg=NONE guisp=NONE gui=NONE cterm=NONE
     highlight BufferVisibleSign guifg=#706966 guibg=NONE guisp=NONE gui=NONE cterm=NONE
     highlight CocMarkdownLink guifg=#427B58 guibg=NONE guisp=NONE gui=underline cterm=underline
-    highlight ColorColumn guifg=NONE guibg=#F4EDB1 guisp=NONE gui=NONE cterm=NONE
+    highlight ColorColumn guifg=NONE guibg=#F2e5bc guisp=NONE gui=NONE cterm=NONE
     highlight! link LspReferenceRead ColorColumn
     highlight! link LspReferenceText ColorColumn
     highlight! link LspReferenceWrite ColorColumn

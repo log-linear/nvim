@@ -25,4 +25,12 @@ return {
       require("r").setup(opts)
     end
   },
+
+  --------------------------------- jupytext -----------------------------------
+
+  {
+      'goerz/jupytext.nvim',
+      version = '0.2.0',
+      opts = {},  -- see Options
+  },
 }
