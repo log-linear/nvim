@@ -94,15 +94,6 @@ return {
           ["i;"] = { query = "textsubjects-container-inner", desc = "TS: Select inside containers (classes, functions, etc.)" },
         },
       },
-    }
-    require "treesitter-context".setup {
-      enable = true,
-      mode = "topline",
-      multiline_threshold = 1
-    }
-
-    local m = require'markid'
-    require'nvim-treesitter.configs'.setup {
       markid = {
         enable = false,
         disable = { "dart" },

@@ -5,11 +5,11 @@ return {
   {
     "R-nvim/R.nvim",
     ft = { "r", "rmd" },
-    config = function ()
+    config = function()
       local opts = {
         R_args = { "--quiet", "--no-save" },
         hook = {
-          on_filetype = function ()
+          on_filetype = function()
             vim.keymap.set("n", "<leader>tr", "<Plug>RStart", {})
             vim.keymap.set("n", "<leader>ro", "<Plug>ROBToggle", {})
             vim.keymap.set("n", "<leader>rv", "<Plug>RViewDFa", {})
@@ -26,11 +26,21 @@ return {
     end
   },
 
-  --------------------------------- jupytext -----------------------------------
+  ---------------------------- Jupyter notebooks -------------------------------
+  {
+    "goerz/jupytext.nvim",
+    version = '0.2.0',
+    opts = {}, -- see Options
+  },
+
+ ----------------------------- delimited files --------------------------------
 
   {
-      'goerz/jupytext.nvim',
-      version = '0.2.0',
-      opts = {},  -- see Options
-  },
+    "hat0uma/csvview.nvim",
+    event = "BufEnter *.[ct]sv",
+    config = function()
+      require("csvview").setup()
+      require("csvview").enable()
+    end
+  }
 }
