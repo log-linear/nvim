@@ -23,4 +23,9 @@ function M.enabled()
   end
 end
 
+local workvimpath = vim.fn.stdpath("config") .. "/work.lua"
+local check_work_env = function()
+  if vim.loop.fs_stat(workvimpath) then return true else return false end
+end
+
 return M

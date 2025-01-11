@@ -130,6 +130,11 @@ return {
         end
       }
     }
+
+    require("treesitter-context").setup{
+      multiline_threshold = 1,
+      mode = "topline"
+    }
     vim.keymap.set("n", "]tt", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>",
       { desc = "TS: Enable all modules" })
     vim.keymap.set("n", "]tt", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>",

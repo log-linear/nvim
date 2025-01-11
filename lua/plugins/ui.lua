@@ -1,7 +1,4 @@
-local workvimpath = vim.fn.stdpath("config") .. "/work.lua"
-local check_work_env = function()
-  if vim.loop.fs_stat(workvimpath) then return true else return false end
-end
+local m = require("functions")
 
 return {
   -------------------------- Dim inactive window splits ------------------------
@@ -84,7 +81,7 @@ return {
       'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
     --   'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
-    enabled = check_work_env,
+    enabled = m.check_work_env,
     event = "BufNew",
     init = function() vim.g.barbar_auto_setup = false end,
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
@@ -122,15 +119,9 @@ return {
   ----------------------------- code breadcrumbs -------------------------------
   {
     'Bekaboo/dropbar.nvim',
-    enabled = function()
-      if vim.loop.fs_stat(workvimpath) and vim.fn.has("nvim-0.10") == 1 then
-        return true
-      else
-        return false
-      end
-    end,
-    -- optional, but required for fuzzy finder support
+    enabled = m.check_work_env,
     dependencies = {
+      -- optional, but required for fuzzy finder support
       'nvim-telescope/telescope-fzf-native.nvim'
     }
   },

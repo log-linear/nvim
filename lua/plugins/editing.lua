@@ -1,4 +1,5 @@
 vim.g.sandwich_no_default_key_mappings = 1
+local m = require("functions")
 
 return {
   --------------------------------- Surround -----------------------------------
@@ -43,13 +44,24 @@ return {
     config = function() require('nvim-ts-autotag').setup({}) end
   },
 
-  ------------------------------- File browser ---------------------------------
+  -------------------------- Edit files in a buffer ----------------------------
   {
     "stevearc/oil.nvim",
     opts = {},
     config = function()
       require('oil').setup()
-      vim.keymap.set("n", "<leader>fb", [[:vs ./<CR><C-\><C-n><C-w>H]], { desc = "Open file browser" })
     end
-  }
+  },
+
+  -------------------------------- file tree -----------------------------------
+  {
+    "nvim-tree/nvim-tree.lua",
+    enabled = m.check_work_env,
+    keys = {
+      { "<leader>fb", ":NvimTreeToggle<CR>", { desc = "Open file browser" } }
+    },
+    config = function ()
+      require("nvim-tree").setup()
+    end
+  },
 }
