@@ -1,4 +1,6 @@
 local m = require("functions")
+vim.cmd[[highlight! link SnacksIndent IblIndent]]
+vim.cmd[[highlight! link SnacksIndentScope IblScope]]
 
 return {
   -------------------------- Dim inactive window splits ------------------------
@@ -126,4 +128,59 @@ return {
     }
   },
 
+  ------------------------------ indent guides ---------------------------------
+
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      indent = {
+        enabled = true,
+        animate = { enabled = false },
+        char = "▏"
+      },
+      scope = { enabled = true },
+    },
+  },
+
+  ------------------------------- notification UI --------------------------------
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      notifier = { enabled = true },
+    },
+  },
+
+  ------------------------------- statuscolumn ---------------------------------
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      indent = {
+        enabled = true,
+        animate = { enabled = false },
+        char = "▏"
+      },
+      statuscolumn = { enabled = true },
+    },
+  },
+
+  ----------------------------- smooth scrolling -------------------------------
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    keys = {
+      { "]s", function() Snacks.scroll.enable() end,  desc = "Enable smooth scrolling" },
+      { "[s", function() Snacks.scroll.disable() end, desc = "Enable smooth scrolling" },
+    },
+    lazy = false,
+    ---@type snacks.Config
+  },
 }
