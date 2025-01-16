@@ -49,7 +49,8 @@ return {
           { name = 'luasnip' },
           { name = 'buffer',                 option = { get_bufnrs = get_bufnrs } },
           { name = 'async_path' },
-          { name = "cmp_r" }
+          { name = "cmp_r" },
+          { name = "render-markdown" },
         }),
       })
 

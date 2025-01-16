@@ -73,8 +73,22 @@ return {
 
   ----------------------------- select/input ui --------------------------------
   {
-    'stevearc/dressing.nvim',
-    opts = {},
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      input = {
+        enabled = true,
+        ---@type table<string, snacks.win.Config>
+        styles = {
+          position = "float",
+          relative = "cursor",
+          row = -3,
+          col = 0,
+        },
+      },
+    },
   },
   ------------------------------ buffer tab bar --------------------------------
   {
