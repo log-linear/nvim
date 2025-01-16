@@ -19,13 +19,6 @@ return {
     }
   },
 
-  -------------------------------- Commenting ----------------------------------
-  {
-    "numToStr/Comment.nvim",
-    event = "VeryLazy",
-    config = function() require("Comment").setup{} end
-  },
-
   ------------------------- Auto-closing text pairs ----------------------------
   {
     "windwp/nvim-autopairs",
