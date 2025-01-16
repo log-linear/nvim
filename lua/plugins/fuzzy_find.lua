@@ -1,58 +1,54 @@
 return {
-  "nvim-telescope/telescope.nvim",
-  branch = "0.1.x",
-  dependencies = {
-    { "nvim-telescope/telescope-fzf-native.nvim", build = 'make', },
-    "debugloop/telescope-undo.nvim",
-    "nvim-telescope/telescope-live-grep-args.nvim",
-  },
-  cmd = "Telescope",
-  keys = {
-    { "<leader>ff",        "<cmd>Telescope find_files<CR>",                                                           desc = "Telescope: Files" },
-    { "<leader>fF",        "<cmd>lua require('telescope.builtin').find_files({hidden = true, no_ignore = true})<CR>", desc = "Telescope: All files" },
-    { "<leader>gf",        "<cmd>Telescope git_files<CR>",                                                            desc = "Telescope: Git files" },
-    { "<leader>gc",        "<cmd>Telescope git_bcommits<CR>",                                                         desc = "Telescope: Browse current buffer git commits" },
-    { "<leader>bl",        "<cmd>Telescope buffers<CR>",                                                              desc = "Telescope: Switch buffer" },
-    { "<leader>/",         "<cmd>Telescope current_buffer_fuzzy_find<CR>",                                            desc = "Telescope: Fuzzy search current buffer" },
-    { "<leader>fh",        "<cmd>Telescope help_tags<CR>",                                                            desc = "Telescope: Help tags" },
-    { "<leader>fo",        "<cmd>Telescope oldfiles<CR>",                                                             desc = "Telescope: Old files" },
-    { "<leader>gj",        "<cmd>Telescope jumplist<CR>",                                                             desc = "Telescope: Jump list" },
-    { "<leader><leader>/", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",            desc = "Telescope: Live grep search" },
-    { "<leader>*",         "<cmd>Telescope grep_string<CR>",                                                          desc = "Telescope: grep search word under cursor" },
-    { "<leader>:",         "<cmd>Telescope commands<CR>",                                                             desc = "Telescope: Commands" },
-    { "<leader>fm",        "<cmd>Telescope keymaps<CR>",                                                              desc = "Telescope: Keymaps" },
-    { "<leader>ft",        "<cmd>Telescope filetypes<CR>",                                                            desc = "Telescope: Set filetype" },
-    { "gr",                "<cmd>Telescope lsp_references<CR>",                                                       desc = "Telescope: Show LSP references" },
-    { "<leader>u",         "<cmd>Telescope undo<CR>",                                                                 desc = "Telescope: Show undo tree" },
-  },
-  config = function()
-    local default_maps = {
-      ["<A-a>"] = require("telescope.actions").toggle_all,
-      ["<C-s>"] = require("telescope.actions").select_horizontal,
-      ["<C-space>"] = require("telescope.actions").to_fuzzy_refine,
-    }
-    local buffers_maps = {
-      ["<C-x>"] = require("telescope.actions").delete_buffer,
-    }
-
-    require("telescope").load_extension("fzf")
-    require("telescope").load_extension("undo")
-    require('telescope').setup {
-      defaults = {
-        mappings = { n = default_maps, i = default_maps, },
-        layout_strategy = 'flex',
-        layout_config = { prompt_position = 'top', },
-        sorting_strategy = 'ascending',
+  {
+    "folke/snacks.nvim",
+    ---@type snacks.Config
+    opts = {
+      picker = {
+        enabled = true,
+        styles = { backdrop = false },
       },
-      extensions = {
-        file_browser = { respect_gitignore = false, hidden = true, },
-      },
-      pickers = {
-        lsp_references = { path_display = { 'shorten' }, },
-        buffers = { mappings = { n = buffers_maps, i = buffers_maps } }
-      }
-    }
-
-    vim.cmd.amenu([[PopUp.LSP:\ Show\ References :Telescope lsp_references<CR>]])
-  end
+    },
+    keys = {
+      { "<leader>:",  function() Snacks.picker.command() end,                                desc = "Command History" },
+      ---- find
+      { "<leader>ff", function() Snacks.picker.files() end,                                  desc = "Find Files" },
+      { "<leader>fF", function() Snacks.picker.files({ hidden = true, ignored = true }) end, desc = "Find Files" },
+      { "<leader>bl", function() Snacks.picker.buffers() end,                                desc = "Buffers" },
+      { "<leader>fr", function() Snacks.picker.recent() end,                                 desc = "Recent" },
+      -- { "<leader>fc",      function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
+      ---- git
+      { "<leader>gf", function() Snacks.picker.git_files() end,                              desc = "Find Git Files" },
+      { "<leader>gc", function() Snacks.picker.git_log() end,                                desc = "Git Log" },
+      { "<leader>gs", function() Snacks.picker.git_status() end,                             desc = "Git Status" },
+      ---- Grep
+      { "<leader>%",  function() Snacks.picker.lines() end,                                  desc = "Buffer Lines" },
+      { "<leader>/",  function() Snacks.picker.grep() end,                                   desc = "Grep" },
+      { "<leader><leader>/",  function() Snacks.picker.grep({ hidden = true, ignored = true, }) end, desc = "Grep" },
+      -- { "<leader><leader>B", function() Snacks.picker.grep_buffers() end,                           desc = "Grep Open Buffers" },
+      { "<leader>*",  function() Snacks.picker.grep_word() end,                              desc = "Visual selection or word", mode = { "n", "x" } },
+      ---- search
+      -- { '<leader>s"',      function() Snacks.picker.registers() end,                               desc = "Registers" },
+      -- { "<leader>sa",      function() Snacks.picker.autocmds() end,                                desc = "Autocmds" },
+      -- { "<leader>sc",      function() Snacks.picker.command_history() end,                         desc = "Command History" },
+      -- { "<leader>sC",      function() Snacks.picker.commands() end,                                desc = "Commands" },
+      -- { "<leader>sd",      function() Snacks.picker.diagnostics() end,                             desc = "Diagnostics" },
+      { "<leader>fh", function() Snacks.picker.help() end,                                   desc = "Help Pages" },
+      -- { "<leader>sH",      function() Snacks.picker.highlights() end,                              desc = "Highlights" },
+      { "<leader>gj", function() Snacks.picker.jumps() end,                                  desc = "Jumps" },
+      { "<leader>fm", function() Snacks.picker.keymaps() end,                                desc = "Keymaps" },
+      -- { "<leader>sl",      function() Snacks.picker.loclist() end,                                 desc = "Location List" },
+      -- { "<leader>sM",      function() Snacks.picker.man() end,                                     desc = "Man Pages" },
+      -- { "<leader>sm",      function() Snacks.picker.marks() end,                                   desc = "Marks" },
+      -- { "<leader>sR",      function() Snacks.picker.resume() end,                                  desc = "Resume" },
+      -- { "<leader>sq",      function() Snacks.picker.qflist() end,                                  desc = "Quickfix List" },
+      -- { "<leader>uC",      function() Snacks.picker.colorschemes() end,                            desc = "Colorschemes" },
+      -- { "<leader>qp",      function() Snacks.picker.projects() end,                                desc = "Projects" },
+      ---- LSP
+      -- { "gd",              function() Snacks.picker.lsp_definitions() end,                         desc = "Goto Definition" },
+      { "gr",         function() Snacks.picker.lsp_references() end,                         nowait = true,                     desc = "References" },
+      { "gI",         function() Snacks.picker.lsp_implementations() end,                    desc = "Goto Implementation" },
+      { "gy",         function() Snacks.picker.lsp_type_definitions() end,                   desc = "Goto T[y]pe Definition" },
+      -- { "<leader>ss",      function() Snacks.picker.lsp_symbols() end,                             desc = "LSP Symbols" },
+    },
+  }
 }
