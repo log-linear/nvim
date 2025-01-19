@@ -1,12 +1,18 @@
+vim.cmd.highlight({ "SnacksPicker", "guibg=#f9f5d7" })
 return {
   {
     "folke/snacks.nvim",
     ---@type snacks.Config
     opts = {
       picker = {
-        enabled = true,
-        styles = { backdrop = false },
+        enabled = true 
       },
+      win = {
+        backdrop = {
+          bg = "#f9f5d7",
+          blend = 50
+        }
+      }
     },
     keys = {
       { "<leader>:",  function() Snacks.picker.command() end,                                desc = "Command History" },
@@ -33,7 +39,7 @@ return {
       -- { "<leader>sC",      function() Snacks.picker.commands() end,                                desc = "Commands" },
       -- { "<leader>sd",      function() Snacks.picker.diagnostics() end,                             desc = "Diagnostics" },
       { "<leader>fh", function() Snacks.picker.help() end,                                   desc = "Help Pages" },
-      -- { "<leader>sH",      function() Snacks.picker.highlights() end,                              desc = "Highlights" },
+      { "<leader>sH",      function() Snacks.picker.highlights() end,                              desc = "Highlights" },
       { "<leader>gj", function() Snacks.picker.jumps() end,                                  desc = "Jumps" },
       { "<leader>fm", function() Snacks.picker.keymaps() end,                                desc = "Keymaps" },
       -- { "<leader>sl",      function() Snacks.picker.loclist() end,                                 desc = "Location List" },

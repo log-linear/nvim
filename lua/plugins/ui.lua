@@ -80,13 +80,20 @@ return {
     opts = {
       input = {
         enabled = true,
-        ---@type table<string, snacks.win.Config>
-        styles = {
+        win = {
+          backdrop = {
+            bg = "#f9f5d7",
+            blend = 50
+          }
+        }
+      },
+      styles = {
+        input = {
           position = "float",
           relative = "cursor",
           row = -3,
           col = 0,
-        },
+        }
       },
     },
   },
