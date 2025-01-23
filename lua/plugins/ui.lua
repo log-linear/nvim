@@ -142,10 +142,6 @@ return {
   {
     'Bekaboo/dropbar.nvim',
     enabled = m.neovide,
-    dependencies = {
-      -- optional, but required for fuzzy finder support
-      'nvim-telescope/telescope-fzf-native.nvim'
-    }
   },
 
   ------------------------------ indent guides ---------------------------------
