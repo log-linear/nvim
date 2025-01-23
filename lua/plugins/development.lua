@@ -107,7 +107,6 @@ return {
       { "crb", ":Refactor extract_block<CR>", mode={"n"} },
       { "crbf", ":Refactor extract_block_to_file<CR>", mode={"n"} },
     },
-    lazy = false,
     config = function()
       require("refactoring").setup()
     end,

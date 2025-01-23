@@ -13,6 +13,7 @@ au("TextYankPost", { "*" }, function() vim.highlight.on_yank({ timeout = 250 }) 
 
 -- Create parent dirs on write
 au("BufWritePre", { "*" }, function(ctx)
+  -- Don't do it for Oil buffers
   if vim.tbl_contains({ "oil" }, vim.bo.ft) then
     return
   end
@@ -20,10 +21,5 @@ au("BufWritePre", { "*" }, function(ctx)
 end)
 
 -- Filetypes
-au("BufEnter", { "*.ipynb" }, function()
-  map("n", "<leader>jp", ":w<CR> :!jupyter nbconvert --to script %:p<CR> | :e %:p:r.py<CR>", { desc = "Convert notebook to .py"})
-  map("n", "<leader>jm", ":w<CR> :!jupyter nbconvert --to markdown %:p<CR> | :e %:p:r.md<CR>", { desc = "Convert notebook to .md"})
-end)
-
 au("BufEnter", { "*.tsv" }, function() vim.opt.expandtab = false end)
 

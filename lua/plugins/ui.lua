@@ -6,7 +6,6 @@ return {
   -------------------------- Dim inactive window splits ------------------------
   {
     "levouh/tint.nvim",
-    event = "WinNew",
     config = function() require("tint").setup({ tint = 65, saturation = 0.4 }) end
   },
 
