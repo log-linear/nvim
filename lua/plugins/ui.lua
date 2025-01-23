@@ -103,7 +103,7 @@ return {
       'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
     --   'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
-    enabled = m.check_work_env,
+    enabled = m.neovide,
     event = "BufNew",
     init = function() vim.g.barbar_auto_setup = false end,
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
@@ -141,7 +141,7 @@ return {
   ----------------------------- code breadcrumbs -------------------------------
   {
     'Bekaboo/dropbar.nvim',
-    enabled = m.check_work_env,
+    enabled = m.neovide,
     dependencies = {
       -- optional, but required for fuzzy finder support
       'nvim-telescope/telescope-fzf-native.nvim'

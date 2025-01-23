@@ -28,6 +28,7 @@ return {
       { "<leader>fF",        function() Snacks.picker.files({ hidden = true, ignored = true }) end, desc = "Find Files" },
       { "<leader>bl",        function() Snacks.picker.buffers() end,                                desc = "Buffers" },
       { "<leader>fr",        function() Snacks.picker.recent() end,                                 desc = "Recent" },
+      { "<leader>z",         function() Snacks.picker.zoxide() end,                                 desc = "Recent" },
       -- { "<leader>fc",      function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
       ---- git
       { "<leader>gf",        function() Snacks.picker.git_files() end,                              desc = "Find Git Files" },

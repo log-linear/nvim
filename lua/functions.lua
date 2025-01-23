@@ -28,4 +28,8 @@ function M.check_work_env()
   if vim.uv.fs_stat(workvimpath) then return true else return false end
 end
 
+function M.neovide()
+  if vim.g.neovide then return true else return false end
+end
+
 return M

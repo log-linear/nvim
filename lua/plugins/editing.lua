@@ -49,7 +49,7 @@ return {
   -------------------------------- file tree -----------------------------------
   {
     "nvim-tree/nvim-tree.lua",
-    enabled = m.check_work_env,
+    enabled = m.neovide,
     keys = {
       { "<leader>fb", ":NvimTreeToggle<CR>", { desc = "Open file browser" } }
     },
@@ -68,5 +68,19 @@ return {
       quickfile = { enabled = true },
       bigfile = { enabled = true },
     },
+  },
+
+  -------------------------------- Split-join ----------------------------------
+  {
+    'echasnovski/mini.nvim',
+    version = false,
+    ---@module mini.nvim
+    config = function ()
+      require("mini.splitjoin").setup{
+        mappings = {
+          toggle = 'gs',
+        }
+      }
+    end,
   },
 }
