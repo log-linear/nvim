@@ -92,7 +92,7 @@ return {
           vim.keymap.set({ 'n', 'v' }, 'crr', vim.lsp.buf.code_action, { buffer = ev.buf, desc = "LSP: Show code actions" })
 
           vim.cmd.amenu([[PopUp.LSP:\ Go\ to\ Definition :lua vim.lsp.buf.definition()<CR>]])
-          vim.cmd.amenu([[PopUp.LSP:\ Show\ References :Telescope lsp_references<CR>]])
+          vim.cmd.amenu([[PopUp.LSP:\ Show\ References :lua require("snacks").picker.lsp_references()<CR>]])
           vim.cmd.amenu([[PopUp.LSP:\ Rename :lua vim.lsp.buf.rename()<CR>]])
           vim.cmd.amenu([[PopUp.LSP:\ Code\ Actions :lua vim.lsp.buf.code_action()<CR>]])
         end,
