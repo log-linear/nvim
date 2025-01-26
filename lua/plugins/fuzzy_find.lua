@@ -1,4 +1,4 @@
-vim.cmd.highlight({ "SnacksPicker", "guibg=#f9f5d7" })
+vim.cmd.highlight({ "link", "SnacksPicker", "Normal", })
 return {
   {
     "folke/snacks.nvim",
@@ -16,8 +16,8 @@ return {
       },
       win = {
         backdrop = {
-          bg = "#f9f5d7",
-          blend = 50
+          bg = "#FFFFFF",
+          blend = 80
         }
       }
     },

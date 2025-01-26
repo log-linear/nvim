@@ -70,7 +70,7 @@ return {
     end
   },
 
-  ----------------------------- select/input ui --------------------------------
+  --------------------------------- input ui -----------------------------------
   {
     "folke/snacks.nvim",
     priority = 1000,
@@ -81,8 +81,8 @@ return {
         enabled = true,
         win = {
           backdrop = {
-            bg = "#f9f5d7",
-            blend = 50
+            bg = "#FFFFFF",
+            blend = 80
           }
         }
       },

@@ -1,3 +1,4 @@
+" Auto-generated zenbones scheme, lightly modified
 if exists('g:colors_name')
     highlight clear
 endif
