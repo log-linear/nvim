@@ -2,6 +2,9 @@ local m = require("functions")
 vim.cmd[[highlight! link SnacksIndent IblIndent]]
 vim.cmd[[highlight! link SnacksIndentScope IblScope]]
 
+local f = function(args) vim.b[args.buf].minimap_disable = true end
+vim.api.nvim_create_autocmd("Filetype", { pattern = {"NvimTree", "oil" }, callback = f })
+
 return {
   -------------------------- Dim inactive window splits ------------------------
   {
@@ -12,7 +15,7 @@ return {
   ------------------------- Distraction-free writing ---------------------------
   {
     "folke/zen-mode.nvim",
-    keys = { { "<leader>zm", ":ZenMode<CR>", desc = "zen-mode: Toggle" } },
+    keys = { { "<leader>Zm", ":ZenMode<CR>", desc = "zen-mode: Toggle" } },
     config = function()
       require("zen-mode").setup { window = { backdrop = 1, width = 100, }, }
     end
@@ -191,6 +194,7 @@ return {
 ---------------------------------- scrollbar -----------------------------------
   {
     "mini.nvim",
+    version = false,
     config = function()
       map = require("mini.map")
       map.setup {
