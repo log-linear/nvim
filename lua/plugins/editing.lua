@@ -72,7 +72,7 @@ return {
 
   -------------------------------- Split-join ----------------------------------
   {
-    'echasnovski/mini.nvim',
+    "echasnovski/mini.splitjoin",
     version = false,
     ---@module mini.nvim
     config = function ()

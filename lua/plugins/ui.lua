@@ -99,6 +99,20 @@ return {
       },
     },
   },
+
+  -------------------------------- select ui -----------------------------------
+  {
+    "leath-dub/snipe.nvim",
+    keys = {
+      { "gb", function() require("snipe").open_buffer_menu() end, desc = "Open Snipe buffer menu" }
+    },
+    opts = {
+      ui = {
+        position = "center"
+      }
+    }
+  },
+
   ------------------------------ buffer tab bar --------------------------------
   {
     'romgrk/barbar.nvim',
@@ -193,16 +207,18 @@ return {
 
 ---------------------------------- scrollbar -----------------------------------
   {
-    "mini.nvim",
+    "echasnovski/mini.map",
     version = false,
     config = function()
-      map = require("mini.map")
-      map.setup {
-        symbols = {
-          encode = map.gen_encode_symbols.dot("3x2"),
+      if m.neovide then
+        map = require("mini.map")
+        map.setup {
+          symbols = {
+            encode = map.gen_encode_symbols.dot("3x2"),
+          }
         }
-      }
       map.open()
+      end
     end,
     enabled = m.neovide
   }
