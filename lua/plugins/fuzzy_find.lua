@@ -50,6 +50,7 @@ return {
       -- { "<leader>sH",        function() Snacks.picker.highlights() end,                             desc = "Highlights" },
       { "<leader>gj",        function() Snacks.picker.jumps() end,                                  desc = "Jumps" },
       { "<leader>fm",        function() Snacks.picker.keymaps() end,                                desc = "Keymaps" },
+      { "<leader>u",         function() Snacks.picker.undo() end,                               desc = "Keymaps" },
       -- { "<leader>sl",      function() Snacks.picker.loclist() end,                                 desc = "Location List" },
       -- { "<leader>sM",      function() Snacks.picker.man() end,                                     desc = "Man Pages" },
       -- { "<leader>sm",      function() Snacks.picker.marks() end,                                   desc = "Marks" },
