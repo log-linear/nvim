@@ -51,7 +51,7 @@ local function _pyright_hover(_, result, ctx, config)
     end
     return
   end
-  return util.open_floating_preview(contents, "python", config)
+  return util.open_floating_preview(contents, "text", config)
 end
 
 return {

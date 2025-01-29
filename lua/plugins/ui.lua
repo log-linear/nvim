@@ -188,15 +188,18 @@ return {
     },
   },
 
-  ----------------------------- smooth scrolling -------------------------------
+---------------------------------- scrollbar -----------------------------------
   {
-    "folke/snacks.nvim",
-    priority = 1000,
-    keys = {
-      { "]s", function() Snacks.scroll.enable() end,  desc = "Enable smooth scrolling" },
-      { "[s", function() Snacks.scroll.disable() end, desc = "Enable smooth scrolling" },
-    },
-    lazy = false,
-    ---@type snacks.Config
-  },
+    "mini.nvim",
+    config = function()
+      map = require("mini.map")
+      map.setup {
+        symbols = {
+          encode = map.gen_encode_symbols.dot("3x2"),
+        }
+      }
+      map.open()
+    end,
+    enabled = m.neovide
+  }
 }
