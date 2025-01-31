@@ -12,6 +12,9 @@ return {
               ["<c-space>"] = { "toggle_live", mode = { "i", "n" } },
             }
           }
+        },
+        matcher = {
+          frecency = true,
         }
       },
       win = {
