@@ -46,18 +46,6 @@ return {
     end
   },
 
-  -------------------------------- file tree -----------------------------------
-  {
-    "nvim-tree/nvim-tree.lua",
-    enabled = m.neovide,
-    keys = {
-      { "<leader>fb", ":NvimTreeToggle<CR>", { desc = "Open file browser" } }
-    },
-    config = function ()
-      require("nvim-tree").setup()
-    end
-  },
-
   ------------------------------- Performance ----------------------------------
   {
     "folke/snacks.nvim",
