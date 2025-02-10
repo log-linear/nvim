@@ -221,5 +221,15 @@ return {
       end
     end,
     enabled = m.neovide
-  }
+  },
+
+  -------------------------------- statusbar -----------------------------------
+  {
+    "echasnovski/mini.statusline",
+    version = false,
+    enabled = m.neovide,
+    config = function ()
+      require("mini.statusline").setup()
+    end
+  },
 }

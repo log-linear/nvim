@@ -25,6 +25,7 @@ vim.opt.termguicolors = true
 vim.opt.syntax = "on"
 vim.opt.background = "light"
 vim.opt.grepprg = "rg --vimgrep"
+vim.opt.undofile = true
 vim.wo.wrap = false
 vim.env.EDITOR = "nvrl"
 vim.g.mapleader = " "

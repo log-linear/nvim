@@ -27,6 +27,7 @@ return {
     keys = {
       { "<leader>:",         function() Snacks.picker.commands() end,                                desc = "Command History" },
       ---- find
+      { "<leader>fs",        function() Snacks.picker.smart() end,                                  desc = "Find Files" },
       { "<leader>ff",        function() Snacks.picker.files() end,                                  desc = "Find Files" },
       { "<leader>fF",        function() Snacks.picker.files({ hidden = true, ignored = true }) end, desc = "Find Files" },
       { "<leader>bl",        function() Snacks.picker.buffers() end,                                desc = "Buffers" },
