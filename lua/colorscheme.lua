@@ -1,2 +1,2 @@
-vim.cmd.colorscheme("zenbinary")
+vim.cmd.colorscheme("gruvbones")
 vim.opt.background = "light"

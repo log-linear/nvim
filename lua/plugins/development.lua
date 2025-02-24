@@ -137,7 +137,8 @@ return {
         formatters_by_ft = {
           python = { "isort", "black" },
           javascript = { "prettierd", "prettier", stop_after_first = true },
-          yaml = { "prettier" }
+          yaml = { "prettier" },
+          sql = { "sqlfluff" },
         },
       })
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
