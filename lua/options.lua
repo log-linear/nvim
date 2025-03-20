@@ -8,6 +8,7 @@ vim.opt.ignorecase = true
 vim.opt.list = true
 vim.opt.listchars = { tab = '│·', extends = '→', precedes = '←', nbsp = '·', trail = '·' }
 vim.opt.mouse = "a"
+vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.scrolloff = 5
 vim.opt.shiftwidth = 4

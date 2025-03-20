@@ -3,7 +3,7 @@ return {
   dependencies = {
     "rktjmp/lush.nvim",
   },
-  enabled = false,
+  cond = false,
   event = "VimEnter",
   config = function()
     vim.g.zenwritten_compat = 1

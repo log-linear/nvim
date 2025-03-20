@@ -120,7 +120,7 @@ return {
       'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
     --   'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
-    enabled = m.neovide,
+    cond = m.neovide,
     event = "BufNew",
     init = function() vim.g.barbar_auto_setup = false end,
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
@@ -158,7 +158,7 @@ return {
   ----------------------------- code breadcrumbs -------------------------------
   {
     'Bekaboo/dropbar.nvim',
-    enabled = m.neovide,
+    cond = m.neovide,
   },
 
   ------------------------------ indent guides ---------------------------------
@@ -220,14 +220,14 @@ return {
       map.open()
       end
     end,
-    enabled = m.neovide
+    cond = m.neovide
   },
 
   -------------------------------- statusbar -----------------------------------
   {
     "echasnovski/mini.statusline",
     version = false,
-    enabled = m.neovide,
+    cond = m.neovide,
     config = function ()
       require("mini.statusline").setup()
     end

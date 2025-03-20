@@ -49,12 +49,23 @@ return {
   ------------------------------- Performance ----------------------------------
   {
     "folke/snacks.nvim",
-    priority = 1000,
     lazy = false,
     ---@type snacks.Config
     opts = {
       quickfile = { enabled = true },
-      bigfile = { enabled = true },
+      bigfile = {
+        enabled = true,
+        setup = function(ctx)
+          vim.api.nvim_create_autocmd({ "LspAttach" }, {
+            buffer = ctx.buf,
+            callback = function(args)
+              vim.schedule(function()
+                vim.lsp.buf_detach_client(ctx.buf, args.data.client_id)
+              end)
+            end,
+          })
+        end
+      },
     },
   },
 

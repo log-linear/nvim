@@ -32,4 +32,13 @@ function M.neovide()
   if vim.g.neovide then return true else return false end
 end
 
+function M.bigfile()
+  if vim.fn.getfsize(vim.fn.expand("%:p:f")) < 1.5 * 1024 * 1024
+  then
+    return true
+  else
+    return false
+  end
+end
+
 return M
