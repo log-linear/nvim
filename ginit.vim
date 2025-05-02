@@ -2,10 +2,7 @@
 set mouse=a
 
 " Set Editor Font
-if exists(':GuiFont')
-    " Use GuiFont! to ignore font errors
-    GuiFont! JetBrainsMonoNL NF:h9
-endif
+set guifont=JetBrainsMonoNL\ Nerd\ Font\ Mono:h15
 
 " Disable GUI Tabline
 if exists(':GuiTabline')
@@ -34,3 +31,7 @@ augroup dirchange
     autocmd!
     autocmd DirChanged * let &titlestring=v:event['cwd']
 augroup END
+
+if exists("g:neovide")
+  let g:neovide_input_macos_option_key_is_meta = 'only_right'
+endif
