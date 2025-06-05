@@ -40,6 +40,7 @@ return {
     dependencies = {
       "rcarriga/cmp-dap",
       "R-nvim/cmp-r",
+      "kristijanhusak/vim-dadbod-completion",
     },
     event = "InsertEnter",
     opts = {
@@ -70,6 +71,9 @@ return {
 
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer', },
+        per_filetype = {
+          sql = { "snippets", "dadbod", "buffer" },
+        },
         providers = {
           dap = {
             name = "dap",
@@ -78,7 +82,11 @@ return {
           cmp_r = {
             name = "cmp_r",
             module = "blink.compat.source"
-          }
+          },
+          dadbod = {
+            name = "Dadbod",
+            module = "vim_dadbod_completion.blink"
+          },
         }
       },
 

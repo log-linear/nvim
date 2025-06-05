@@ -21,9 +21,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
 
--- Temp fix for deprecated module vim.hl
-vim.hl = vim.highlight
-
 ----------------------------- environment settings -----------------------------
 if vim.loop.os_uname().sysname == "Windows_NT" then
   local winvimpath = vim.fn.stdpath("config") .. "/win.vim"

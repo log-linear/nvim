@@ -7,7 +7,6 @@ return {
     "yioneko/nvim-yati",
     "nvim-treesitter/nvim-treesitter-context",
     "nvim-treesitter/nvim-treesitter-textobjects",
-    "RRethy/nvim-treesitter-textsubjects",
     "LiadOz/nvim-dap-repl-highlights",
   },
   config = function()
@@ -85,17 +84,8 @@ return {
           },
         },
       },
-      textsubjects = {
-        enable = true,
-        prev_selection = "<bs>", -- (Optional) keymap to select the previous selection
-        keymaps = {
-          ["<cr>"] = { query = "textsubjects-smart", desc = "TS: Smart container selection" },
-          [";"] = { query = "textsubjects-container-outer", desc = "TS: Select outside containers (classes, functions, etc.)" },
-          ["i;"] = { query = "textsubjects-container-inner", desc = "TS: Select inside containers (classes, functions, etc.)" },
-        },
-      },
       markid = {
-        enable = false,
+        enable = true,
         disable = { "dart" },
         colors = {
           "#7b2f00",

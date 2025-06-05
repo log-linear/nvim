@@ -14,10 +14,10 @@ map("n", "<leader>tp", [[:15new<CR><C-\><C-n>:call termopen('python')<CR>:set no
 map("n", "<leader>tr", [[:15new<CR><C-\><C-n>:call termopen('radian')<CR>:set nobl<CR>:set wfb<CR><C-w>k]],                                           { desc = "Open a new R console" })
 map("n", "<leader>cd", ":cd %:p:h<CR>:pwd<CR>",                                                                                           { desc = "Change to current buffer file directory" })
 map("n", "<leader>..", ":cd ..<CR>:pwd<CR>",                                                                                              { desc = "Change to parent directory" })
--- map("n", "<cr><cr>", ":!compile %<cr>",                                                                                              { desc = "Change to parent directory" })
+map("n", "<cr><cr>", ":!compile %<cr>",                                                                                              { desc = "Change to parent directory" })
 map("i", "<c-e>", "<esc><C-e>i", opts)
 map("i", "<c-y>", "<esc><C-y>i", opts)
-map("v", "p", "\"_dP")  -- Don't rewrite clipboard when pasting over something
+-- map("v", "p", "\"_dP")  -- Don't rewrite clipboard when pasting over something
 map(
   "n",
   "dd",

@@ -12,15 +12,6 @@ return {
     config = function() require("tint").setup({ tint = 65, saturation = 0.4 }) end
   },
 
-  ------------------------- Distraction-free writing ---------------------------
-  {
-    "folke/zen-mode.nvim",
-    keys = { { "<leader>Zm", ":ZenMode<CR>", desc = "zen-mode: Toggle" } },
-    config = function()
-      require("zen-mode").setup { window = { backdrop = 1, width = 100, }, }
-    end
-  },
-
   ----------------------------- Highlight colors -------------------------------
   {
     "NvChad/nvim-colorizer.lua",
@@ -35,6 +26,12 @@ return {
     config = function()
       require('gitsigns').setup {
         on_attach = function(bufnr)
+          if vim.api.nvim_buf_get_name(bufnr):match('%.ipynb$') then
+            -- Do not attach for .ipynb file, since these are converted
+            -- with jupytext.nvim
+            return false
+          end
+
           local gs = package.loaded.gitsigns
 
           local function map(mode, l, r, opts)
@@ -219,4 +216,17 @@ return {
       require("mini.statusline").setup()
     end
   },
+
+  ---------------------------- Markdown previews -------------------------------
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    priority = 101,
+    keys = {
+      { "<leader>md", ":Markview toggle<CR>", desc = "Toggle markdown rendering" }
+    },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {},
+  },
+
 }

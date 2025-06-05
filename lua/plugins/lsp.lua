@@ -2,9 +2,6 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-    },
   },
 
   -------------------------- Embedded lsp support -----------------------------
@@ -32,15 +29,5 @@ return {
     opts = {
       words = { enabled = true },
     },
-  },
-
-  ---------------------------- Turn off idle LSPs ------------------------------
-  {
-    "zeioth/garbage-day.nvim",
-    dependencies = "neovim/nvim-lspconfig",
-    event = "VeryLazy",
-    opts = {
-      -- your options here
-    }
   },
 }

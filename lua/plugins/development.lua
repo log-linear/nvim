@@ -17,21 +17,6 @@ return {
     },
   },
 
-  ---------------------------- Code documentation ------------------------------
-  {
-    "danymat/neogen",
-    keys = {
-      {
-        "<leader>doc",
-        ":lua require('neogen').generate()<CR>",
-        noremap = true,
-      }
-    },
-    config = function()
-      require('neogen').setup({ snippet_engine = "nvim" })
-    end
-  },
-
   -------------------------------- Debugging -----------------------------------
   {
     "mfussenegger/nvim-dap",
@@ -68,7 +53,7 @@ return {
     },
     dependencies = { "mfussenegger/nvim-dap-python" },
     config = function()
-      require('dap-python').setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
+      require('dap-python').setup("~/.local/share/mise/installs/python/latest/bin/python3")
       require('dap').defaults.fallback.terminal_win_cmd = "vs new | set nobl"
 
       -- Right click menu items
@@ -99,13 +84,13 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     keys = {
-      { "cre", ":Refactor extract<CR>", mode={"x"} },
-      { "crf", ":Refactor extract_to_file<CR>", mode={"x"} },
-      { "crv", ":Refactor extract_var<CR>", mode={"x"} },
-      { "cri", ":Refactor inline_var<CR>", mode={"n", "x"} },
-      { "crI", ":Refactor inline_func<CR>", mode={"n"} },
-      { "crb", ":Refactor extract_block<CR>", mode={"n"} },
-      { "crbf", ":Refactor extract_block_to_file<CR>", mode={"n"} },
+      { "cre",  ":Refactor extract<CR>",               mode = { "x" } },
+      { "crf",  ":Refactor extract_to_file<CR>",       mode = { "x" } },
+      { "crv",  ":Refactor extract_var<CR>",           mode = { "x" } },
+      { "cri",  ":Refactor inline_var<CR>",            mode = { "n", "x" } },
+      { "crI",  ":Refactor inline_func<CR>",           mode = { "n" } },
+      { "crb",  ":Refactor extract_block<CR>",         mode = { "n" } },
+      { "crbf", ":Refactor extract_block_to_file<CR>", mode = { "n" } },
     },
     config = function()
       require("refactoring").setup()
@@ -114,19 +99,6 @@ return {
 
   --------------------------------- Git support --------------------------------
   { "tpope/vim-fugitive" },
-
-  ---------------------------- Markdown previews -------------------------------
-  {
-    'MeanderingProgrammer/render-markdown.nvim',
-    keys = {
-      { "<leader>md", ":RenderMarkdown toggle<CR>", desc = "Toggle markdown rendering"}
-    },
-    ft = "markdown",
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    ---@module 'render-markdown'
-    ---@type render.md.UserConfig
-    opts = {},
-  },
 
   ----------------------------- Code formatting --------------------------------
   {
@@ -140,8 +112,37 @@ return {
           yaml = { "prettier" },
           sql = { "sqlfluff" },
         },
+        default_format_opts = {
+          lsp_format = "prefer",
+        },
+        formatters = {
+          sqlfluff = {
+            command = "sqlfluff",
+            args = { "fix", "--dialect", "ansi", "$FILENAME" },
+            stdin = false,
+            cwd = function()
+              return vim.fn.getcwd()
+            end,
+          }
+        },
       })
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
     end
+  },
+
+  --------------------------------- Linting ------------------------------------
+  {
+    "mfussenegger/nvim-lint",
+    config = function()
+      require("lint").linters_by_ft = {
+        sql = { "sqlfluff" }
+      }
+      vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+        callback = function()
+          require("lint").try_lint()
+        end,
+      })
+    end
   }
+
 }
