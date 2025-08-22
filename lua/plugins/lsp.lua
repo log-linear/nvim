@@ -15,6 +15,7 @@ return {
     },
     opts = {},
   },
+
   ---------------------------- LSP reference nav -------------------------------
   {
     "folke/snacks.nvim",
@@ -29,5 +30,15 @@ return {
     opts = {
       words = { enabled = true },
     },
+  },
+
+  --------------------------- Auto-stop idle LSPs ------------------------------
+  {
+    "zeioth/garbage-day.nvim",
+    dependencies = "neovim/nvim-lspconfig",
+    event = "VeryLazy",
+    opts = {
+      -- your options here
+    }
   },
 }

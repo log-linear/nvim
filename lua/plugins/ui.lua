@@ -219,14 +219,16 @@ return {
 
   ---------------------------- Markdown previews -------------------------------
   {
-    "OXY2DEV/markview.nvim",
-    lazy = false,
-    priority = 101,
+    'MeanderingProgrammer/render-markdown.nvim',
     keys = {
-      { "<leader>md", ":Markview toggle<CR>", desc = "Toggle markdown rendering" }
+      { "<leader>md", ":RenderMarkdown toggle<CR>", desc = "Toggle markdown rendering"}
     },
+    ft = "markdown",
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
     opts = {},
   },
+
 
 }

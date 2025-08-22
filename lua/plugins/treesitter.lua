@@ -85,7 +85,7 @@ return {
         },
       },
       markid = {
-        enable = true,
+        enable = false,
         disable = { "dart" },
         colors = {
           "#7b2f00",
