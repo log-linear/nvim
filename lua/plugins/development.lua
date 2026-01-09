@@ -53,7 +53,7 @@ return {
     },
     dependencies = { "mfussenegger/nvim-dap-python" },
     config = function()
-      require('dap-python').setup("~/.local/share/mise/installs/python/latest/bin/python3")
+      require('dap-python').setup()
       require('dap').defaults.fallback.terminal_win_cmd = "vs new | set nobl"
 
       -- Right click menu items
