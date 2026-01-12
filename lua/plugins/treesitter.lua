@@ -1,139 +1,87 @@
 return {
-  "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",
-  event = { "BufReadPost", "BufNewFile" },
-  dependencies = {
-    "David-Kunz/markid",
-    "yioneko/nvim-yati",
-    "nvim-treesitter/nvim-treesitter-context",
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    "LiadOz/nvim-dap-repl-highlights",
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    lazy = false,
+    branch = "main",
+    config = function ()
+      vim.api.nvim_create_autocmd('FileType', {
+      pattern = { '<filetype>' },
+      callback = function() vim.treesitter.start() end,
+    })
+    end
   },
-  config = function()
-    require('nvim-dap-repl-highlights').setup()
-    require "nvim-treesitter.configs".setup {
-      ensure_installed = "all",
-      sync_install = false,
-      auto_install = false,
-      ignore_install = false,
-      modules = {},
-      highlight = {
-        enable = true,
-      },
-      indent = {
-        enable = true,
-        disable = {
-          "python",
-          "lua",
-          "javascript",
-          "html",
-          "json",
-          "toml",
-          "c",
-          "css",
-          "cpp",
-          "typescript",
-          "rust",
-          "vue",
-        },
-      },
-      yati = { enable = true },
-      textobjects = {
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    init = function()
+      -- Disable entire built-in ftplugin mappings to avoid conflicts.
+      -- See https://github.com/neovim/neovim/tree/master/runtime/ftplugin for built-in ftplugins.
+      vim.g.no_plugin_maps = true
+
+      -- Or, disable per filetype (add as you like)
+      -- vim.g.no_python_maps = true
+      -- vim.g.no_ruby_maps = true
+      -- vim.g.no_rust_maps = true
+      -- vim.g.no_go_maps = true
+    end,
+    config = function()
+      require("nvim-treesitter-textobjects").setup{
         select = {
-          enable = true,
-          disable = {
-            "r",  -- Seems to be broken as of July 2024
-            "dart"
-          },
           lookahead = true,
-          keymaps = {
-            ["af"] = { query = "@function.outer", desc = "TS: Select outer part of a function region" },
-            ["if"] = { query = "@function.inner", desc = "TS: Select inner part of a function region" },
-            ["ac"] = { query = "@class.outer", desc = "TS: Select outer part of a class region" },
-            ["ic"] = { query = "@class.inner", desc = "TS: Select inner part of a class region" },
-            ["ab"] = { query = "@block.outer", desc = "TS: Select outer part of a block region" },
-            ["ib"] = { query = "@block.inner", desc = "TS: Select inner part of a block region" },
+          selection_modes = {
+            ["@parameter.outer"] = "v", -- charwise
+            ["@function.outer"] = "V", -- linewise
+            -- ["@class.outer"] = "<c-v>", -- blockwise
           },
         },
         move = {
-          enable = true,
           set_jumps = true, -- whether to set jumps in the jumplist
-          goto_next_start = {
-            ["]f"] = { query = "@function.outer", desc = "TS: Next function start" },
-            ["]]"] = { query = "@class.outer", desc = "TS: Next class start" },
-            ["]c"] = { query = "@class.outer", desc = "TS: Next class start" },
-            ["]b"] = { query = "@block.outer", desc = "TS: Next block start" },
-          },
-          goto_next_end = {
-            ["]F"] = { query = "@function.outer", desc = "TS: Next function end" },
-            ["]["] = { query = "@class.outer", desc = "TS: Next class end" },
-            ["]C"] = { query = "@class.outer", desc = "TS: Next class end" },
-            ["]B"] = { query = "@block.outer", desc = "TS: Next block end" },
-          },
-          goto_previous_start = {
-            ["[f"] = { query = "@function.outer", desc = "TS: Previous function start" },
-            ["[["] = { query = "@class.outer", desc = "TS: Previous class start" },
-            ["[c"] = { query = "@class.outer", desc = "TS: Previous class start" },
-            ["[b"] = { query = "@block.outer", desc = "TS: Previous block start" },
-          },
-          goto_previous_end = {
-            ["[F"] = { query = "@function.outer", desc = "TS: Previous function end" },
-            ["[]"] = { query = "@class.outer", desc = "TS: Previous class end" },
-            ["[C"] = { query = "@class.outer", desc = "TS: Previous class end" },
-            ["[B"] = { query = "@block.outer", desc = "TS: Previous block end" },
-          },
         },
-      },
-      markid = {
-        enable = false,
-        disable = { "dart" },
-        colors = {
-          "#7b2f00",
-          "#003fa8",
-          "#dc0019",
-          "#1e79ce",
-          "#a53400",
-          "#004e73",
-          "#007c30",
-          "#930091",
-          "#558500",
-          "#e42358",
-          "#005c0e",
-          "#b8005a",
-          "#5c799e",
-          "#a46a1c",
-          "#87005b",
-          "#573800",
-          "#6f00ad",
-          "#840019",
-          "#93675f",
-          "#c55d00",
-        },
-        is_supported = function(lang)
-          local configs = require("nvim-treesitter.configs")
-          local queries = configs.get_module("markid").queries
-          if vim.treesitter.query.get(lang, 'markid') then
-              return true
-          else
-              return pcall(vim.treesitter.query.parse, lang, queries[lang] or queries['default'])
-          end
-        end
       }
-    }
 
-    require("treesitter-context").setup{
-      multiline_threshold = 1,
-      mode = "topline"
-    }
-    vim.keymap.set("n", "]tt", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>",
-      { desc = "TS: Enable all modules" })
-    vim.keymap.set("n", "]tt", ":TSEnable highlight<CR>:TSEnable markid<CR>:TSEnable indent<CR>:TSEnable yati<CR>",
-      { desc = "TS: Enable all modules" })
-    vim.keymap.set("n", "[th", ":TSDisable highlight<CR>", { desc = "TS: Disable highlighting" })
-    vim.keymap.set("n", "]th", ":TSEnable highlight<CR>", { desc = "TS: Enable highlighting" })
-    vim.keymap.set("n", "[tm", ":TSDisable markid<CR>", { desc = "TS: Disable markid" })
-    vim.keymap.set("n", "]tm", ":TSEnable markid<CR>", { desc = "TS: Enable markid" })
-    vim.keymap.set("n", "[tc", ":TSContextDisable<CR>", { desc = "TS: Disable context" })
-    vim.keymap.set("n", "]tc", ":TSContextEnable<CR>", { desc = "TS: Enable context" })
-  end,
+      vim.keymap.set({"x", "o"}, "af", function() require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects") end, {desc = "TS: Select outer part of a function region"})
+      vim.keymap.set({"x", "o"}, "if", function() require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects") end, {desc = "TS: Select inner part of a function region"})
+      vim.keymap.set({"x", "o"}, "ac", function() require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects") end, {desc = "TS: Select outer part of a class region"})
+      vim.keymap.set({"x", "o"}, "ic", function() require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects") end, {desc = "TS: Select inner part of a class region"})
+      vim.keymap.set({"x", "o"}, "ab", function() require("nvim-treesitter-textobjects.select").select_textobject("@block.outer", "textobjects") end, {desc = "TS: Select outer part of a block region"})
+      vim.keymap.set({"x", "o"}, "ib", function() require("nvim-treesitter-textobjects.select").select_textobject("@block.inner", "textobjects") end, {desc = "TS: Select inner part of a block region"})
+
+      vim.keymap.set({"n", "x", "o"}, "]f", function() require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects") end, {desc = "TS: Next function start"})
+      vim.keymap.set({"n", "x", "o"}, "]]", function() require("nvim-treesitter-textobjects.move").goto_next_start("@class.outer", "textobjects") end, {desc = "TS: Next class start"})
+      vim.keymap.set({"n", "x", "o"}, "]c", function() require("nvim-treesitter-textobjects.move").goto_next_start("@class.outer", "textobjects") end, {desc = "TS: Next class start"})
+      vim.keymap.set({"n", "x", "o"}, "]b", function() require("nvim-treesitter-textobjects.move").goto_next_start("@block.outer", "textobjects") end, {desc = "TS: Next block start"})
+
+      vim.keymap.set({"n", "x", "o"}, "]F", function() require("nvim-treesitter-textobjects.move").goto_next_end("@function.outer", "textobjects") end, {desc = "TS: Next function"})
+      vim.keymap.set({"n", "x", "o"}, "][", function() require("nvim-treesitter-textobjects.move").goto_next_end("@class.outer", "textobjects") end, {desc = "TS: Next class"})
+      vim.keymap.set({"n", "x", "o"}, "]C", function() require("nvim-treesitter-textobjects.move").goto_next_end("@class.outer", "textobjects") end, {desc = "TS: Next class"})
+      vim.keymap.set({"n", "x", "o"}, "]B", function() require("nvim-treesitter-textobjects.move").goto_next_end("@block.outer", "textobjects") end, {desc = "TS: Next bloc"})
+
+      vim.keymap.set({"n", "x", "o"}, "[f", function() require("nvim-treesitter-textobjects.move").goto_previous_start("@function.outer", "textobjects") end, {desc = "TS: Previous function start"})
+      vim.keymap.set({"n", "x", "o"}, "[[", function() require("nvim-treesitter-textobjects.move").goto_previous_start("@class.outer", "textobjects") end, {desc = "TS: Previous class start"})
+      vim.keymap.set({"n", "x", "o"}, "[c", function() require("nvim-treesitter-textobjects.move").goto_previous_start("@class.outer", "textobjects") end, {desc = "TS: Previous class start"})
+      vim.keymap.set({"n", "x", "o"}, "[b", function() require("nvim-treesitter-textobjects.move").goto_previous_start("@block.outer", "textobjects") end, {desc = "TS: Previous block start"})
+
+      vim.keymap.set({"n", "x", "o"}, "[F", function() require("nvim-treesitter-textobjects.move").goto_previous_end("@function.outer", "textobjects") end, {desc = "TS: Previous function end"})
+      vim.keymap.set({"n", "x", "o"}, "[]", function() require("nvim-treesitter-textobjects.move").goto_previous_end("@class.outer", "textobjects") end, {desc = "TS: Previous class end"})
+      vim.keymap.set({"n", "x", "o"}, "[C", function() require("nvim-treesitter-textobjects.move").goto_previous_end("@class.outer", "textobjects") end, {desc = "TS: Previous class end"})
+      vim.keymap.set({"n", "x", "o"}, "[B", function() require("nvim-treesitter-textobjects.move").goto_previous_end("@block.outer", "textobjects") end, {desc = "TS: Previous block end"})
+
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    config = function ()
+      require("treesitter-context").setup{
+        multiline_threshold = 1,
+        mode = "topline"
+      }
+    end
+  },
+  {
+    "LiadOz/nvim-dap-repl-highlights",
+    config = function ()
+      require('nvim-dap-repl-highlights').setup()
+   end
+  },
+
 }
