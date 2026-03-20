@@ -217,18 +217,4 @@ return {
     end
   },
 
-  ---------------------------- Markdown previews -------------------------------
-  {
-    'MeanderingProgrammer/render-markdown.nvim',
-    keys = {
-      { "<leader>md", ":RenderMarkdown toggle<CR>", desc = "Toggle markdown rendering"}
-    },
-    ft = "markdown",
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    ---@module 'render-markdown'
-    ---@type render.md.UserConfig
-    opts = {},
-  },
-
-
 }

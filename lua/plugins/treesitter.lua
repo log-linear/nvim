@@ -4,15 +4,10 @@ return {
     build = ":TSUpdate",
     lazy = false,
     branch = "main",
-    config = function ()
-      vim.api.nvim_create_autocmd('FileType', {
-      pattern = { '<filetype>' },
-      callback = function() vim.treesitter.start() end,
-    })
-    end
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
     init = function()
       -- Disable entire built-in ftplugin mappings to avoid conflicts.
       -- See https://github.com/neovim/neovim/tree/master/runtime/ftplugin for built-in ftplugins.
