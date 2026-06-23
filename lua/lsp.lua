@@ -23,7 +23,7 @@ vim.diagnostic.config({ virtual_text = false, })
 --========================= Enable language servers ============================
 vim.lsp.enable({
   "basedpyright",
-  "ruff",
+  -- "ruff",
   "lua_ls",
   "bashls",
   "jsonls",
@@ -96,6 +96,22 @@ vim.lsp.config("basedpyright", {})
 -- ----------------------------- rainbow highlighting -----------------------------
 -- -- Adapted from https://github.com/goldos24/rainbow-variables-nvim
 -- vim.o.termguicolors = true
+-- -- vim.api.nvim_set_hl(0, "VarName0", { bg = "#a3c7b9" })
+-- -- vim.api.nvim_set_hl(0, "VarName1", { bg = "#ee90a4" })
+-- -- vim.api.nvim_set_hl(0, "VarName2", { bg = "#5cc8a7" })
+-- -- vim.api.nvim_set_hl(0, "VarName3", { bg = "#cfc0ff" })
+-- -- vim.api.nvim_set_hl(0, "VarName4", { bg = "#a5b26c" })
+-- -- vim.api.nvim_set_hl(0, "VarName5", { bg = "#e4d9ff" })
+-- -- vim.api.nvim_set_hl(0, "VarName6", { bg = "#8bd39b" })
+-- -- vim.api.nvim_set_hl(0, "VarName7", { bg = "#9fdeff" })
+-- -- vim.api.nvim_set_hl(0, "VarName8", { bg = "#e5c17c" })
+-- -- vim.api.nvim_set_hl(0, "VarName9", { bg = "#46bbc5" })
+-- -- vim.api.nvim_set_hl(0, "VarName10", { bg = "#ffe29f" })
+-- -- vim.api.nvim_set_hl(0, "VarName11", { bg = "#a4fff1" })
+-- -- vim.api.nvim_set_hl(0, "VarName12", { bg = "#b7ab8d" })
+-- -- vim.api.nvim_set_hl(0, "VarName13", { bg = "#d1ffe1" })
+-- -- vim.api.nvim_set_hl(0, "VarName14", { bg = "#fff6cd" })
+-- -- vim.api.nvim_set_hl(0, "VarName15", { bg = "#ebffd5" })
 -- vim.api.nvim_set_hl(0, "VarName0",  { fg = "#7b2f00" })
 -- vim.api.nvim_set_hl(0, "VarName1",  { fg = "#003fa8" })
 -- vim.api.nvim_set_hl(0, "VarName2",  { fg = "#dc0019" })
@@ -113,8 +129,7 @@ vim.lsp.config("basedpyright", {})
 -- vim.api.nvim_set_hl(0, "VarName14", { fg = "#87005b" })
 -- vim.api.nvim_set_hl(0, "VarName15", { fg = "#c55d00" })
 --
---
--- function hashToken(token, buf)
+-- local function hashToken(token, buf)
 --   local line = vim.api.nvim_buf_get_lines(buf, token.line, token.line + 1, true)[1]
 --   local s = string.sub(line, token.start_col + 1, token.end_col)
 --   local ret = 0
