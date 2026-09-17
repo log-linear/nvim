@@ -8,8 +8,11 @@ vim.api.nvim_create_autocmd("Filetype", { pattern = {"NvimTree", "oil" }, callba
 return {
   -------------------------- Dim inactive window splits ------------------------
   {
-    "levouh/tint.nvim",
-    config = function() require("tint").setup({ tint = 65, saturation = 0.4 }) end
+    "tadaa/vimade",
+    opts = {
+      recipe = {"default", {animate = true}},
+      fadelevel = 0.4,
+    }
   },
 
   ----------------------------- Highlight colors -------------------------------
