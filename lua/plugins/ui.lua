@@ -19,7 +19,7 @@ return {
   {
     "NvChad/nvim-colorizer.lua",
     keys = { { "<leader>co", ":ColorizerToggle<CR>", desc = "nvim-colorizer: Toggle colorizer" } },
-    config = function() require 'colorizer'.setup({}) end
+    config = function() require "colorizer".setup({}) end
   },
 
   -------------------------- git markers in gutter -----------------------------
@@ -27,9 +27,9 @@ return {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      require('gitsigns').setup {
+      require("gitsigns").setup {
         on_attach = function(bufnr)
-          if vim.api.nvim_buf_get_name(bufnr):match('%.ipynb$') then
+          if vim.api.nvim_buf_get_name(bufnr):match("%.ipynb$") then
             -- Do not attach for .ipynb file, since these are converted
             -- with jupytext.nvim
             return false
@@ -44,30 +44,30 @@ return {
           end
 
           -- Navigation
-          map('n', ']h', function()
-            if vim.wo.diff then return ']h' end
+          map("n", "]h", function()
+            if vim.wo.diff then return "]h" end
             vim.schedule(function() gs.next_hunk() end)
-            return '<Ignore>'
+            return "<Ignore>"
           end, { expr = true, desc = "gitsigns: Next change" })
 
-          map('n', '[h', function()
-            if vim.wo.diff then return '[h' end
+          map("n", "[h", function()
+            if vim.wo.diff then return "[h" end
             vim.schedule(function() gs.prev_hunk() end)
-            return '<Ignore>'
+            return "<Ignore>"
           end, { expr = true, desc = "gitsigns: Previous change" })
 
           -- Actions
-          map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>', { desc = "gitsigns: Stage hunk" })
-          map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>', { desc = "gitsigns: Reset hunk" })
-          map('n', '<leader>hu', gs.undo_stage_hunk, { desc = "gitsigns: Undo stage hunk" })
-          map('n', '<leader>hp', gs.preview_hunk, { desc = "gitsigns: Preview hunk" })
-          map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = "gitsigns: Toggle current line blame" })
-          map('n', '<leader>hd', gs.diffthis, { desc = "gitsigns: diff this hunk" })
-          map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = "gitsigns: diff this hunk? IDK" })
+          map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", { desc = "gitsigns: Stage hunk" })
+          map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", { desc = "gitsigns: Reset hunk" })
+          map("n", "<leader>hu", gs.undo_stage_hunk, { desc = "gitsigns: Undo stage hunk" })
+          map("n", "<leader>hp", gs.preview_hunk, { desc = "gitsigns: Preview hunk" })
+          map("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "gitsigns: Toggle current line blame" })
+          map("n", "<leader>hd", gs.diffthis, { desc = "gitsigns: diff this hunk" })
+          map("n", "<leader>hD", function() gs.diffthis("~") end, { desc = "gitsigns: diff this hunk? IDK" })
 
           -- Text object
-          map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-          map({ 'o', 'x' }, 'ah', ':<C-U>Gitsigns select_hunk<CR>')
+          map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+          map({ "o", "x" }, "ah", ":<C-U>Gitsigns select_hunk<CR>")
         end
       }
     end
@@ -102,15 +102,15 @@ return {
 
   ------------------------------ buffer tab bar --------------------------------
   {
-    'romgrk/barbar.nvim',
+    "romgrk/barbar.nvim",
     dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-    --   'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+      "lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
+    --   "nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
     },
     cond = m.neovide,
     event = "BufNew",
     init = function() vim.g.barbar_auto_setup = false end,
-    version = '^1.0.0', -- optional: only update when a new 1.x version is released
+    version = "^1.0.0", -- optional: only update when a new 1.x version is released
     config = function ()
       require"barbar".setup{
         icons = { filetype = { enabled = false } },
@@ -144,7 +144,7 @@ return {
 
   ----------------------------- code breadcrumbs -------------------------------
   {
-    'Bekaboo/dropbar.nvim',
+    "Bekaboo/dropbar.nvim",
     cond = m.neovide,
   },
 
@@ -166,15 +166,15 @@ return {
   },
 
   ------------------------------- notification UI --------------------------------
-  {
-    "folke/snacks.nvim",
-    priority = 1000,
-    lazy = false,
-    ---@type snacks.Config
-    opts = {
-      notifier = { enabled = true },
-    },
-  },
+  -- {
+  --   "folke/snacks.nvim",
+  --   priority = 1000,
+  --   lazy = false,
+  --   ---@type snacks.Config
+  --   opts = {
+  --     notifier = { enabled = true },
+  --   },
+  -- },
 
   ------------------------------- statuscolumn ---------------------------------
   {
@@ -220,4 +220,14 @@ return {
     end
   },
 
+  ---------------------------- markdown live preview -----------------------------
+  {
+    "brianhuster/live-preview.nvim",
+    dependencies = {
+      "folke/snacks.nvim",
+    },
+    keys = {
+      { "<leader>md", ":LivePreview start<CR>", desc = "live-preview: Preview markdown" }
+    },
+  }
 }

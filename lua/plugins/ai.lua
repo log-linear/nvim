@@ -10,6 +10,9 @@ return {
             toggle_fullscreen = '<leader>gF'
           },
         },
+        ui = {
+          window_type="split"
+        },
       })
     end,
     dependencies = {

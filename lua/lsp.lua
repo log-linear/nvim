@@ -36,6 +36,7 @@ vim.lsp.enable({
   "docker_compose_language_service",
   "vimls",
   "dotls",
+  "vtsls",
 })
 
 --=========================== LS-specific settings =============================
