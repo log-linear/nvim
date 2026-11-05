@@ -9,6 +9,9 @@ return {
           global = {
             toggle_fullscreen = '<leader>gF'
           },
+          window = {
+            submit_insert = '<NOP>'
+          },
         },
         ui = {
           window_type="split"
