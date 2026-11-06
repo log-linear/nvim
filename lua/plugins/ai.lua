@@ -10,7 +10,7 @@ return {
             toggle_fullscreen = '<leader>gF'
           },
           window = {
-            submit_insert = '<NOP>'
+            submit_insert = '<s-cr>'
           },
         },
         ui = {
