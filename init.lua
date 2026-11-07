@@ -4,7 +4,6 @@ require("keymaps")
 require("autocommands")
 require("colorscheme")
 require("filetype")
-require("lsp")
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -20,6 +19,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
+
+---------------------------------- LSP config ----------------------------------
+require("lsp")
 
 ----------------------------- environment settings -----------------------------
 if vim.loop.os_uname().sysname == "Windows_NT" then
