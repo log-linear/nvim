@@ -223,11 +223,24 @@ return {
   ---------------------------- markdown live preview -----------------------------
   {
     "brianhuster/live-preview.nvim",
+    event = "VeryLazy", -- load up front so the first <leader>md runs the callback directly
     dependencies = {
       "folke/snacks.nvim",
     },
     keys = {
-      { "<leader>md", ":LivePreview start<CR>", desc = "live-preview: Preview markdown" }
+      {
+        "<leader>md",
+        function()
+          -- [Scratch] buffers have no file, so live-preview has nothing to
+          -- serve; mirror them to a temp file and stream the buffer into it.
+          if require("functions").scratch_buffer(0) then
+            require("functions").preview_scratch(0)
+          else
+            vim.cmd("LivePreview start")
+          end
+        end,
+        desc = "live-preview: Preview markdown"
+      }
     },
   }
 }
